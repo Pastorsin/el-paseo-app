@@ -13,8 +13,8 @@ public class Producer {
 
     private boolean isCompany;
 
-    private Address address;
-    private List<Image> images;
+    //private Address address;
+    //private List<Image> images;
     private List<Product> products;
-    private List<Tag> tags;
+    //private List<Tag> tags;
 }

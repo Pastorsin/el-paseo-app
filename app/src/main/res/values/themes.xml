@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.ElPaseo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#540B0E</item>
+        <item name="colorPrimaryVariant">#E09F3E</item>
+        <item name="colorOnPrimary">#FFF3B0</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">#540B0E</item>
+        <item name="colorSecondaryVariant">#9E2A2B</item>
+        <item name="colorOnSecondary">#FFF3B0</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

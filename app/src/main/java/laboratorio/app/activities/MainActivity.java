@@ -5,11 +5,10 @@ import laboratorio.app.R;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button productListButton;
+    private Button categoriesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Event handlers:
-        productListButton = (Button) findViewById(R.id.product_list_button);
-        productListButton.setOnClickListener(view -> startActivity(
-                new Intent(this, ProductListActivity.class))
+        categoriesButton = (Button) findViewById(R.id.category_list_button);
+        categoriesButton.setOnClickListener(view -> startActivity(
+                new Intent(this, CategoryListActivity.class))
         );
     }
 }
