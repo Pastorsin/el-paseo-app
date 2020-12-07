@@ -1,6 +1,7 @@
-package laboratorio.app;
+package laboratorio.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import laboratorio.app.R;
 
 import android.os.Bundle;
 

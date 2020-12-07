@@ -1,15 +1,11 @@
 package laboratorio.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import laboratorio.app.ErrorActivity;
 import laboratorio.app.R;
 import laboratorio.app.adapters.CategoryAdapter;
-import laboratorio.app.adapters.ProductAdapter;
 import laboratorio.app.controllers.CategoryController;
 import laboratorio.app.controllers.Connection;
-import laboratorio.app.controllers.ProductController;
 import laboratorio.app.models.Category;
-import laboratorio.app.models.Product;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import java.util.List;
 import java.util.stream.Collectors;

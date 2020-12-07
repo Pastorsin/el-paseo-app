@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElPaseo">
-        <activity android:name=".ErrorActivity"></activity>
+        <activity android:name=".activities.ErrorActivity"></activity>
         <activity android:name=".activities.CategoryListActivity" />
         <activity android:name=".activities.ProductListActivity" />
         <!--
