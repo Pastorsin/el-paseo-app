@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">El Paseo</string>
+    <string name="productos">Productos</string>
+    <string name="search_product">Buscá tu producto</string>
 </resources>
