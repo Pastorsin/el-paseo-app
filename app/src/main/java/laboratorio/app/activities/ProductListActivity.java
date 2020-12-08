@@ -20,7 +20,7 @@ import android.widget.ListView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends ListActivity<Product> {
 
     private Category category;
 
@@ -30,34 +30,26 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
 
         category = (Category) getIntent().getSerializableExtra("CATEGORY");
-
-        APIService service = API.instance.getService();
-
-        service.getProducts().enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> allProducts = response.body();
-                List<Product> productsToShow = productsToShow(allProducts);
-                showProductList(productsToShow);
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                System.out.println("Falló");
-            }
-        });
     }
 
-    private List<Product> productsToShow(List<Product> allProducts) {
-        return allProducts.stream()
-                .filter(product -> product.hasCategory(category))
-                .collect(Collectors.toList());
-    }
-
-    private void showProductList(List<Product> products) {
+    @Override
+    protected void showList(List<Product> products) {
         ArrayAdapter productAdapter = new ProductAdapter(this, products);
         ListView productList = (ListView) findViewById(R.id.products_list);
 
         productList.setAdapter(productAdapter);
     }
+
+    @Override
+    protected List elementsToShow(List<Product> allProducts) {
+        return allProducts.stream()
+                .filter(product -> product.hasCategory(category))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    protected Call<List<Product>> getCall() {
+        return service.getProducts();
+    }
+
 }
