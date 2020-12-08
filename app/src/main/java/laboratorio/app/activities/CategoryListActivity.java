@@ -3,8 +3,8 @@ package laboratorio.app.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import laboratorio.app.R;
 import laboratorio.app.adapters.CategoryAdapter;
-import laboratorio.app.controllers.CategoryController;
-import laboratorio.app.controllers.Connection;
+import laboratorio.app.controllers.APIService;
+import laboratorio.app.controllers.API;
 import laboratorio.app.models.Category;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +25,7 @@ public class CategoryListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
 
-        CategoryController service = Connection.conn.getRetrofit().create(CategoryController.class);
+        APIService service = API.instance.getService();
 
         service.getCategories().enqueue(new Callback<List<Category>>() {
             @Override
