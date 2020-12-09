@@ -23,6 +23,7 @@
         android:layout_width="100dp"
         android:layout_height="70dp"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
         android:foregroundGravity="center"
         android:gravity="center|top"
         android:text="Name"
