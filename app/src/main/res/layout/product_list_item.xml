@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="80dp">
 
     <ImageView
         android:id="@+id/product_listitem_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        android:background="#540B0E"
         android:contentDescription="@string/product_listitem_image"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/product_listitem_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/product_listitem_title"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <TextView
         android:id="@+id/product_listitem_title"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFF3B0"
         android:fontFamily="@font/lato"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
         android:text="@string/product_listitem_title"
-        android:textColor="#540b0e"
+        android:textColor="#540B0E"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/product_listitem_description"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_listitem_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/product_listitem_description"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fontFamily="@font/lato"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="@string/product_listitem_description"
         android:textColor="#9e2a2b"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/product_lisitem_price_per_unit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_listitem_image"
         app:layout_constraintTop_toBottomOf="@+id/product_listitem_title" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:id="@+id/product_lisitem_price_per_unit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fontFamily="@font/lato"
-        android:text="@string/price_per_unit"
-        android:textColor="#540b0e"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="$Price per unit"
+        android:textColor="#540B0E"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_listitem_image"
-        app:layout_constraintTop_toBottomOf="@+id/product_listitem_description" />
-
-    <TextView
-        android:id="@+id/product_lisitem_price"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/lato"
-        android:text="@string/product_listitem_price"
-        android:textColor="#9e2a2b"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/product_listitem_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

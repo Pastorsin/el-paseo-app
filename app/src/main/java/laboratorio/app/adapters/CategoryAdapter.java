@@ -27,10 +27,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
     private void setName(Category category, View view) {
         TextView nameView = (TextView) view.findViewById(R.id.category_list_item_name);
         String name = category.getName();
-
-        String nameToShow = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
-
-        nameView.setText(nameToShow);
+        nameView.setText(name.toUpperCase());
     }
 
     private void setImage(Category category, View view) {

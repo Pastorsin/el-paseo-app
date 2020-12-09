@@ -2,34 +2,39 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
     android:clipToPadding="false">
 
     <ImageView
         android:id="@+id/category_image_list_item"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="#FFFFFF"
         android:foregroundGravity="center"
         android:tint="#e09f3e"
         app:layout_constraintBottom_toTopOf="@+id/category_list_item_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteX="8dp" />
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <TextView
         android:id="@+id/category_list_item_name"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
         android:foregroundGravity="center"
-        android:gravity="center|top"
+        android:gravity="center"
         android:text="Name"
         android:textColor="#540b0e"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/category_image_list_item"
-        tools:layout_editor_absoluteX="8dp" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_image_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

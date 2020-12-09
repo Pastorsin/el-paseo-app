@@ -10,15 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import laboratorio.app.R;
 import laboratorio.app.activities.ProductDetailActivity;
-import laboratorio.app.activities.ProductListActivity;
 import laboratorio.app.models.Product;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
@@ -36,9 +33,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         descriptionView.setText(product.getDescription());
     }
 
-    private void setPrice(Product product, View view) {
-        TextView priceView = (TextView) view.findViewById(R.id.product_lisitem_price);
-        String priceText = String.format("%.2f", product.getPrice());
+    private void setPricePerUnit(Product product, View view) {
+        TextView priceView = (TextView) view.findViewById(R.id.product_lisitem_price_per_unit);
+        String priceText = String.format(
+                getContext().getString(R.string.product_price_per_unit_format),
+                product.getPrice(),
+                product.getUnitQuantity()
+        );
 
         priceView.setText(priceText);
     }
@@ -67,7 +68,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         setTitle(product, convertView);
         setDescription(product, convertView);
-        setPrice(product, convertView);
+        setPricePerUnit(product, convertView);
         setImage(product, convertView);
 
         convertView.setOnClickListener(view -> {
