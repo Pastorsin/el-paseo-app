@@ -16,4 +16,10 @@
     <string name="error_msg">Ha ocurrido un error, intente más tarde porfavor.</string>
     <string name="product_list_actionbar_title">Productos</string>
     <string name="categories_list_actionbar_title">Categorías</string>
+    <string name="product_brand_label">Marca</string>
+    <string name="product_units_format">%d unidades</string>
+    <string name="product_tab_description">Descripcion</string>
+    <string name="product_tab_producer">Productor</string>
+    <string name="product_tab_additional">Adicional</string>
+    <string name="product_price_format">$%.2f</string>
 </resources>

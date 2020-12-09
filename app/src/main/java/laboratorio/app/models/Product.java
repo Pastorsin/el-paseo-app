@@ -1,9 +1,10 @@
 package laboratorio.app.models;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Product {
+public class Product implements Serializable {
     private int id;
 
     private String title;

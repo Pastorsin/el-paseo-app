@@ -1,6 +1,7 @@
 package laboratorio.app.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import laboratorio.app.R;
+import laboratorio.app.activities.ProductDetailActivity;
 import laboratorio.app.activities.ProductListActivity;
 import laboratorio.app.models.Product;
 
@@ -67,6 +69,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         setDescription(product, convertView);
         setPrice(product, convertView);
         setImage(product, convertView);
+
+        convertView.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+            intent.putExtra("PRODUCT", product);
+
+            getContext().startActivity(intent);
+        });
 
         return convertView;
     }

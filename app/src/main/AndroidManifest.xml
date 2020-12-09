@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElPaseo">
-        <activity android:name=".activities.ErrorActivity"></activity>
+        <activity android:name=".activities.ProductDetailActivity"></activity>
+        <activity android:name=".activities.ErrorActivity" />
         <activity android:name=".activities.CategoryListActivity" />
         <activity android:name=".activities.ProductListActivity" />
         <!--
@@ -28,11 +29,14 @@
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
     <uses-feature android:name="android.hardware.type.watch" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>
