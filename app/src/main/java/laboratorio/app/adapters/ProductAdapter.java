@@ -33,15 +33,27 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         descriptionView.setText(product.getDescription());
     }
 
-    private void setPricePerUnit(Product product, View view) {
-        TextView priceView = (TextView) view.findViewById(R.id.product_lisitem_price_per_unit);
+    private void setPrice(Product product, View view) {
+        TextView priceView = (TextView) view.findViewById(R.id.product_lisitem_price);
+
         String priceText = String.format(
-                getContext().getString(R.string.product_price_per_unit_format),
-                product.getPrice(),
-                product.getUnitQuantity()
+                getContext().getString(R.string.product_price_format),
+                product.getBuyPrice()
         );
 
         priceView.setText(priceText);
+    }
+
+    private void setUnitQuantity(Product product, View view) {
+        TextView unitView = view.findViewById(R.id.product_listitem_unit_quantity);
+
+        unitView.setText(product.getUnitQuantity().toString());
+    }
+
+    private void setUnitDescription(Product product, View view) {
+        TextView unitView = view.findViewById(R.id.product_listitem_unit_description);
+
+        unitView.setText(product.getUnit().getCode());
     }
 
     private void setImage(Product product, View view) {
@@ -68,7 +80,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         setTitle(product, convertView);
         setDescription(product, convertView);
-        setPricePerUnit(product, convertView);
+        setPrice(product, convertView);
+        setUnitQuantity(product, convertView);
+        setUnitDescription(product, convertView);
         setImage(product, convertView);
 
         convertView.setOnClickListener(view -> {

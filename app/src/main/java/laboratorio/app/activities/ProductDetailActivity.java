@@ -29,9 +29,21 @@ public class ProductDetailActivity extends AppCompatActivity {
         renderTitle();
         renderPrice();
         renderBrand();
-        renderUnits();
+        renderUnitQuantity();
+        renderUnitDescription();
         renderDescription();
         renderTabs();
+    }
+
+    private void renderUnitDescription() {
+        TextView unitsView = findViewById(R.id.product_unit_description);
+        String unitsToShow = product.getUnit().getCode();
+        unitsView.setText(unitsToShow);
+    }
+
+    private void renderUnitQuantity() {
+        TextView unitsView = findViewById(R.id.product_unit_quantity);
+        unitsView.setText(product.getUnitQuantity().toString());
     }
 
     private void renderImage() {
@@ -79,15 +91,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         tabContentView.setText(product.getDescription());
     }
 
-    private void renderUnits() {
-        TextView unitsView = findViewById(R.id.product_units);
-        String unitsToShow = String.format(
-                getString(R.string.product_units_format),
-                product.getUnitQuantity()
-        );
-        unitsView.setText(unitsToShow);
-    }
-
     private void renderBrand() {
         TextView brandView = findViewById(R.id.product_brand);
         brandView.setText(product.getBrand());
@@ -96,7 +99,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void renderPrice() {
         TextView priceView = findViewById(R.id.product_price);
         String priceToShow = String.format(getString(R.string.product_price_format),
-                product.getPrice());
+                product.getBuyPrice());
         priceView.setText(priceToShow);
     }
 

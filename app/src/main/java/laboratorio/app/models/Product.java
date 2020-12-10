@@ -20,6 +20,7 @@ public class Product implements Serializable {
     private Producer producer;
     private List<Category> categories;
     private List<Image> images;
+    private Unit unit;
 
     private boolean isPromotion;
     private boolean needCold;
@@ -126,6 +127,14 @@ public class Product implements Serializable {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public boolean hasCategory(Category category) {
