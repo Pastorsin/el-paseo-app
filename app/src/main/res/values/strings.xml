@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">El Paseo</string>
     <string name="category_button">Categorias</string>
+    <string name="cart_button">Carro</string>
     <string name="search_product">Buscá tu producto</string>
     <string name="title_activity_product_listitem">ProductListitemActivity</string>
     <!--
@@ -8,6 +9,10 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="cart_buy_button">Comprar</string>
+    <string name="cart_empty_cart_text">Aún no hay productos en el carro.</string>
+    <string name="cart_selected_products_text">Productos en el carrito:</string>
+    <string name="cart_total_price_text">Total: </string>
     <string name="price_per_unit">Units</string>
     <string name="product_listitem_title">Title</string>
     <string name="product_listitem_description">Description</string>

@@ -7,8 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import laboratorio.app.R;
+import laboratorio.app.adapters.CartAdapter;
+import laboratorio.app.models.Cart;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +22,16 @@ import laboratorio.app.R;
  */
 public class CartFragment extends Fragment {
 
+    /*
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+     */
+
+    private Cart cart = Cart.instance;
+    private ArrayAdapter adapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -39,28 +46,42 @@ public class CartFragment extends Fragment {
      * @return A new instance of fragment CartFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
+    /*public static CartFragment newInstance(String param1, String param2) {
         CartFragment fragment = new CartFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        if (cart.isEmpty()) {
+            return inflater.inflate(R.layout.fragment_cart_empty_cart, container, false);
+        } else {
+            View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+
+            adapter = new CartAdapter(getContext(),cart.getCartProducts());
+
+            ListView cartProductsView = view.findViewById(R.id.cart_products_list);
+            cartProductsView.setAdapter(adapter);
+
+            addTotalPrice(view);
+
+            return view;
+        }
     }
+
+    private void addTotalPrice(View view){
+        TextView totalPrice = (TextView) view.findViewById(R.id.cart_total_price_text);
+        totalPrice.setText(totalPrice.getText() + cart.getTotal().toString());
+    }
+
 }

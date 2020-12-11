@@ -67,13 +67,13 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/cart_selected_products_text"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/product_listitem_image"
         app:layout_constraintTop_toBottomOf="@+id/product_listitem_description" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/cart_selected_products_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:fontFamily="@font/lato"
@@ -97,7 +97,7 @@
         android:textColor="#540B0E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/product_listitem_unit_description"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/cart_selected_products_text"
         app:layout_constraintTop_toBottomOf="@+id/product_listitem_description" />
 
     <TextView

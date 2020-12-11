@@ -59,5 +59,6 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
         transaction.replace(R.id.app_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
 }
