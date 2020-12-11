@@ -10,10 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElPaseo">
-        <activity android:name=".activities.ProductDetailActivity"></activity>
-        <activity android:name=".activities.ErrorActivity" />
-        <activity android:name=".activities.CategoryListActivity" />
-        <activity android:name=".activities.ProductListActivity" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

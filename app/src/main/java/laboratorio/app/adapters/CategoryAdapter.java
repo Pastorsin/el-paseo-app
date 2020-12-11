@@ -1,7 +1,6 @@
 package laboratorio.app.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
-import laboratorio.app.activities.CategoryListActivity;
-import laboratorio.app.activities.ProductListActivity;
+import laboratorio.app.fragments.ProductListFragment;
+import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.Category;
 
 public class CategoryAdapter extends ArrayAdapter<Category> {
@@ -56,10 +56,10 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         setImage(category, convertView);
 
         convertView.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), ProductListActivity.class);
-            intent.putExtra("CATEGORY", category);
+            FragmentLoader loader = (FragmentLoader) getContext();
+            Fragment fragment = ProductListFragment.newInstance(category);
 
-            getContext().startActivity(intent);
+            loader.loadFragment(fragment);
         });
 
         return convertView;

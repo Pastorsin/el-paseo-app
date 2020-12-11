@@ -1,7 +1,6 @@
 package laboratorio.app.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
-import laboratorio.app.activities.ProductDetailActivity;
+import laboratorio.app.fragments.ProductDetailFragment;
+import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.Product;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
@@ -86,10 +87,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         setImage(product, convertView);
 
         convertView.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), ProductDetailActivity.class);
-            intent.putExtra("PRODUCT", product);
+            FragmentLoader loader = (FragmentLoader) getContext();
+            Fragment fragment = ProductDetailFragment.newInstance(product);
 
-            getContext().startActivity(intent);
+            loader.loadFragment(fragment);
         });
 
         return convertView;

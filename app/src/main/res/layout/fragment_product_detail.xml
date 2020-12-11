@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:isScrollContainer="true"
-    android:nestedScrollingEnabled="true"
-    tools:context=".activities.ProductDetailActivity">
+    android:isScrollContainer="false"
+    android:nestedScrollingEnabled="false"
+    tools:context=".fragments.ProductDetailFragment">
 
     <Button
         android:id="@+id/button"
@@ -19,13 +19,13 @@
         android:text="Agregar al carrito"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="match_parent"
-        android:layout_height="163dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,12 +36,13 @@
     <TextView
         android:id="@+id/product_tab_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fontFamily="@font/lato"
         android:gravity="center"
         android:padding="8dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta imperdiet vehicula. Donec ut lacus risus. Sed sed lectus vel enim fringilla vulputate a in leo. Pellentesque interdum ex sem, sit amet suscipit dui pulvinar sed. "
         android:textColor="#9E2A2B"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_tab" />
@@ -66,7 +67,7 @@
             android:paddingTop="8dp"
             android:text="$Price"
             android:textColor="#540B0E"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/product_title"
@@ -82,7 +83,7 @@
             android:paddingTop="8dp"
             android:text="Title"
             android:textColor="#FFF3B0"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -188,6 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/product_tab_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
