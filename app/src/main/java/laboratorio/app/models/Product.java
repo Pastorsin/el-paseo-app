@@ -181,6 +181,6 @@ public class Product implements Serializable {
     }
 
     public boolean hasStock() {
-        return unitQuantity >= getStockQuantity();
+        return stock >= unitQuantity;
     }
 }
