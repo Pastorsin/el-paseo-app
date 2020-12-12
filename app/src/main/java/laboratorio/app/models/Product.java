@@ -13,7 +13,6 @@ public class Product implements Serializable {
     private String brand;
 
     private Double buyPrice;
-    private Double price;
 
     private Integer unitQuantity;
     private Integer stock;
@@ -64,14 +63,6 @@ public class Product implements Serializable {
 
     public void setBuyPrice(Double buyPrice) {
         this.buyPrice = buyPrice;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Integer getUnitQuantity() {

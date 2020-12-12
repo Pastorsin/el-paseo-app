@@ -13,7 +13,7 @@ public class CartProduct {
         this.cart = cart;
         this.isCanceled = false;
         this.product = product;
-        this.price = product.getPrice();
+        this.price = product.getBuyPrice();
         this.quantity = quantity;
     }
 
