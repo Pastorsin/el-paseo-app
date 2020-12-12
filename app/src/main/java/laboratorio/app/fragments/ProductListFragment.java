@@ -89,7 +89,7 @@ public class ProductListFragment extends Fragment {
                 FragmentLoader loader = (FragmentLoader) getContext();
                 Fragment fragment = new ErrorFragment();
 
-                loader.loadFragment(fragment);
+                loader.replaceFragmentOnMainContainer(fragment);
             }
         });
 
@@ -102,7 +102,7 @@ public class ProductListFragment extends Fragment {
 
     private List<Product> productsToShow(List<Product> allProducts) {
         return allProducts.stream()
-                .filter(product -> product.hasCategory(category))
+                .filter(product -> product.hasCategory(category) && product.hasStock())
                 .collect(Collectors.toList());
     }
 }

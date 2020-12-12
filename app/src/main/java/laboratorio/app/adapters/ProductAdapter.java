@@ -90,7 +90,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             FragmentLoader loader = (FragmentLoader) getContext();
             Fragment fragment = ProductDetailFragment.newInstance(product);
 
-            loader.loadFragment(fragment);
+            loader.replaceFragmentOnMainContainer(fragment);
         });
 
         return convertView;

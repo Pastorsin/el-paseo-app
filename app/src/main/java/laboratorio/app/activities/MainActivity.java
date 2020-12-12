@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                 case R.id.store_nav:
                     toolbar.setTitle("Categorías");
                     fragment = new CategoryListFragment();
-                    loadFragment(fragment);
+                    replaceFragmentOnMainContainer(fragment);
                     return true;
                 case R.id.cart_nav:
                     toolbar.setTitle("Carrito de compras");
                     fragment = new CartFragment();
-                    loadFragment(fragment);
+                    replaceFragmentOnMainContainer(fragment);
                     return true;
             }
 
@@ -54,11 +54,15 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
     };
 
     @Override
-    public void loadFragment(Fragment fragment) {
+    public void replaceFragmentOnMainContainer(Fragment fragment) {
+        replaceFragment(fragment, R.id.app_container);
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment, int layout) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.app_container, fragment);
+        transaction.replace(layout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
 }

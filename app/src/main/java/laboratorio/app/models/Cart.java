@@ -19,8 +19,12 @@ public class Cart{
 
     private Cart(){}
 
-    public void addProduct(Product product){
-        CartProduct cartProduct = new CartProduct(this,1,product,1);
+    public void addProduct(CartProduct cartProduct){
+        cartProducts.add(cartProduct);
+    }
+
+    public void addProduct(Product product, Integer quantity) {
+        CartProduct cartProduct = new CartProduct(this, product,quantity);
         cartProducts.add(cartProduct);
     }
 
@@ -42,4 +46,7 @@ public class Cart{
 
     public List<CartProduct> getCartProducts(){ return cartProducts; }
 
+    public boolean contains(CartProduct cartProduct) {
+        return cartProducts.contains(cartProduct);
+    }
 }

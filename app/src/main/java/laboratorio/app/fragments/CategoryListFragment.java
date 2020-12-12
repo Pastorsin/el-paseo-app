@@ -55,7 +55,7 @@ public class CategoryListFragment extends Fragment {
                 FragmentLoader loader = (FragmentLoader) getContext();
                 Fragment fragment = new ErrorFragment();
 
-                loader.loadFragment(fragment);
+                loader.replaceFragmentOnMainContainer(fragment);
             }
         });
     }

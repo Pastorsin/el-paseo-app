@@ -2,6 +2,7 @@ package laboratorio.app.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Product implements Serializable {
@@ -160,5 +161,26 @@ public class Product implements Serializable {
 
     public List<Image> getMainImages() {
         return images.stream().filter(Image::isMain).collect(Collectors.toList());
+    }
+
+    public Integer getStockQuantity() {
+        return stock / unitQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public boolean hasStock() {
+        return unitQuantity >= getStockQuantity();
     }
 }

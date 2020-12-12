@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import com.google.android.material.tabs.TabLayout;
 import java.io.Serializable;
 
 import laboratorio.app.R;
+import laboratorio.app.helpers.FragmentLoader;
+import laboratorio.app.models.Cart;
 import laboratorio.app.models.Product;
 
 public class ProductDetailFragment extends Fragment {
@@ -59,6 +62,11 @@ public class ProductDetailFragment extends Fragment {
         addUnitDescription(view);
         addDescription(view);
         addTabs(view);
+
+        Fragment cartQuantityFragment = CartQuantityFragment.newInstance(product);
+        FragmentLoader loader = (FragmentLoader) getContext();
+
+        loader.replaceFragment(cartQuantityFragment, R.id.product_cart_quantity_container);
 
         return view;
     }

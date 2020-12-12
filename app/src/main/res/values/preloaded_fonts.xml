@@ -2,8 +2,11 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/</item>
+        <item>@font/alfa_slab_one</item>
+        <item>@font/arbutus</item>
         <item>@font/bigelow_rules</item>
         <item>@font/cabin</item>
+        <item>@font/cousine</item>
         <item>@font/david_libre</item>
         <item>@font/lato</item>
         <item>@font/varela</item>

@@ -1,16 +1,16 @@
 package laboratorio.app.models;
 
+import java.util.Objects;
+
 public class CartProduct {
     private Cart cart;
-    private int id;
     private boolean isCanceled;
     private Double price;
     private Product product;
-    private int quantity;
+    private Integer quantity;
 
-    public CartProduct(Cart cart, int id, Product product, int quantity){
+    public CartProduct(Cart cart, Product product, int quantity){
         this.cart = cart;
-        this.id = id;
         this.isCanceled = false;
         this.product = product;
         this.price = product.getPrice();
@@ -37,12 +37,44 @@ public class CartProduct {
         return product;
     }
 
-    public void setQuantity(int quantity){
+    public void setQuantity(Integer quantity){
         this.quantity = quantity;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
+    public boolean decrementQuantity() {
+        if (quantity <= 1)
+            return false;
+
+        quantity--;
+
+        return true;
+    }
+
+    public boolean incrementQuantity() {
+
+        if ((quantity + 1) > product.getStockQuantity())
+            return false;
+
+        quantity++;
+
+        return true;
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartProduct that = (CartProduct) o;
+        return product.equals(that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product);
+    }
 }

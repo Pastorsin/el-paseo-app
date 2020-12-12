@@ -45,7 +45,7 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
 
     private void setQuantity(CartProduct cartProduct, View view){
         TextView quantityView = (TextView) view.findViewById(R.id.cart_product_quantity);
-        quantityView.setText(cartProduct.getQuantity());
+        quantityView.setText(cartProduct.getQuantity().toString());
     }
 
     @Override

@@ -59,7 +59,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
             FragmentLoader loader = (FragmentLoader) getContext();
             Fragment fragment = ProductListFragment.newInstance(category);
 
-            loader.loadFragment(fragment);
+            loader.replaceFragmentOnMainContainer(fragment);
         });
 
         return convertView;
