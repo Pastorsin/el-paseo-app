@@ -46,17 +46,13 @@ public class CartQuantityFragment extends Fragment {
         if (getArguments() != null) {
             product_arg = getArguments().getSerializable(PRODUCT_ARG);
             product = (Product) product_arg;
-            cartProduct = new CartProduct(cart, product, 1);
+            cartProduct = cart.getCartProductOrCreate(product);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (cart.contains(cartProduct)) {
-            return null;
-        }
 
         View view = inflater.inflate(R.layout.fragment_cart_quantity, container, false);
 
@@ -109,7 +105,7 @@ public class CartQuantityFragment extends Fragment {
 
     private void onChangeQuantity(TextView quantityInput, Button addToCartButton) {
         renderQuantity(quantityInput);
-        renderAddToCartButton(addToCartButton);
+        renderCartButton(addToCartButton);
     }
 
     private void renderQuantity(TextView view) {
@@ -117,9 +113,14 @@ public class CartQuantityFragment extends Fragment {
         view.setText(quantity.toString());
     }
 
-    private void renderAddToCartButton(Button button) {
-        String addToCartFormat = getString(R.string.add_to_cart_button_format);
-        String textToShow = String.format(addToCartFormat, cartProduct.getTotalCartProductPrice());
+    private void renderCartButton(Button button) {
+        int formatForTextButton = cart.contains(cartProduct) ?
+                R.string.modify_product_cart_button_format :
+                R.string.add_to_cart_button_format;
+
+        double total = cartProduct.getTotalCartProductPrice();
+
+        String textToShow = String.format(getString(formatForTextButton), total);
 
         button.setText(textToShow);
     }

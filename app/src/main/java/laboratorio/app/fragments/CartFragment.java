@@ -68,7 +68,7 @@ public class CartFragment extends Fragment {
         } else {
             View view =  inflater.inflate(R.layout.fragment_cart, container, false);
 
-            adapter = new CartAdapter(getContext(),cart.getCartProducts());
+            adapter = new CartAdapter(getContext(), cart.getCartProducts());
 
             ListView cartProductsView = view.findViewById(R.id.cart_products_list);
             cartProductsView.setAdapter(adapter);

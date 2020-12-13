@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import laboratorio.app.R;
+import laboratorio.app.fragments.ProductDetailFragment;
+import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.CartProduct;
 import laboratorio.app.models.Product;
 
@@ -48,6 +50,13 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
         quantityView.setText(cartProduct.getQuantity().toString());
     }
 
+    private void loadProductFragment(Product product) {
+        FragmentLoader loader = (FragmentLoader) getContext();
+        ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
+
+        loader.replaceFragmentOnMainContainer(fragment);
+    }
+
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         if (convertView == null) {
@@ -65,6 +74,10 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
         setImage(product,convertView);
         setProductTotalPrice(cartProduct,convertView);
         setQuantity(cartProduct,convertView);
+
+        convertView.setOnClickListener(view -> {
+            loadProductFragment(product);
+        });
 
         return convertView;
     }
