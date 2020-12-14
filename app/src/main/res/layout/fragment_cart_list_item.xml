@@ -44,6 +44,7 @@
         android:textColor="#540b0e"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cart_product_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

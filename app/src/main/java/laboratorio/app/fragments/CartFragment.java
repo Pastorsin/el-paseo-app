@@ -3,17 +3,30 @@ package laboratorio.app.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.CartAdapter;
 import laboratorio.app.models.Cart;
+import laboratorio.app.models.CartProduct;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +45,11 @@ public class CartFragment extends Fragment {
 
     private Cart cart = Cart.instance;
     private ArrayAdapter adapter;
+    private TextView totalPrice;
+
+    private static boolean isActionMode = false;
+    private static List<CartProduct> userSelection = new ArrayList<>();
+    private static ActionMode mode = null;
 
     public CartFragment() {
         // Required empty public constructor
@@ -68,9 +86,19 @@ public class CartFragment extends Fragment {
         } else {
             View view =  inflater.inflate(R.layout.fragment_cart, container, false);
 
-            adapter = new CartAdapter(getContext(), cart.getCartProducts());
+            Button buy_button = view.findViewById(R.id.cart_buy_button);
+
+            buy_button.setOnClickListener(v -> Snackbar.make(v, "Compra realizada!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show());
+
+            adapter = new CartAdapter(getContext(),cart.getCartProducts());
 
             ListView cartProductsView = view.findViewById(R.id.cart_products_list);
+
+            // CONTEXTUAL MENU
+            cartProductsView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+            cartProductsView.setMultiChoiceModeListener(modeListener);
+
             cartProductsView.setAdapter(adapter);
 
             addTotalPrice(view);
@@ -80,8 +108,57 @@ public class CartFragment extends Fragment {
     }
 
     private void addTotalPrice(View view){
-        TextView totalPrice = (TextView) view.findViewById(R.id.cart_total_price_text);
-        totalPrice.setText(totalPrice.getText() + cart.getTotal().toString());
+        totalPrice = (TextView) view.findViewById(R.id.cart_total_price_text);
+        totalPrice.setText(totalPrice.getText() + Cart.instance.getTotal().toString());
     }
+
+    public static boolean isActionMode(){
+        return isActionMode;
+    }
+
+    public static ActionMode getActionMode(){return mode;}
+
+    public static List<CartProduct> getUserSelectionList(){return userSelection;}
+
+    AbsListView.MultiChoiceModeListener modeListener = new AbsListView.MultiChoiceModeListener() {
+        @Override
+        public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {}
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            MenuInflater inflater = actionMode.getMenuInflater();
+            inflater.inflate(R.menu.cart_context_menu,menu);
+
+            isActionMode = true;
+            mode = actionMode;
+
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.cart_remove:
+                    for (CartProduct cartProduct : userSelection) {
+                        Cart.instance.removeProduct(cartProduct);
+                    }
+                    totalPrice.setText("Total:" + Cart.instance.getTotal().toString());
+                    actionMode.finish();
+            }
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            isActionMode = false;
+            mode = null;
+            userSelection.clear();
+        }
+    };
 
 }
