@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
         BottomNavigationView navigation = findViewById(R.id.nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        navigation.setSelectedItemId(R.id.store_nav);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -38,12 +40,12 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.store_nav:
-                    toolbar.setTitle("Categorías");
+                    toolbar.setTitle(R.string.store_nav_title);
                     fragment = new CategoryListFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
                 case R.id.cart_nav:
-                    toolbar.setTitle("Carrito de compras");
+                    toolbar.setTitle(R.string.cart_nav_title);
                     fragment = new CartFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;

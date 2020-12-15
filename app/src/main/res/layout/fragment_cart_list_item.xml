@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="70dp"
+    android:descendantFocusability="blocksDescendants"
+    app:flow_verticalAlign="top">
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -29,24 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-    <TextView
-        android:id="@+id/cart_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/lato"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#540b0e"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cart_product_name"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cart_product_name"
@@ -85,5 +69,37 @@
         app:layout_constraintEnd_toStartOf="@+id/cart_item_price"
         app:layout_constraintStart_toEndOf="@+id/cart_product_image"
         app:layout_constraintTop_toBottomOf="@+id/cart_product_name" />
+
+    <TextView
+        android:id="@+id/cart_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/lato"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#540b0e"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintEnd_toStartOf="@+id/modify_cart_product_button"
+        app:layout_constraintStart_toEndOf="@+id/cart_product_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/modify_cart_product_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#540B0E"
+        android:clickable="true"
+        android:focusable="false"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:tint="#FFF3B0"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cart_item_price"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

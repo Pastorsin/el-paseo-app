@@ -36,9 +36,6 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
     private void setTitle(Product product, View view) {
         TextView titleView = (TextView) view.findViewById(R.id.cart_product_name);
         titleView.setText(product.getTitle());
-        titleView.setOnClickListener(v -> {
-            loadProductFragment(product);
-        });
     }
 
     private void setImage(Product product, View view) {
@@ -116,9 +113,9 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
         setQuantity(cartProduct,convertView);
         setCheckBox(convertView,position);
 
-        //convertView.setOnClickListener(view -> {
-        //    loadProductFragment(product);
-        //});
+        convertView.findViewById(R.id.modify_cart_product_button).setOnClickListener(view -> {
+            loadProductFragment(product);
+        });
 
         return convertView;
     }

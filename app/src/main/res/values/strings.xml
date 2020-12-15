@@ -121,4 +121,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_to_cart_button_format">Agregar al carrito ($%.2f)</string>
     <string name="modify_product_cart_button_format">Modificar ($%.2f)</string>
+    <string name="store_nav_title">Productos</string>
+    <string name="cart_nav_title">Carrito de compras</string>
 </resources>
