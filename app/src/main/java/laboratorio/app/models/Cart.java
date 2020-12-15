@@ -69,4 +69,7 @@ public class Cart{
     }
 
 
+    public void remove(List<CartProduct> listOfCartProducts) {
+        cartProducts.removeAll(listOfCartProducts);
+    }
 }

@@ -52,7 +52,10 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
 
     private void setProductTotalPrice(CartProduct cartProduct, View view){
         TextView priceView = (TextView) view.findViewById(R.id.cart_item_price);
-        priceView.setText("$" + cartProduct.getTotalCartProductPrice().toString());
+        String priceFormat = getContext().getString(R.string.product_price_format);
+        Double totalPrice = cartProduct.getTotalCartProductPrice();
+
+        priceView.setText(String.format(priceFormat, totalPrice));
     }
 
     private void setQuantity(CartProduct cartProduct, View view){

@@ -3,7 +3,6 @@ package laboratorio.app.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -25,53 +24,24 @@ import java.util.List;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.CartAdapter;
+import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.Cart;
 import laboratorio.app.models.CartProduct;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CartFragment extends Fragment {
-
-    /*
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-     */
+    private ArrayAdapter adapter;
+    private TextView totalPriceView;
 
     private Cart cart = Cart.instance;
-    private ArrayAdapter adapter;
-    private TextView totalPrice;
+    private List<CartProduct> cartProducts = cart.getCartProducts();
 
     private static boolean isActionMode = false;
-    private static List<CartProduct> userSelection = new ArrayList<>();
+    private static List<CartProduct> cartProductsSelected = new ArrayList<>();
     private static ActionMode mode = null;
 
     public CartFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    /*public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,14 +61,13 @@ public class CartFragment extends Fragment {
             buy_button.setOnClickListener(v -> Snackbar.make(v, "Compra realizada!", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show());
 
-            adapter = new CartAdapter(getContext(),cart.getCartProducts());
-
             ListView cartProductsView = view.findViewById(R.id.cart_products_list);
 
             // CONTEXTUAL MENU
             cartProductsView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
             cartProductsView.setMultiChoiceModeListener(modeListener);
 
+            adapter = new CartAdapter(getContext(), cartProducts);
             cartProductsView.setAdapter(adapter);
 
             addTotalPrice(view);
@@ -108,8 +77,11 @@ public class CartFragment extends Fragment {
     }
 
     private void addTotalPrice(View view){
-        totalPrice = (TextView) view.findViewById(R.id.cart_total_price_text);
-        totalPrice.setText(totalPrice.getText() + Cart.instance.getTotal().toString());
+        totalPriceView = (TextView) view.findViewById(R.id.cart_total_price_text);
+        String priceFormat = getContext().getString(R.string.product_price_format);
+        Double totalPrice = cart.getTotal();
+
+        totalPriceView.setText(String.format(priceFormat, totalPrice));
     }
 
     public static boolean isActionMode(){
@@ -118,7 +90,12 @@ public class CartFragment extends Fragment {
 
     public static ActionMode getActionMode(){return mode;}
 
-    public static List<CartProduct> getUserSelectionList(){return userSelection;}
+    public static List<CartProduct> getUserSelectionList(){return cartProductsSelected;}
+
+    private void loadCartFragment() {
+        FragmentLoader loader = (FragmentLoader) getContext();
+        loader.replaceFragmentOnMainContainer(new CartFragment());
+    }
 
     AbsListView.MultiChoiceModeListener modeListener = new AbsListView.MultiChoiceModeListener() {
         @Override
@@ -144,11 +121,9 @@ public class CartFragment extends Fragment {
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.cart_remove:
-                    for (CartProduct cartProduct : userSelection) {
-                        Cart.instance.removeProduct(cartProduct);
-                    }
-                    totalPrice.setText("Total:" + Cart.instance.getTotal().toString());
+                    cart.remove(cartProductsSelected);
                     actionMode.finish();
+                    loadCartFragment();
             }
             return true;
         }
@@ -157,7 +132,7 @@ public class CartFragment extends Fragment {
         public void onDestroyActionMode(ActionMode actionMode) {
             isActionMode = false;
             mode = null;
-            userSelection.clear();
+            cartProductsSelected.clear();
         }
     };
 
