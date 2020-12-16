@@ -11,6 +11,7 @@ public class Product implements Serializable {
     private String title;
     private String description;
     private String brand;
+    private String deletedAt;
 
     private Double buyPrice;
 
@@ -156,6 +157,10 @@ public class Product implements Serializable {
 
     public Integer getStockQuantity() {
         return stock / unitQuantity;
+    }
+
+    public boolean isDeleted() {
+        return deletedAt != null;
     }
 
     @Override

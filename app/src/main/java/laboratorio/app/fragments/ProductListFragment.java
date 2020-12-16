@@ -106,7 +106,10 @@ public class ProductListFragment extends Fragment {
 
     private List<Product> productsToShow(List<Product> allProducts) {
         return allProducts.stream()
-                .filter(product -> product.hasCategory(category) && product.hasStock())
+                .filter(product ->
+                        product.hasCategory(category) &&
+                        product.hasStock() &&
+                        !product.isDeleted())
                 .collect(Collectors.toList());
     }
 }
