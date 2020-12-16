@@ -105,7 +105,10 @@ public class ProductDetailFragment extends Fragment {
                         tabContentView.setText(product.getProducer().getName());
                         break;
                     case 2:
-                        tabContentView.setText("Adicional");
+                        tabContentView.setText(String.format(
+                                getString(R.string.product_stock_format),
+                                product.getStock(),
+                                product.getUnit().getCode()));
                         break;
                 }
             }

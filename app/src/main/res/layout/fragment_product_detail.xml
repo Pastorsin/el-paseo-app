@@ -49,7 +49,7 @@
                 android:background="#EDEDED"
                 android:fontFamily="@font/lato"
                 android:gravity="center"
-                android:minHeight="200dp"
+                android:minHeight="100dp"
                 android:padding="8dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta imperdiet vehicula. Donec ut lacus risus. Sed sed lectus vel enim fringilla vulputate a in leo. Pellentesque interdum ex sem, sit amet suscipit dui pulvinar sed. "
                 android:textColor="#9E2A2B"
