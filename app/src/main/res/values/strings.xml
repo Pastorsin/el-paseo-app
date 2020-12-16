@@ -124,4 +124,5 @@
     <string name="store_nav_title">Productos</string>
     <string name="cart_nav_title">Carrito de compras</string>
     <string name="empty_list_text">No hay elementos para mostrar, intente más tarde</string>
+    <string name="cart_remove_info">Mantenga presionado el producto si desea eliminarlo del carrito.</string>
 </resources>

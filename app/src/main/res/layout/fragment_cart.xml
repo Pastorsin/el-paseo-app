@@ -14,17 +14,19 @@
         app:layout_constraintBottom_toTopOf="@+id/cart_total_price_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cart_selected_products_text" />
+        app:layout_constraintTop_toBottomOf="@+id/cart_remove_info" />
 
     <TextView
         android:id="@+id/cart_selected_products_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/lato"
         android:text="@string/cart_selected_products_text"
         android:textAlignment="center"
         android:textColor="#540b0e"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cart_remove_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -91,5 +93,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="205dp" />
+
+    <TextView
+        android:id="@+id/cart_remove_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/cart_remove_info"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/cart_products_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_selected_products_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
