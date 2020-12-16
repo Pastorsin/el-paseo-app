@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import laboratorio.app.adapters.CategoryAdapter;
 import laboratorio.app.controllers.API;
 import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
+import laboratorio.app.helpers.ListCallback;
 import laboratorio.app.models.Category;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +32,8 @@ public class CategoryListFragment extends Fragment {
     protected List<Category> categories = new ArrayList<>();
     private CategoryAdapter adapter;
 
+    private ProgressBar progressBar;
+
     public CategoryListFragment() {
         // Required empty public constructor
     }
@@ -39,23 +43,20 @@ public class CategoryListFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    private void fetchCategories() {
-        service.getCategories().enqueue(new Callback<List<Category>>() {
+    private void fetchCategories(View view) {
+        service.getCategories().enqueue(new ListCallback<List<Category>>(
+                progressBar, categories, view, (FragmentLoader) getContext()) {
+
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                List<Category> categoriesResponse = response.body();
-
-                addCategories(categoriesResponse);
-
+                super.onResponse(call, response);
+                addCategories(response.body());
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                FragmentLoader loader = (FragmentLoader) getContext();
-                Fragment fragment = new ErrorFragment();
-
-                loader.replaceFragmentOnMainContainer(fragment);
+            public boolean isEmptyList(List<Category> list) {
+                return categoriesToShow(list).isEmpty();
             }
         });
     }
@@ -81,7 +82,9 @@ public class CategoryListFragment extends Fragment {
         GridView categoriesView = view.findViewById(R.id.categories_list);
         categoriesView.setAdapter(adapter);
 
-        fetchCategories();
+        progressBar = view.findViewById(R.id.progress_bar);
+
+        fetchCategories(categoriesView);
 
         return view;
     }

@@ -123,4 +123,5 @@
     <string name="modify_product_cart_button_format">Modificar ($%.2f)</string>
     <string name="store_nav_title">Productos</string>
     <string name="cart_nav_title">Carrito de compras</string>
+    <string name="empty_list_text">No hay elementos para mostrar, intente más tarde</string>
 </resources>
