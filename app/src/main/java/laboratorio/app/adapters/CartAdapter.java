@@ -89,7 +89,8 @@ public class CartAdapter extends ArrayAdapter<CartProduct> {
                     CartFragment.getUserSelectionList().add(getItem(position));
                 }
 
-                CartFragment.getActionMode().setTitle("Seleccionados: " + CartFragment.getUserSelectionList().size());
+                if (CartFragment.getActionMode() != null)
+                    CartFragment.getActionMode().setTitle("Seleccionados: " + CartFragment.getUserSelectionList().size());
             }
         });
     }

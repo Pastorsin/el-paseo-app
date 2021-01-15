@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import laboratorio.app.fragments.SignInFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.R;
 import laboratorio.app.fragments.CartFragment;
@@ -47,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                 case R.id.cart_nav:
                     toolbar.setTitle(R.string.cart_nav_title);
                     fragment = new CartFragment();
+                    replaceFragmentOnMainContainer(fragment);
+                    return true;
+                case R.id.account_nav:
+                    toolbar.setTitle("Mi cuenta");
+                    fragment = new SignInFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
             }
