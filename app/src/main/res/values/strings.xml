@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">El Paseo</string>
+    <string name="app_name">El Paseo App</string>
     <string name="category_button">Categorias</string>
     <string name="cart_button">Carro</string>
     <string name="search_product">Buscá tu producto</string>
@@ -127,6 +127,27 @@
     <string name="cart_remove_info">Mantenga presionado el producto si desea eliminarlo del carrito.</string>
     <string name="product_stock_format">Stock: %d %s</string>
     <string name="error_email">El email ingresado es inválido</string>
-    <string name="password_regex">^(?=.*\d)(?=.*[0-9])(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$</string>
+    <string name="password_regex">^(?=.*\\d)(?=.*[0-9])(?=.*[a-z]).{8,}$</string>
     <string name="error_password">La contraseña debe contener 8 carácteres con al menos 1 letra y/o 1 número</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_probando">ProbandoActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="error_logout">Ha ocurrido un error al cerrar la sesión, intenta mas tarde porfavor</string>
+    <string name="error_login">Ha ocurrido un error al iniciar sesión, intente mas tarde porfavor</string>
+    <string name="error_login_invalid_fields">Ha ocurrido un error al iniciar sesión, los campos ingresados son inválidos</string>
 </resources>

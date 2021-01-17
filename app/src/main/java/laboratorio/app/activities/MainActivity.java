@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import laboratorio.app.fragments.SignInFragment;
+import laboratorio.app.fragments.UserProfileFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.R;
 import laboratorio.app.fragments.CartFragment;
 import laboratorio.app.fragments.CategoryListFragment;
+import laboratorio.app.auth.ApiSession;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,6 +19,10 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements FragmentLoader {
+    public static final String ARG_NAV_ELEMENT_ID_SELECTED = "NAV_ELEMENT_ID_SELECTED";
+
+    private static final int NAV_ELEMENT_ID_SELECTED_DEFAULT =  R.id.store_nav;
+
     private ActionBar toolbar;
 
     @Override
@@ -29,8 +35,11 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
         BottomNavigationView navigation = findViewById(R.id.nav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        navigation.setSelectedItemId(R.id.store_nav);
+        int navElementSelected = getIntent().getIntExtra(
+                ARG_NAV_ELEMENT_ID_SELECTED,
+                NAV_ELEMENT_ID_SELECTED_DEFAULT);
 
+        navigation.setSelectedItemId(navElementSelected);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -52,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                     return true;
                 case R.id.account_nav:
                     toolbar.setTitle("Mi cuenta");
-                    fragment = new SignInFragment();
+
+                    boolean isUserLoggedIn = ApiSession.instance.isUserLoggedIn(getApplicationContext());
+                    fragment = isUserLoggedIn ? new UserProfileFragment() : new SignInFragment();
+
                     replaceFragmentOnMainContainer(fragment);
                     return true;
             }

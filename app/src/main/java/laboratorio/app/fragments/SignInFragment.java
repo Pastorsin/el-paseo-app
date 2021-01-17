@@ -1,29 +1,40 @@
 package laboratorio.app.fragments;
 
-import android.app.Activity;
+import android.accounts.Account;
+import android.app.usage.StorageStatsManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
+import laboratorio.app.controllers.API;
+import laboratorio.app.helpers.FragmentLoader;
+import laboratorio.app.models.LoginUser;
+import laboratorio.app.models.Token;
+import laboratorio.app.auth.ApiSession;
+import laboratorio.app.auth.UserAlreadyLoggedException;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.google.android.material.textfield.TextInputEditText;
 
-import javax.xml.validation.Validator;
+import org.jetbrains.annotations.NotNull;
 
 public class SignInFragment extends Fragment {
 
-    AwesomeValidation validator = new AwesomeValidation(ValidationStyle.BASIC);
+    private AwesomeValidation validator = new AwesomeValidation(ValidationStyle.BASIC);
+
+    private static final int LOGIN_INVALID_FIELDS_MESSAGE_ID = R.string.error_login_invalid_fields;
+    private static final int LOGIN_DEFAULT_ERROR_MESSAGE_ID = R.string.error_login;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -41,11 +52,15 @@ public class SignInFragment extends Fragment {
 
         initValidators(view);
 
-        Button registerButton = view.findViewById(R.id.signin_button);
+        Button signInButton = view.findViewById(R.id.signin_button);
 
-        registerButton.setOnClickListener(buttonView -> {
-            validator.validate();
-        });
+        signInButton.setOnClickListener(handleSignInClick());
+
+        Account[] accounts = ApiSession.instance.getAccounts(getContext());
+        System.out.println("Accounts: " + accounts.length);
+        for (Account a: accounts) {
+            System.out.println(a);
+        }
 
         return view;
     }
@@ -59,10 +74,60 @@ public class SignInFragment extends Fragment {
         validator.addValidation(passwordInput, regexPassword, getString(R.string.error_password));
     }
 
-    private boolean isValidFields() {
-        EditText emailInput = getView().findViewById(R.id.signin_email);
-        EditText passwordInput = getView().findViewById(R.id.signin_password);
+    private View.OnClickListener handleSignInClick() {
+        return buttonView -> {
+            if (validator.validate()) {
+                View view = getView();
 
-        return Patterns.EMAIL_ADDRESS.matcher(emailInput.getText()).matches();
+                String email = ((EditText) view.findViewById(R.id.signin_email)).getText().toString();
+                String password = ((EditText) view.findViewById(R.id.signin_password)).getText().toString();
+
+                LoginUser body = new LoginUser(email, password);
+
+                API.instance.getService().signIn(body).enqueue(getSignInCallback(body));
+            };
+        };
     }
+
+    @NotNull
+    private Callback<Token> getSignInCallback(LoginUser body) {
+        return new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.isSuccessful()) {
+                    Token token = response.body();
+                    try {
+                        ApiSession.instance.login(getContext(), body, token);
+                        System.out.println("User logged in successfully");
+
+                        Fragment fragment = new UserProfileFragment();
+                        ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
+
+                    } catch (UserAlreadyLoggedException e) {
+                        showError(LOGIN_DEFAULT_ERROR_MESSAGE_ID);
+                        e.printStackTrace();
+                        System.out.println("Error - User already logged");
+                    }
+                } else {
+                    int errorMsgId = (response.code() == 401) ?
+                            LOGIN_INVALID_FIELDS_MESSAGE_ID :
+                            LOGIN_DEFAULT_ERROR_MESSAGE_ID;
+                    showError(errorMsgId);
+                    System.out.println("Request error - Login " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+                showError(LOGIN_DEFAULT_ERROR_MESSAGE_ID);
+                System.out.println("Network error - Login");
+            }
+        };
+    }
+
+    private void showError(int messageId) {
+        Toast.makeText(getContext(), messageId, Toast.LENGTH_LONG).show();
+    }
+
+
 }
