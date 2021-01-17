@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.app.usage.StorageStatsManager;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
 import laboratorio.app.controllers.API;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -126,7 +128,11 @@ public class SignInFragment extends Fragment {
     }
 
     private void showError(int messageId) {
-        Toast.makeText(getContext(), messageId, Toast.LENGTH_LONG).show();
+        ConstraintLayout errorLayout = getView().findViewById(R.id.signin_error_layout);
+        errorLayout.setVisibility(View.VISIBLE);
+
+        TextView errorMessageView = getView().findViewById(R.id.signin_error_message);
+        errorMessageView.setText(messageId);
     }
 
 

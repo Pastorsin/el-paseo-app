@@ -13,6 +13,46 @@
         tools:context=".fragments.SignInFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/signin_error_layout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_border"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/signin_login_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:tint="@color/design_default_color_error"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/signin_error_message"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24" />
+
+            <TextView
+                android:id="@+id/signin_error_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/error_login_invalid_fields"
+                android:textColor="@color/design_default_color_error"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signin_login_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
