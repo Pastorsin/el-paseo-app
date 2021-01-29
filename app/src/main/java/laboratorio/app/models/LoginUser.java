@@ -2,6 +2,8 @@ package laboratorio.app.models;
 
 import java.io.Serializable;
 
+import laboratorio.app.auth.Encryptor;
+
 public class LoginUser implements Serializable {
     private String userName;
     private String userPassword;
@@ -24,6 +26,7 @@ public class LoginUser implements Serializable {
     }
 
     public String getUserPassword() {
-        return userPassword;
+        String encryptedPassword = Encryptor.encryptToMD5(userPassword);
+        return encryptedPassword;
     }
 }
