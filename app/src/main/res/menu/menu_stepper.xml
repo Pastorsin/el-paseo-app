@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/signup_step_1"
+        android:title="@string/signup_form_step_1" />
+
+    <item android:id="@+id/signup_step_2"
+        android:title="@string/signup_form_step_2" />
+
+    <item android:id="@id/signup_step_3"
+        android:title="@string/signup_form_step_3" />
+
+    <item android:id="@id/signup_step_4"
+        android:title="@string/signup_form_step_4" />
+
+</menu>

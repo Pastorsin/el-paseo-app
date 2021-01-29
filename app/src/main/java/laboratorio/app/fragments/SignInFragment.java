@@ -1,13 +1,12 @@
 package laboratorio.app.fragments;
 
-import android.accounts.Account;
-import android.app.usage.StorageStatsManager;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
 import laboratorio.app.controllers.API;
+import laboratorio.app.fragments.forms.SignUpFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.LoginUser;
 import laboratorio.app.models.Token;
@@ -24,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
@@ -55,16 +53,19 @@ public class SignInFragment extends Fragment {
         initValidators(view);
 
         Button signInButton = view.findViewById(R.id.signin_button);
-
         signInButton.setOnClickListener(handleSignInClick());
 
-        Account[] accounts = ApiSession.instance.getAccounts(getContext());
-        System.out.println("Accounts: " + accounts.length);
-        for (Account a: accounts) {
-            System.out.println(a);
-        }
+        Button signUpButton = view.findViewById(R.id.signin_register_button);
+        signUpButton.setOnClickListener(handleSignUpClick());
 
         return view;
+    }
+
+    private View.OnClickListener handleSignUpClick() {
+        return view -> {
+            Fragment fragment = new SignUpFragment();
+            ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
+        };
     }
 
     private void initValidators(View view) {

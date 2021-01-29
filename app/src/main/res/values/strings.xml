@@ -150,4 +150,20 @@
     <string name="error_logout">Ha ocurrido un error al cerrar la sesión, intenta mas tarde porfavor</string>
     <string name="error_login">Ha ocurrido un error al iniciar sesión, intente mas tarde porfavor</string>
     <string name="error_login_invalid_fields">Ha ocurrido un error al iniciar sesión, los campos ingresados son inválidos</string>
+    <string name="signup_form_step_1">Credenciales</string>
+    <string name="signup_form_step_2">Información personal</string>
+    <string name="signup_form_step_3">Dirección de residencia</string>
+    <string name="error_confirm_password">Las contraseñas no coinciden</string>
+    <string name="empty_field_error">Este campo es obligatorio</string>
+    <string name="name_regex">[a-zA-Z\\s]+</string>
+    <string name="first_name_error">Nombre inválido</string>
+    <string name="last_name_error">Apellido inválido</string>
+    <string name="age_error">Edad inválida</string>
+    <string name="phone_error">Teléfono inválido</string>
+    <string name="street_error">Calle inválida</string>
+    <string name="neighborhood_error">Barrio inválido</string>
+    <string name="signup_form_step_4">Dirección de pedido</string>
+    <string name="empty_address_results">No se encontraron resultados</string>
+    <string name="network_error">Ha ocurrido un error de red, asegúrese de estar conectado a Internet</string>
+    <string name="address_error">Porfavor busque y verifique la dirección en el mapa para continuar</string>
 </resources>
