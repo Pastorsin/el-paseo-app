@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,7 +124,7 @@ public class SignInFragment extends Fragment {
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
                 showError(LOGIN_DEFAULT_ERROR_MESSAGE_ID);
-                System.out.println("Network error - Login");
+                Log.e("Login", "Network error", t);
             }
         };
     }

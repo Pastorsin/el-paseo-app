@@ -40,7 +40,7 @@ public class ApiSession {
         AccountManager am = AccountManager.get(context);
 
         Bundle userData = new Bundle();
-        userData.putString(USER_ID_KEY, token.getUser().getId());
+        userData.putString(USER_ID_KEY, ""+token.getUser().getId());
 
         Account account = new Account(loginUser.getUserName(), ACCOUNT_TYPE);
 

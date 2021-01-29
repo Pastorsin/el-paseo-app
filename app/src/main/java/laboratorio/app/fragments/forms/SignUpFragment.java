@@ -1,5 +1,6 @@
 package laboratorio.app.fragments.forms;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -20,7 +21,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import laboratorio.app.R;
+import laboratorio.app.fragments.SignInFragment;
+import laboratorio.app.helpers.FragmentLoader;
+import laboratorio.app.models.User;
 import laboratorio.app.viewmodels.FormViewModel;
+import laboratorio.app.viewmodels.SignUpViewModel;
 
 public class SignUpFragment extends Fragment implements StepperNavListener {
 
@@ -74,8 +79,19 @@ public class SignUpFragment extends Fragment implements StepperNavListener {
     @Override
     public void onCompleted() {
         Toast.makeText(getContext(), "Completado", Toast.LENGTH_SHORT).show();
-        //TODO: Request to API
-        //TODO: Go to destine fragment
+
+        SignUpViewModel viewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        MutableLiveData<User> signUpResponse = viewModel.signUp();
+
+        signUpResponse.observe(getViewLifecycleOwner(), user -> {
+            if (user == null)
+                Toast.makeText(getContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(getContext(), R.string.signup_success, Toast.LENGTH_SHORT).show();
+                ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(new SignInFragment());
+            }
+        });
+
     }
 
     @Override

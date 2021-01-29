@@ -166,4 +166,5 @@
     <string name="empty_address_results">No se encontraron resultados</string>
     <string name="network_error">Ha ocurrido un error de red, asegúrese de estar conectado a Internet</string>
     <string name="address_error">Porfavor busque y verifique la dirección en el mapa para continuar</string>
+    <string name="signup_success">Usuario registrado con éxito</string>
 </resources>

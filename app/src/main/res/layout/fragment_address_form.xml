@@ -17,12 +17,67 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/signup_address_layout"
+                android:id="@+id/description_address_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@id/map_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/between_streets_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/description_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/description_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="Descripción"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.description}"
+                        android:textColor="#540B0E"
+                        android:textColorHint="#540B0E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/description_address_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/description_address_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:src="@drawable/ic_baseline_library_books_24"
+                        android:tint="#E09F3E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/description_address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.023" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/street_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/map_layout"
+                android:background="#FFFCE8"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/apartament_address_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -32,14 +87,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#540B0E"
+                    android:backgroundTint="#611417"
                     android:src="?android:attr/actionModeWebSearchDrawable"
-                    android:tint="#FFF3B0"
+                    android:tint="#EFEFEF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/signup_address_type_label"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="?android:attr/actionModeWebSearchDrawable" />
+
+                <ImageButton
+                    android:id="@+id/signup_address_street_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#00FBF5D1"
+                    android:padding="0dp"
+                    android:src="@drawable/ic_baseline_place_24"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/signup_adress_street_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/signup_adress_street_label"
@@ -47,8 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/signup_address_type_label"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/signup_address_number_label"
+                    app:layout_constraintStart_toEndOf="@id/signup_address_street_icon"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
@@ -64,21 +133,35 @@
                         android:textColorHint="#540B0E"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/signup_address_street_icon"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageButton
-                        android:id="@+id/signup_address_street_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baseline_place_24"
-                        android:tint="#E09F3E"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/signup_address_number_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/signup_address_type_label"
+                    app:layout_constraintStart_toEndOf="@id/signup_adress_street_label"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/signup_address_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="Nº"
+                        android:inputType="number"
+                        android:text="@={viewmodel.number}"
+                        android:textColor="#540B0E"
+                        android:textColorHint="#540B0E"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/signup_address_street"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.023" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,7 +172,7 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/signup_address_search_button"
-                    app:layout_constraintStart_toEndOf="@+id/signup_adress_street_label"
+                    app:layout_constraintStart_toEndOf="@+id/signup_address_number_label"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
@@ -105,18 +188,150 @@
                         android:textColorHint="#540B0E"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/signup_address_type_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/apartament_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/between_streets_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/street_address_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/signup_apartament_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/signup_floor_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/signup_apartament"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="Apartamento"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.apartament}"
+                        android:textColor="#540B0E"
+                        android:textColorHint="#540B0E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/signup_apartament_icon"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
-                        android:id="@+id/signup_address_type_icon"
+                        android:id="@+id/signup_apartament_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:backgroundTint="#FFFFFF"
-                        android:src="@drawable/ic_baseline_store_mall_directory_24"
+                        android:src="@drawable/ic_baseline_apartment_24"
                         android:tint="#E09F3E"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/signup_address_type"
+                        app:layout_constraintEnd_toStartOf="@+id/signup_apartament"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.023" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/signup_floor_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/signup_apartament_label"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/signup_floor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="Piso"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.floor}"
+                        android:textColor="#540B0E"
+                        android:textColorHint="#540B0E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/signup_floor_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/signup_floor_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:src="@drawable/ic_baseline_apartment_24"
+                        android:tint="#E09F3E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/signup_floor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.023" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/between_streets_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@id/description_address_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apartament_address_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/between_streets_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/signup_between_streets"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="Entre calles"
+                        android:inputType="textPersonName"
+                        android:text="@={viewmodel.between_streets}"
+                        android:textColor="#540B0E"
+                        android:textColorHint="#540B0E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/between_streets_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/between_streets_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:src="@drawable/ic_baseline_border_inner_24"
+                        android:tint="#E09F3E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/signup_between_streets"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.023" />
@@ -134,7 +349,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_min="100dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signup_address_layout">
+                app:layout_constraintTop_toBottomOf="@+id/description_address_layout">
 
                 <org.osmdroid.views.MapView
                     android:id="@+id/map"

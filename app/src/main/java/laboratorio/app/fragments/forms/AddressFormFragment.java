@@ -77,16 +77,10 @@ abstract public class AddressFormFragment extends FormFragment {
 
     @NotNull
     private Runnable onClickSearchButton(View view) {
-        EditText streetInput = view.findViewById(R.id.signup_address_street);
-        EditText neighborhoodInput = view.findViewById(R.id.signup_address_type);
-
-        String street = streetInput.getText().toString();
-        String neighborhood = neighborhoodInput.getText().toString();
-
-
         return () -> {
+            String addressName = getViewModel().getFullAddressName();
             try {
-                List<Address> addresses = fetchAddresses(street, neighborhood);
+                List<Address> addresses = fetchAddresses(addressName);
 
                 if (addresses.isEmpty()) {
                     getActivity().runOnUiThread(() -> showEmptyResultsMessage());
@@ -95,7 +89,7 @@ abstract public class AddressFormFragment extends FormFragment {
                     Address address = addresses.get(0);
 
                     getActivity().runOnUiThread(() -> {
-                        getViewModel().addressRequest.setValue(getAddressToSearch(street, neighborhood));
+                        getViewModel().addressRequest.setValue(addressName);
                         getViewModel().addressResponse.setValue(address);
                     });
                 }
@@ -118,11 +112,6 @@ abstract public class AddressFormFragment extends FormFragment {
         };
     }
 
-    @NotNull
-    private String getAddressToSearch(String street, String neighborhood) {
-        return street + " " + neighborhood;
-    }
-
     private void showEmptyResultsMessage() {
         Toast.makeText(getContext(), R.string.empty_address_results, Toast.LENGTH_SHORT).show();
     }
@@ -131,11 +120,10 @@ abstract public class AddressFormFragment extends FormFragment {
         Toast.makeText(getContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
     }
 
-    private List<Address> fetchAddresses(String street, String neighborhood) throws IOException {
+    private List<Address> fetchAddresses(String addressName) throws IOException {
         GeocoderNominatim geocoder = new GeocoderNominatim("OSMBonusPackTutoUserAgent");
 
         try {
-            String addressName = getAddressToSearch(street, neighborhood);
             List<Address> addresses = geocoder.getFromLocationName(addressName, 1);
             return addresses;
         } catch (IOException e) {
@@ -171,26 +159,20 @@ abstract public class AddressFormFragment extends FormFragment {
 
     @Override
     protected void initValidators(View view) {
-        View addressLayout = view.findViewById(R.id.signup_address_layout);
-
+        View addressLayout = view.findViewById(R.id.street_address_layout);
         EditText streetAddressInput = view.findViewById(R.id.signup_address_street);
         EditText neighborhoodAddressInput = view.findViewById(R.id.signup_address_type);
+        EditText numberAddressInput = view.findViewById(R.id.signup_address_number);
 
         validator.addValidation(addressLayout,
-                validationHolder -> {
-                    String street = streetAddressInput.getText().toString();
-                    String neighborhood = neighborhoodAddressInput.getText().toString();
-
-                    String addressInput = getAddressToSearch(street, neighborhood);
-                    String addressLastSearch = getViewModel().addressRequest.getValue();
-
-                    return addressInput.equals(addressLastSearch) &&
-                            getViewModel().addressResponse.getValue() != null;
-                }, validationHolder -> {
+                validationHolder -> getViewModel().isValidForm()
+                , validationHolder -> {
                     streetAddressInput.setError(getString(R.string.address_error));
+                    numberAddressInput.setError(getString(R.string.address_error));
                     neighborhoodAddressInput.setError(getString(R.string.address_error));
                 }, validationHolder -> {
                     streetAddressInput.setError(null);
+                    numberAddressInput.setError(null);
                     neighborhoodAddressInput.setError(null);
                 }, getString(R.string.address_error));
     }
