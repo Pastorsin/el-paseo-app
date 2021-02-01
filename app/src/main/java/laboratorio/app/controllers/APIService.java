@@ -10,7 +10,9 @@ import laboratorio.app.models.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIService {
     @GET("api/category")
@@ -24,4 +26,7 @@ public interface APIService {
 
     @POST("api/user/signup")
     Call<User> signUp(@Body User user);
+
+    @GET("api/user/{id}")
+    Call<User> getUser(@Path("id") String id, @Header("Authorization") String token);
 }

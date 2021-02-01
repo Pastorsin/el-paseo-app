@@ -3,4 +3,5 @@
     android:accountType="laboratorio.app.auth"
     android:icon="@mipmap/app_icon"
     android:smallIcon="@mipmap/app_icon"
+    android:customTokens="true"
     android:label="@string/app_name" />

@@ -4,11 +4,25 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.common.api.Api;
+
+import java.io.IOException;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.TransformationsKt;
+import laboratorio.app.controllers.API;
 import laboratorio.app.models.LoginUser;
 import laboratorio.app.models.Token;
+import laboratorio.app.models.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ApiSession {
     public final static ApiSession instance = new ApiSession();
@@ -63,6 +77,37 @@ public class ApiSession {
         return am.getUserData(getAccount(context), USER_ID_KEY);
     }
 
+    public MutableLiveData<User> getUserLogged(Context context) {
+        MutableLiveData<User> userResponse = new MutableLiveData<>();
+
+        getToken(context, accountManagerFuture -> {
+            try {
+                String token = accountManagerFuture.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+                String userId = getUserIdLogged(context);
+
+                API.instance.getService().getUser(userId, token).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        User user = response.body();
+                        userResponse.setValue(user);
+                        Log.d("GET USER LOGGED", "Response code: " + response.code());
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        userResponse.setValue(null);
+                        Log.e("GET USER LOGGED", "Error on request token", t);
+                    }
+                });
+            } catch (Exception e) {
+                userResponse.setValue(null);
+                Log.e("GET USER LOGGED", "Error to access token", e);
+            }
+        });
+
+        return userResponse;
+    }
+
     public boolean isUserLoggedIn(Context context) {
         return getAccount(context) != null;
     }
@@ -73,7 +118,7 @@ public class ApiSession {
         AccountManagerFuture<Bundle> authTokenCallback = am.getAuthToken(
                 getAccount(context),
                 TOKEN_TYPE,
-                new Bundle(),
+                null,
                 true,
                 onResponse,
                 null);

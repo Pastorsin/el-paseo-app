@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
+import laboratorio.app.auth.Encryptor;
 import laboratorio.app.controllers.API;
 import laboratorio.app.fragments.forms.SignUpFragment;
 import laboratorio.app.helpers.FragmentLoader;
@@ -86,7 +87,8 @@ public class SignInFragment extends Fragment {
                 String email = ((EditText) view.findViewById(R.id.signin_email)).getText().toString();
                 String password = ((EditText) view.findViewById(R.id.signin_password)).getText().toString();
 
-                LoginUser body = new LoginUser(email, password);
+                String encryptedPassword = Encryptor.encryptToMD5(password);
+                LoginUser body = new LoginUser(email, encryptedPassword);
 
                 API.instance.getService().signIn(body).enqueue(getSignInCallback(body));
             };

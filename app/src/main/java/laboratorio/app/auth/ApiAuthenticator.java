@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -52,34 +53,33 @@ public class ApiAuthenticator extends AbstractAccountAuthenticator {
         final AccountManager am = AccountManager.get(mContext);
         final Bundle result = new Bundle();
 
-        // Check if token is stored in cache
-        String authToken = am.peekAuthToken(account, authTokenType);
+        String authToken = null;
 
-        // If token expired in cache, then request and store again
-        if (TextUtils.isEmpty(authToken)) {
-            final String password = am.getPassword(account);
-            if (password != null) {
-                LoginUser loginUser = new LoginUser(account.name, password);
+        final String password = am.getPassword(account);
+        if (password != null) {
+            LoginUser loginUser = new LoginUser(account.name, password);
 
-                try {
-                    Response<Token> tokenResponse = API.instance.getService().signIn(loginUser).execute();
+            try {
+                Response<Token> tokenResponse = API.instance.getService().signIn(loginUser).execute();
 
-                    if (tokenResponse.isSuccessful()) {
-                        Token token = tokenResponse.body();
-                        authToken = token.getValue();
-                        am.setAuthToken(account, authTokenType, authToken);
-                    } else {
-                        System.out.println("Request error - Login " + tokenResponse.code());
-                    }
-                } catch (IOException e) {
-                    System.out.println("Network error - Login");
-                    throw new NetworkErrorException();
+                if (tokenResponse.isSuccessful()) {
+                    Token token = tokenResponse.body();
+                    authToken = String.format("Bearer %s", token.getValue());
+                    am.setAuthToken(account, authTokenType, authToken);
+
+                    Log.d("TOKEN AUTH", String.format("Success response: %s", authToken));
+                } else {
+                    Log.e("TOKEN AUTH", String.format("Response failed: %s", tokenResponse.code()));
                 }
+            } catch (IOException e) {
+                Log.e("TOKEN AUTH", "Network error");
+                throw new NetworkErrorException();
             }
         }
 
-        // If nothing works, then authToken will be null
         result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
+        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+        result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type);
         result.putString(AccountManager.KEY_AUTH_FAILED_MESSAGE, "Error al obtener el token");
 
         return result;

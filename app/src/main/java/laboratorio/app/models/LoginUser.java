@@ -26,7 +26,6 @@ public class LoginUser implements Serializable {
     }
 
     public String getUserPassword() {
-        String encryptedPassword = Encryptor.encryptToMD5(userPassword);
-        return encryptedPassword;
+        return userPassword;
     }
 }
