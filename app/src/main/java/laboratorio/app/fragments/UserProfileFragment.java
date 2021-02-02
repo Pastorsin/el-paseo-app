@@ -3,7 +3,6 @@ package laboratorio.app.fragments;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,17 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStore;
-import androidx.lifecycle.ViewModelStores;
 import laboratorio.app.R;
-import laboratorio.app.activities.MainActivity;
 import laboratorio.app.databinding.FragmentUserProfileBinding;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.auth.ApiSession;
@@ -35,6 +29,13 @@ public class UserProfileFragment extends Fragment {
 
     private ApplicationViewModel appViewmodel;
     private SignUpViewModel signUpViewModel;
+
+    private MutableLiveData[] personalInformationFields = {
+            signUpViewModel.firstName,
+            signUpViewModel.lastName,
+            signUpViewModel.age,
+            signUpViewModel.phone
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,12 +72,28 @@ public class UserProfileFragment extends Fragment {
         appViewmodel.isLoading.setValue(true);
         userRequest.observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
-                appViewmodel.isError.call();
+                appViewmodel.errorEvent.call();
             } else {
                 signUpViewModel.init(user);
+                initSaveChangesButton(user);
             }
             appViewmodel.isLoading.setValue(false);
         });
+    }
+
+    private void initSaveChangesButton(User user) {
+        for (MutableLiveData field : personalInformationFields) {
+            field.observe(getViewLifecycleOwner(), fieldValue -> {
+                String firstName = signUpViewModel.firstName.getValue();
+                String lastName = signUpViewModel.lastName.getValue();
+                Integer age = signUpViewModel.getAgeNumber();
+                String phone = signUpViewModel.phone.getValue();
+
+                signUpViewModel.personalInformationChanged.setValue(
+                        !user.isPersonalInformationEquals(firstName, lastName, age, phone)
+                );
+            });
+        }
     }
 
     @NotNull

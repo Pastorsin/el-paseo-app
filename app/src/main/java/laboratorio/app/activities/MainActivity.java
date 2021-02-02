@@ -5,9 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.databinding.ActivityMainBinding;
 import laboratorio.app.fragments.ErrorFragment;
@@ -22,7 +20,6 @@ import laboratorio.app.viewmodels.ApplicationViewModel;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
 
     private void initListeners() {
         ApplicationViewModel appViewmodel = new ViewModelProvider(this).get(ApplicationViewModel.class);
-        appViewmodel.isError.observe(this, aVoid -> replaceFragmentOnMainContainer(new ErrorFragment()));
+        appViewmodel.errorEvent.observe(this, aVoid -> replaceFragmentOnMainContainer(new ErrorFragment()));
 
     }
 

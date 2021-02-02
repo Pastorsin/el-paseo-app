@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import laboratorio.app.auth.Encryptor;
 
@@ -169,5 +170,12 @@ public class User implements Serializable {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public boolean isPersonalInformationEquals(String firstName, String lastName, Integer age, String phone) {
+        return Objects.equals(this.firstName, firstName) &&
+                Objects.equals(this.lastName, lastName) &&
+                Objects.equals(this.age, age) &&
+                Objects.equals(this.phone, phone);
     }
 }

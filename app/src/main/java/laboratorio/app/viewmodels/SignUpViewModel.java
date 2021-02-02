@@ -2,6 +2,8 @@ package laboratorio.app.viewmodels;
 
 import android.util.Log;
 
+import org.jetbrains.annotations.Nullable;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
@@ -18,12 +20,15 @@ public class SignUpViewModel extends ViewModel {
 
     public final MutableLiveData<String> firstName = new MutableLiveData<>("");
     public final MutableLiveData<String> lastName = new MutableLiveData<>("");
+
     public final MutableLiveData<String> age = new MutableLiveData<>("");
 
     public final MutableLiveData<String> phone = new MutableLiveData<>("");
 
     public final AddressViewModel residencyAddress = new AddressViewModel();
     public final AddressViewModel deliveryAddress = new AddressViewModel();
+
+    public final MutableLiveData<Boolean> personalInformationChanged = new MutableLiveData<>(false);
 
     public MutableLiveData<User> signUp() {
         MutableLiveData<User> signUpResponse = new MutableLiveData<>();
@@ -32,7 +37,7 @@ public class SignUpViewModel extends ViewModel {
                 password.getValue(),
                 firstName.getValue(),
                 lastName.getValue(),
-                age.getValue().equals("") ? null : Integer.parseInt(age.getValue()),
+                getAgeNumber(),
                 phone.getValue(),
                 residencyAddress.getAddress(),
                 deliveryAddress.getAddress());
@@ -56,6 +61,11 @@ public class SignUpViewModel extends ViewModel {
         return signUpResponse;
     }
 
+    @Nullable
+    public Integer getAgeNumber() {
+        return age.getValue().equals("") ? null : Integer.parseInt(age.getValue());
+    }
+
     public void init(User user) {
         email.setValue(user.getEmail());
         firstName.setValue(user.getFirstName());
@@ -65,4 +75,5 @@ public class SignUpViewModel extends ViewModel {
         residencyAddress.init(user.getAddress());
         deliveryAddress.init(user.getAddress());
     }
+
 }

@@ -6,5 +6,5 @@ import laboratorio.app.helpers.SingleLiveEvent;
 
 public class ApplicationViewModel extends ViewModel {
     public final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
-    public final SingleLiveEvent<Void> isError = new SingleLiveEvent<>();
+    public final SingleLiveEvent<Void> errorEvent = new SingleLiveEvent<>();
 }

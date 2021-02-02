@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
         <variable name="viewmodel" type="laboratorio.app.viewmodels.SignUpViewModel"/>
     </data>
 
@@ -168,7 +169,7 @@
                         android:minHeight="0dp"
                         android:text="Guardar cambios"
                         android:textSize="14sp"
-                        android:visibility="gone"
+                        android:visibility="@{viewmodel.personalInformationChanged ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
