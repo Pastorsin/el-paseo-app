@@ -4,10 +4,10 @@ import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
-import laboratorio.app.controllers.APIService;
 import laboratorio.app.models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +29,7 @@ public class SignUpViewModel extends ViewModel {
     public final AddressViewModel deliveryAddress = new AddressViewModel();
 
     public final MutableLiveData<Boolean> personalInformationChanged = new MutableLiveData<>(false);
+    public final MutableLiveData[] personalInformationFields = {firstName, lastName, age, phone};
 
     public MutableLiveData<User> signUp() {
         MutableLiveData<User> signUpResponse = new MutableLiveData<>();
@@ -66,12 +67,33 @@ public class SignUpViewModel extends ViewModel {
         return age.getValue().equals("") ? null : Integer.parseInt(age.getValue());
     }
 
-    public void init(User user) {
+    public void init(User user, LifecycleOwner viewLifecycleOwner) {
+        initPersonalInformation(user, viewLifecycleOwner);
+        initAddresses(user);
+    }
+
+    private void initPersonalInformation(User user, LifecycleOwner viewLifecycleOwner) {
         email.setValue(user.getEmail());
         firstName.setValue(user.getFirstName());
         lastName.setValue(user.getLastName());
         age.setValue(user.getAge() == null ? "" : "" + user.getAge());
         phone.setValue(user.getPhone());
+
+        for (MutableLiveData field : personalInformationFields) {
+            field.observe(viewLifecycleOwner, fieldValue ->
+                personalInformationChanged.setValue(!isPersonalInformationEquals(user))
+            );
+        }
+    }
+
+    private boolean isPersonalInformationEquals(User user) {
+        return user.isPersonalInformationEquals(firstName.getValue(), 
+                lastName.getValue(), 
+                getAgeNumber(), 
+                phone.getValue());
+    }
+
+    private void initAddresses(User user) {
         residencyAddress.init(user.getAddress());
         deliveryAddress.init(user.getAddress());
     }

@@ -30,13 +30,6 @@ public class UserProfileFragment extends Fragment {
     private ApplicationViewModel appViewmodel;
     private SignUpViewModel signUpViewModel;
 
-    private MutableLiveData[] personalInformationFields = {
-            signUpViewModel.firstName,
-            signUpViewModel.lastName,
-            signUpViewModel.age,
-            signUpViewModel.phone
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,26 +67,10 @@ public class UserProfileFragment extends Fragment {
             if (user == null) {
                 appViewmodel.errorEvent.call();
             } else {
-                signUpViewModel.init(user);
-                initSaveChangesButton(user);
+                signUpViewModel.init(user, getViewLifecycleOwner());
             }
             appViewmodel.isLoading.setValue(false);
         });
-    }
-
-    private void initSaveChangesButton(User user) {
-        for (MutableLiveData field : personalInformationFields) {
-            field.observe(getViewLifecycleOwner(), fieldValue -> {
-                String firstName = signUpViewModel.firstName.getValue();
-                String lastName = signUpViewModel.lastName.getValue();
-                Integer age = signUpViewModel.getAgeNumber();
-                String phone = signUpViewModel.phone.getValue();
-
-                signUpViewModel.personalInformationChanged.setValue(
-                        !user.isPersonalInformationEquals(firstName, lastName, age, phone)
-                );
-            });
-        }
     }
 
     @NotNull
