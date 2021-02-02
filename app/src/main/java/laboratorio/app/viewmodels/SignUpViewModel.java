@@ -16,11 +16,11 @@ public class SignUpViewModel extends ViewModel {
     public final MutableLiveData<String> password = new MutableLiveData<>();
     public final MutableLiveData<String> confirmPassword = new MutableLiveData<>();
 
-    public final MutableLiveData<String> firstName = new MutableLiveData<>();
-    public final MutableLiveData<String> lastName = new MutableLiveData<>();
-    public final MutableLiveData<String> age = new MutableLiveData<>();
+    public final MutableLiveData<String> firstName = new MutableLiveData<>("");
+    public final MutableLiveData<String> lastName = new MutableLiveData<>("");
+    public final MutableLiveData<String> age = new MutableLiveData<>("");
 
-    public final MutableLiveData<String> phone = new MutableLiveData<>();
+    public final MutableLiveData<String> phone = new MutableLiveData<>("");
 
     public final AddressViewModel residencyAddress = new AddressViewModel();
     public final AddressViewModel deliveryAddress = new AddressViewModel();
@@ -32,7 +32,7 @@ public class SignUpViewModel extends ViewModel {
                 password.getValue(),
                 firstName.getValue(),
                 lastName.getValue(),
-                Integer.parseInt(age.getValue()),
+                age.getValue().equals("") ? null : Integer.parseInt(age.getValue()),
                 phone.getValue(),
                 residencyAddress.getAddress(),
                 deliveryAddress.getAddress());
@@ -54,5 +54,15 @@ public class SignUpViewModel extends ViewModel {
         );
 
         return signUpResponse;
+    }
+
+    public void init(User user) {
+        email.setValue(user.getEmail());
+        firstName.setValue(user.getFirstName());
+        lastName.setValue(user.getLastName());
+        age.setValue(user.getAge() == null ? "" : "" + user.getAge());
+        phone.setValue(user.getPhone());
+        residencyAddress.init(user.getAddress());
+        deliveryAddress.init(user.getAddress());
     }
 }

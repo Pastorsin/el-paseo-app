@@ -10,7 +10,7 @@ public class AddressViewModel extends ViewModel {
     public final MutableLiveData<String> number = new MutableLiveData<>();
     public final MutableLiveData<String> neighborhood = new MutableLiveData<>();
     public final MutableLiveData<String> apartament = new MutableLiveData<>();
-    public final MutableLiveData<String> between_streets = new MutableLiveData<>();
+    public final MutableLiveData<String> betweenStreets = new MutableLiveData<>();
     public final MutableLiveData<String> description = new MutableLiveData<>();
     public final MutableLiveData<String> floor = new MutableLiveData<>();
 
@@ -20,7 +20,7 @@ public class AddressViewModel extends ViewModel {
     public Address getAddress() {
         return new Address(apartament.getValue(),
                 number.getValue(),
-                between_streets.getValue(),
+                betweenStreets.getValue(),
                 description.getValue(),
                 floor.getValue(),
                 addressResponse.getValue().getLatitude(),
@@ -38,5 +38,14 @@ public class AddressViewModel extends ViewModel {
     public boolean isValidForm() {
         return getFullAddressName().equals(addressRequest.getValue()) &&
                 addressResponse.getValue() != null;
+    }
+
+    public void init(Address address) {
+        street.setValue(address.getStreet());
+        number.setValue(address.getNumber());
+        apartament.setValue(address.getApartament());
+        betweenStreets.setValue(address.getBetweenStreets());
+        description.setValue(address.getDescription());
+        floor.setValue(address.getFloor());
     }
 }

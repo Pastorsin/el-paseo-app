@@ -40,7 +40,7 @@ public class Address {
         this.apartament = apartament;
     }
 
-    public String getBetween_streets() {
+    public String getBetweenStreets() {
         return between_streets;
     }
 
