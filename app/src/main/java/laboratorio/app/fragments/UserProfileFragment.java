@@ -22,6 +22,7 @@ import laboratorio.app.auth.ApiSession;
 import laboratorio.app.auth.NoUserLoggedException;
 import laboratorio.app.models.User;
 import laboratorio.app.viewmodels.ApplicationViewModel;
+import laboratorio.app.viewmodels.FormViewModel;
 import laboratorio.app.viewmodels.SignUpViewModel;
 
 
@@ -29,6 +30,7 @@ public class UserProfileFragment extends Fragment {
 
     private ApplicationViewModel appViewmodel;
     private SignUpViewModel signUpViewModel;
+    private FormViewModel formViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +44,32 @@ public class UserProfileFragment extends Fragment {
         Button logoutButton = view.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(onClickLogoutButton());
 
+        Button saveChangesButton = view.findViewById(R.id.profile_save_changes_button);
+        saveChangesButton.setOnClickListener(buttonView -> formViewModel.submitButtonPressed.call());
+
+        onSaveChanges();
+
         return view;
     }
 
+    private void onSaveChanges() {
+        formViewModel.isValid.observe(getViewLifecycleOwner(), isValid -> {
+                if (isValid) {
+                    appViewmodel.isLoading.setValue(true);
+                    // TODO: Put user request
+                    appViewmodel.errorEvent.call();
+                    appViewmodel.isLoading.setValue(false);
+                }
+            }
+        );
+    }
+
     private void initViewModels() {
-        appViewmodel = new ViewModelProvider(requireActivity()).get(ApplicationViewModel.class);
-        signUpViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(requireActivity());
+
+        appViewmodel = provider.get(ApplicationViewModel.class);
+        signUpViewModel = provider.get(SignUpViewModel.class);
+        formViewModel = provider.get(FormViewModel.class);
     }
 
     @NotNull
@@ -80,7 +102,7 @@ public class UserProfileFragment extends Fragment {
                 ApiSession.instance.logout(getContext());
                 Log.d("LOGOUT", "User logged out successfully");
 
-                requireActivity().getViewModelStore().clear();
+                signUpViewModel.reset();
 
                 Fragment fragment = new SignInFragment();
                 ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
@@ -90,4 +112,5 @@ public class UserProfileFragment extends Fragment {
             }
         };
     }
+
 }

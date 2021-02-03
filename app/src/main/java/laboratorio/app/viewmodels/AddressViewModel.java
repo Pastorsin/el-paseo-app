@@ -17,6 +17,11 @@ public class AddressViewModel extends ViewModel {
     public final MutableLiveData<String> addressRequest = new MutableLiveData<>();
     public final MutableLiveData<android.location.Address> addressResponse = new MutableLiveData<>();
 
+    public AddressViewModel() {
+        super();
+        reset();
+    }
+
     public Address getAddress() {
         return new Address(apartament.getValue(),
                 number.getValue(),
@@ -47,5 +52,15 @@ public class AddressViewModel extends ViewModel {
         betweenStreets.setValue(address.getBetweenStreets());
         description.setValue(address.getDescription());
         floor.setValue(address.getFloor());
+    }
+
+    public void reset() {
+        street.postValue("");
+        number.postValue("");
+        neighborhood.postValue("");
+        apartament.postValue("");
+        betweenStreets.postValue("");
+        description.postValue("");
+        floor.postValue("");
     }
 }

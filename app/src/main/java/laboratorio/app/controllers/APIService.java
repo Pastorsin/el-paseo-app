@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface APIService {
@@ -29,4 +30,7 @@ public interface APIService {
 
     @GET("api/user/{id}")
     Call<User> getUser(@Path("id") String id, @Header("Authorization") String token);
+
+    @PUT("api/user")
+    Call<User> putUser(@Body User user, @Header("Authorization") String token);
 }
