@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentAccountFormBinding;
-import laboratorio.app.viewmodels.SignUpViewModel;
+import laboratorio.app.viewmodels.UserViewModel;
 
 public class AccountFormFragment extends FormFragment {
 
@@ -20,7 +20,7 @@ public class AccountFormFragment extends FormFragment {
 
     @Override
     protected ViewModel setViewmodelToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
-        SignUpViewModel viewModel = viewModelProvider.get(SignUpViewModel.class);
+        UserViewModel viewModel = viewModelProvider.get(UserViewModel.class);
         ((FragmentAccountFormBinding) binding).setViewmodel(viewModel);
         return viewModel;
     }

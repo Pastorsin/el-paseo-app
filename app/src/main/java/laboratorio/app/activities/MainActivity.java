@@ -102,14 +102,26 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
 
     @Override
     public void replaceFragmentOnMainContainer(Fragment fragment) {
-        replaceFragment(fragment, R.id.app_container);
+        replaceFragment(fragment, R.id.app_container, null);
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment, int layout, String backStack) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(backStack);
+        loadFragment(fragment, layout, transaction);
     }
 
     @Override
     public void replaceFragment(Fragment fragment, int layout) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        loadFragment(fragment, layout, transaction);
+    }
+
+    private void loadFragment(Fragment fragment, int layout, FragmentTransaction transaction) {
         transaction.replace(layout, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
 }

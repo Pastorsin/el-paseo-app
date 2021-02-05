@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.databinding.FragmentAddressFormBinding;
 import laboratorio.app.viewmodels.AddressViewModel;
-import laboratorio.app.viewmodels.SignUpViewModel;
+import laboratorio.app.viewmodels.UserViewModel;
 
 public class DeliveryAddressFormFragment extends AddressFormFragment {
     @Override
@@ -18,6 +18,6 @@ public class DeliveryAddressFormFragment extends AddressFormFragment {
 
     @Override
     protected AddressViewModel getViewModel() {
-        return getViewModelProvider().get(SignUpViewModel.class).deliveryAddress;
+        return getViewModelProvider().get(UserViewModel.class).deliveryAddress;
     }
 }

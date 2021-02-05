@@ -50,6 +50,7 @@ abstract public class FormFragment extends Fragment {
         FormViewModel formViewModel = viewModelProvider.get(FormViewModel.class);
 
         formViewModel.submitButtonPressed.observe(getViewLifecycleOwner(), buttonPressed -> {
+            System.out.println("Listen: " + this + " | State: " + getViewLifecycleOwner().getLifecycle().getCurrentState());
             boolean isValid = validator.validate();
             formViewModel.isValid.setValue(isValid);
         });

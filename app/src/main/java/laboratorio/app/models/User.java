@@ -172,10 +172,23 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public boolean isPersonalInformationEquals(String firstName, String lastName, Integer age, String phone) {
-        return Objects.equals(this.firstName, firstName) &&
-                Objects.equals(this.lastName, lastName) &&
-                Objects.equals(this.age, age) &&
-                Objects.equals(this.phone, phone);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) &&
+                Objects.equals(encryptedPassword, user.encryptedPassword) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(age, user.age) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(deliveryAddress, user.deliveryAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, encryptedPassword, firstName, lastName, name, age, phone, address, deliveryAddress, cart, role);
     }
 }

@@ -5,7 +5,7 @@
     >
 
     <data>
-        <variable name="viewmodel" type="laboratorio.app.viewmodels.SignUpViewModel"/>
+        <variable name="viewmodel" type="laboratorio.app.viewmodels.UserViewModel"/>
     </data>
 
     <ScrollView

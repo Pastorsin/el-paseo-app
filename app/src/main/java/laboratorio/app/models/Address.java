@@ -3,6 +3,8 @@ package laboratorio.app.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Address {
     private String apartament;
     private String between_streets;
@@ -94,5 +96,25 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(apartament, address.apartament) &&
+                Objects.equals(between_streets, address.between_streets) &&
+                Objects.equals(description, address.description) &&
+                Objects.equals(floor, address.floor) &&
+                Objects.equals(latitude, address.latitude) &&
+                Objects.equals(longitude, address.longitude) &&
+                Objects.equals(number, address.number) &&
+                Objects.equals(street, address.street);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(apartament, between_streets, description, floor, latitude, longitude, number, street);
     }
 }

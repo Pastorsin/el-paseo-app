@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentPersonalFormBinding;
-import laboratorio.app.viewmodels.SignUpViewModel;
+import laboratorio.app.viewmodels.UserViewModel;
 
 public class PersonalFormFragment extends FormFragment {
 
@@ -25,7 +25,7 @@ public class PersonalFormFragment extends FormFragment {
 
     @Override
     protected ViewModel setViewmodelToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
-        SignUpViewModel viewmodel = viewModelProvider.get(SignUpViewModel.class);
+        UserViewModel viewmodel = viewModelProvider.get(UserViewModel.class);
         ((FragmentPersonalFormBinding) binding).setViewmodel(viewmodel);
         return viewmodel;
     }
