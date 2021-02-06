@@ -38,7 +38,7 @@ public class User implements Serializable {
                 Address address,
                 Address deliveryAddress) {
         this.email = email;
-        this.encryptedPassword = Encryptor.encryptToMD5(password);
+        this.encryptedPassword = Encryptor.encrypt(password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.name = String.format("%s %s", firstName, lastName);

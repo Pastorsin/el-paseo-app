@@ -1,28 +1,29 @@
 package laboratorio.app.auth;
 
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 public class Encryptor {
 
-    public static String encryptToMD5(String value) {
+    public static String encrypt(String value) {
         if (value == null)
             return null;
 
+        byte[] salt = new byte[16];
+        KeySpec spec = new PBEKeySpec(value.toCharArray(), salt, 65536, 128);
+
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digest = md.digest(value.getBytes());
-
-            StringBuffer buffer = new StringBuffer();
-            for (byte bytes : digest)
-                buffer.append(String.format("%02x", bytes & 0xff));
-
-            return new String(buffer);
-        } catch (NoSuchAlgorithmException e) {
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] encode = factory.generateSecret(spec).getEncoded();
+            return new String(encode);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
-
             return null;
         }
-   }
+    }
 }

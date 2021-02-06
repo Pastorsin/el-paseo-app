@@ -87,7 +87,7 @@ public class SignInFragment extends Fragment {
                 String email = ((EditText) view.findViewById(R.id.signin_email)).getText().toString();
                 String password = ((EditText) view.findViewById(R.id.signin_password)).getText().toString();
 
-                String encryptedPassword = Encryptor.encryptToMD5(password);
+                String encryptedPassword = Encryptor.encrypt(password);
                 LoginUser body = new LoginUser(email, encryptedPassword);
 
                 API.instance.getService().signIn(body).enqueue(getSignInCallback(body));
