@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import laboratorio.app.fragments.HomeFragment;
 import laboratorio.app.fragments.SignInFragment;
 import laboratorio.app.fragments.UserProfileFragment;
 import laboratorio.app.helpers.FragmentLoader;
@@ -65,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                     boolean isUserLoggedIn = ApiSession.instance.isUserLoggedIn(getApplicationContext());
                     fragment = isUserLoggedIn ? new UserProfileFragment() : new SignInFragment();
 
+                    replaceFragmentOnMainContainer(fragment);
+                    return true;
+                case R.id.home_nav:
+                    toolbar.setTitle("Home");
+                    fragment = new HomeFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
             }

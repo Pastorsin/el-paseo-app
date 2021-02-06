@@ -4,6 +4,7 @@ import java.util.List;
 
 import laboratorio.app.models.Category;
 import laboratorio.app.models.LoginUser;
+import laboratorio.app.models.Producer;
 import laboratorio.app.models.Product;
 import laboratorio.app.models.Token;
 import laboratorio.app.models.User;
@@ -24,4 +25,7 @@ public interface APIService {
 
     @POST("api/user/signup")
     Call<User> signUp(@Body User user);
+
+    @GET("api/producer")
+    Call<List<Producer>> getProducers();
 }
