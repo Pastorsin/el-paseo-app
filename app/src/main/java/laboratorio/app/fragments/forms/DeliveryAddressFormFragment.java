@@ -9,11 +9,9 @@ import laboratorio.app.viewmodels.UserViewModel;
 
 public class DeliveryAddressFormFragment extends AddressFormFragment {
     @Override
-    protected ViewModel setViewmodelToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
+    protected void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
         AddressViewModel viewModel = getViewModel();
         ((FragmentAddressFormBinding) binding).setViewmodel(viewModel);
-
-        return viewModel;
     }
 
     @Override

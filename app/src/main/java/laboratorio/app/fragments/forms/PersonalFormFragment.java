@@ -24,10 +24,9 @@ public class PersonalFormFragment extends FormFragment {
     }
 
     @Override
-    protected ViewModel setViewmodelToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
+    protected void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
         UserViewModel viewmodel = viewModelProvider.get(UserViewModel.class);
         ((FragmentPersonalFormBinding) binding).setViewmodel(viewmodel);
-        return viewmodel;
     }
 
     @Override

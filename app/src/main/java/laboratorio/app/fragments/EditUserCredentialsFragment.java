@@ -19,6 +19,7 @@ import laboratorio.app.R;
 import laboratorio.app.auth.ApiSession;
 import laboratorio.app.auth.NoUserLoggedException;
 import laboratorio.app.databinding.FragmentEditUserCredentialsBinding;
+import laboratorio.app.fragments.forms.EditEmailFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.viewmodels.UserViewModel;
 
@@ -34,7 +35,15 @@ public class EditUserCredentialsFragment extends Fragment {
 
         initLogoutButton(view, userViewModel);
 
+        initUpdateEmailButton(view);
+
         return view;
+    }
+
+    private void initUpdateEmailButton(View view) {
+        Button updateEmailButton = view.findViewById(R.id.profile_update_email_button);
+        updateEmailButton.setOnClickListener(buttonView ->
+                ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(new EditEmailFormFragment()));
     }
 
     @NotNull

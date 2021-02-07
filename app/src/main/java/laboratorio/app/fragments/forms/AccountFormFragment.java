@@ -19,10 +19,9 @@ public class AccountFormFragment extends FormFragment {
     }
 
     @Override
-    protected ViewModel setViewmodelToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
+    protected void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider viewModelProvider) {
         UserViewModel viewModel = viewModelProvider.get(UserViewModel.class);
         ((FragmentAccountFormBinding) binding).setViewmodel(viewModel);
-        return viewModel;
     }
 
     @Override

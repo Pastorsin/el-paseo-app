@@ -7,4 +7,8 @@ import laboratorio.app.helpers.SingleLiveEvent;
 public class FormViewModel extends ViewModel {
     public final SingleLiveEvent<Void> submitButtonPressed = new SingleLiveEvent<>();
     public final SingleLiveEvent<Boolean> isValid = new SingleLiveEvent<>();
+
+    public void dispatchSubmitButton() {
+        submitButtonPressed.call();
+    }
 }
