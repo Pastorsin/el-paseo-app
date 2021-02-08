@@ -46,4 +46,6 @@ public interface APIService {
     @POST("/api/email/recovery/confirm")
     Call<RecoveryPasswordResponse> postConfirmRecoveryPassword(@Body RecoveryPassword recoveryPassword);
 
+    @POST("api/newsletter/")
+    Call<String> suscribeNewsletter(@Header("String") String token, @Body String email);
 }

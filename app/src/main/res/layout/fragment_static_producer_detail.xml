@@ -80,11 +80,4 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="259dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import laboratorio.app.fragments.NewsletterFragment;
 import laboratorio.app.fragments.StaticAboutFragment;
 import laboratorio.app.fragments.StaticNewsFragment;
 import laboratorio.app.fragments.StaticProducersFragment;
@@ -23,7 +24,7 @@ public class PagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new StaticProducersFragment();
             case 2:
-                return new StaticAboutFragment();
+                return new NewsletterFragment();
             default:
                 return null;
         }
