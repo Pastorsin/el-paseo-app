@@ -3,11 +3,9 @@ package laboratorio.app.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +53,8 @@ public class UserProfileFragment extends Fragment {
         fetchUser();
 
         initTabView(view);
-
         initSaveChangesButton(view);
+        selectFirstTabitem(view);
 
         return view;
     }
@@ -84,12 +82,24 @@ public class UserProfileFragment extends Fragment {
 
         MutableLiveData<User> userRequest = ApiSession.instance.getUserLogged(getContext());
         userRequest.observe(getViewLifecycleOwner(), user -> {
-            if (user == null) appViewmodel.errorEvent.call();
-            else userViewModel.init(user);
-
+            if (user == null) onFetchUserError();
+            else onFetchUserSuccess(user);
             appViewmodel.isLoading.setValue(false);
-            selectFirstTabitem(getView());
         });
+    }
+
+    private void onFetchUserSuccess(User user) {
+        userViewModel.init(user);
+    }
+
+    private void onFetchUserError() {
+        try {
+            ApiSession.instance.logout(getContext());
+        } catch (NoUserLoggedException e) {
+            e.printStackTrace();
+        }
+
+        loadFragment(new SignInFragment());
     }
 
     private void initTabView(View view) {
@@ -104,16 +114,16 @@ public class UserProfileFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-                        loadFragment(new EditUserCredentialsFragment());
+                        loadFragmentOnTabContainer(new EditUserCredentialsFragment());
                         break;
                     case 1:
-                        loadFragment(new PersonalFormFragment());
+                        loadFragmentOnTabContainer(new PersonalFormFragment());
                         break;
                     case 2:
-                        loadFragment(new ResidencyAddressFormFragment());
+                        loadFragmentOnTabContainer(new ResidencyAddressFormFragment());
                         break;
                     case 3:
-                        loadFragment(new DeliveryAddressFormFragment());
+                        loadFragmentOnTabContainer(new DeliveryAddressFormFragment());
                         break;
                 }
             }
@@ -152,8 +162,12 @@ public class UserProfileFragment extends Fragment {
 
     }
 
-    private void loadFragment(Fragment fragment) {
+    private void loadFragmentOnTabContainer(Fragment fragment) {
         ((FragmentLoader) getActivity()).replaceFragment(fragment, R.id.profile_tab_fragment_container);
+    }
+
+    private void loadFragment(Fragment fragment) {
+        ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
     }
 
 }

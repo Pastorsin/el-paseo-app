@@ -13,13 +13,13 @@ import android.widget.Button;
 
 import org.jetbrains.annotations.NotNull;
 
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.auth.ApiSession;
 import laboratorio.app.auth.NoUserLoggedException;
 import laboratorio.app.databinding.FragmentEditUserCredentialsBinding;
 import laboratorio.app.fragments.forms.EditEmailFormFragment;
+import laboratorio.app.fragments.forms.RecoveryPasswordFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.viewmodels.UserViewModel;
 
@@ -37,13 +37,23 @@ public class EditUserCredentialsFragment extends Fragment {
 
         initUpdateEmailButton(view);
 
+        initUpdatePasswordButton(view);
+
         return view;
+    }
+
+    private void initUpdatePasswordButton(View view) {
+        Button updatePasswordButton = view.findViewById(R.id.profile_update_password_button);
+        updatePasswordButton.setOnClickListener(buttonView -> loadFragment(new RecoveryPasswordFormFragment()));
     }
 
     private void initUpdateEmailButton(View view) {
         Button updateEmailButton = view.findViewById(R.id.profile_update_email_button);
-        updateEmailButton.setOnClickListener(buttonView ->
-                ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(new EditEmailFormFragment()));
+        updateEmailButton.setOnClickListener(buttonView -> loadFragment(new EditEmailFormFragment()));
+    }
+
+    private void loadFragment(Fragment fragment) {
+        ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
     }
 
     @NotNull

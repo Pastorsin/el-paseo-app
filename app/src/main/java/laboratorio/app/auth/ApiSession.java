@@ -89,7 +89,12 @@ public class ApiSession {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         User user = response.body();
-                        userResponse.setValue(user);
+
+                        if (response.isSuccessful())
+                            userResponse.setValue(user);
+                        else
+                            userResponse.setValue(null);
+
                         Log.d("GET USER LOGGED", "Response code: " + response.code());
                     }
 
