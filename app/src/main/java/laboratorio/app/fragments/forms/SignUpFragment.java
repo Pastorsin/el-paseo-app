@@ -25,7 +25,7 @@ import laboratorio.app.fragments.SignInFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.User;
 import laboratorio.app.viewmodels.FormViewModel;
-import laboratorio.app.viewmodels.SignUpViewModel;
+import laboratorio.app.viewmodels.UserViewModel;
 
 public class SignUpFragment extends Fragment implements StepperNavListener {
 
@@ -78,9 +78,7 @@ public class SignUpFragment extends Fragment implements StepperNavListener {
 
     @Override
     public void onCompleted() {
-        Toast.makeText(getContext(), "Completado", Toast.LENGTH_SHORT).show();
-
-        SignUpViewModel viewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
+        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         MutableLiveData<User> signUpResponse = viewModel.signUp();
 
         signUpResponse.observe(getViewLifecycleOwner(), user -> {

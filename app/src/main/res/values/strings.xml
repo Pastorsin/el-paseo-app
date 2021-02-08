@@ -171,7 +171,7 @@
     <string name="description_address_hint">Descripción</string>
     <string name="between_streets_address_hint">Entre calles</string>
     <string name="number_address_hint">Nº <font color='#9E2A2B'>*</font></string>
-    <string name="neighborhood_address_hint">Barrio <font color='#9E2A2B'>*</font></string>
+    <string name="neighborhood_address_hint">Barrio</string>
     <string name="floor_address_hint">Piso</string>
     <string name="apartament_address_hint">Apartamento</string>
     <string name="phone_address_hint">Teléfono <font color='#9E2A2B'>*</font></string>
@@ -181,4 +181,12 @@
     <string name="confirm_password_hint">Confirmar contraseña <font color='#9E2A2B'>*</font></string>
     <string name="email_hint">Email <font color='#9E2A2B'>*</font></string>
     <string name="password_hint">Contraseña <font color='#9E2A2B'>*</font></string>
+    <string name="profile_address_format">%s %s</string>
+    <string name="recovery_password_text_info">Se le enviará un email con el código para reestablecer su contraseña</string>
+    <string name="confirm_recovery_password_email">Email <font color='#9E2A2B'>*</font></string>
+    <string name="confirm_recovery_password_code">Código <font color='#9E2A2B'>*</font></string>
+    <string name="confirm_recovery_password_old_password">Contraseña actual <font color='#9E2A2B'>*</font></string>
+    <string name="confirm_recovery_password_new_password">Nueva contraseña <font color='#9E2A2B'>*</font></string>
+    <string name="confirm_recovery_password_confirm_new_password">Confirmar nueva contraseña <font color='#9E2A2B'>*</font></string>
+    <string name="confirm_recovery_password_success_message">Contraseña modificada con éxito</string>
 </resources>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import laboratorio.app.auth.Encryptor;
 
@@ -37,7 +38,7 @@ public class User implements Serializable {
                 Address address,
                 Address deliveryAddress) {
         this.email = email;
-        this.encryptedPassword = Encryptor.encryptToMD5(password);
+        this.encryptedPassword = Encryptor.encrypt(password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.name = String.format("%s %s", firstName, lastName);
@@ -169,5 +170,25 @@ public class User implements Serializable {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) &&
+                Objects.equals(encryptedPassword, user.encryptedPassword) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(age, user.age) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(deliveryAddress, user.deliveryAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, encryptedPassword, firstName, lastName, name, age, phone, address, deliveryAddress, cart, role);
     }
 }

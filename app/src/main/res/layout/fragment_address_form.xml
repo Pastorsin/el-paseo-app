@@ -314,7 +314,7 @@
                         android:fontFamily="@font/lato"
                         android:hint="@string/between_streets_address_hint"
                         android:inputType="textPersonName"
-                        android:text="@={viewmodel.between_streets}"
+                        android:text="@={viewmodel.betweenStreets}"
                         android:textColor="#540B0E"
                         android:textColorHint="#540B0E"
                         app:layout_constraintBottom_toBottomOf="parent"

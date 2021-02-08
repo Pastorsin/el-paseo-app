@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import laboratorio.app.R;
 import laboratorio.app.viewmodels.AddressViewModel;
+import laboratorio.app.viewmodels.Ubication;
 
 
 abstract public class AddressFormFragment extends FormFragment {
@@ -47,8 +48,6 @@ abstract public class AddressFormFragment extends FormFragment {
         view.findViewById(R.id.signup_address_search_button).setOnClickListener(
                 v -> executor.execute(onClickSearchButton(view)));
 
-        getViewModel().addressResponse.observe(getViewLifecycleOwner(), onAddressChanges(view));
-
         return view;
     }
 
@@ -63,12 +62,12 @@ abstract public class AddressFormFragment extends FormFragment {
             GeoPoint point;
             mapController.setZoom(15.0);
 
-            if (getViewModel().addressResponse.getValue() == null) {
-                point = DEFAULT_START_POINT;
+            if (getViewModel().isUbicationDefined()) {
+                Ubication ubication = getViewModel().ubication.getValue();
+                point = new GeoPoint(ubication.getLatitude(), ubication.getLongitude());
+                showMarkerOnMap(view, point);
             } else {
-                Address address = getViewModel().addressResponse.getValue();
-                point = new GeoPoint(address.getLatitude(), address.getLongitude());
-                showMarkerOnMap(mapview, point);
+                point = DEFAULT_START_POINT;
             }
 
             mapController.setCenter(point);
@@ -87,28 +86,20 @@ abstract public class AddressFormFragment extends FormFragment {
 
                 } else {
                     Address address = addresses.get(0);
+                    GeoPoint point = new GeoPoint(address.getLatitude(), address.getLongitude());
 
                     getActivity().runOnUiThread(() -> {
-                        getViewModel().addressRequest.setValue(addressName);
-                        getViewModel().addressResponse.setValue(address);
+                        getViewModel().lastAddressSearch.setValue(addressName);
+                        Ubication ubication = new Ubication(point.getLatitude(), point.getLongitude());
+                        getViewModel().ubication.setValue(ubication);
+
+                        showMarkerOnMap(view, point);
                     });
                 }
 
             } catch (IOException e) {
                 getActivity().runOnUiThread(() -> showNetworkError());
             }
-        };
-    }
-
-    @NotNull
-    private Observer<Address> onAddressChanges(View view) {
-        return address -> {
-            MapView mapview = view.findViewById(R.id.map);
-            GeoPoint point = new GeoPoint(address.getLatitude(), address.getLongitude());
-
-            deleteMarkersOnMap(mapview);
-            animateToPoint(mapview, point);
-            showMarkerOnMap(mapview, point);
         };
     }
 
@@ -132,12 +123,17 @@ abstract public class AddressFormFragment extends FormFragment {
         }
     }
 
-    protected void showMarkerOnMap(MapView mapview, GeoPoint point) {
+    protected void showMarkerOnMap(View view, GeoPoint point) {
+        MapView mapview = view.findViewById(R.id.map);
         Drawable markerIcon = getActivity().getDrawable(R.drawable.marker_default);
 
         Marker marker = new Marker(mapview);
         marker.setPosition(point);
         marker.setIcon(markerIcon);
+
+        deleteMarkersOnMap(mapview);
+
+        animateToPoint(mapview, point);
 
         mapview.getOverlays().add(marker);
     }
