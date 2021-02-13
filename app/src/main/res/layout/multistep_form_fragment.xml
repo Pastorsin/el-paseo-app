@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.forms.SignUpFragment">
+    tools:context=".activities.MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_previous"
@@ -49,8 +49,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@menu/nav_stepper" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:stepperIconSize="18dp"
-            app:stepperItems="@menu/menu_stepper"
+            app:stepperItems="@menu/menu_multistep_form"
             app:stepperTextColor="#540B0E"
             app:stepperTextSize="12dp"
             app:stepperType="@string/stepper_type_tab_numbered"

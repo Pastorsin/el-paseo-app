@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.forms.EditEmailFormFragment">
+        tools:context=".fragments.forms.user.items.EditEmailFormFragment">
 
         <Button
             android:id="@+id/button"

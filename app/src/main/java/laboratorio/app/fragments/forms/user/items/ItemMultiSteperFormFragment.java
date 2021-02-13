@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.viewmodels.FormViewModel;
 
-abstract public class FormFragment extends Fragment {
+abstract public class ItemMultiSteperFormFragment extends Fragment {
     protected AwesomeValidation validator = new AwesomeValidation(ValidationStyle.BASIC);
 
     @Nullable

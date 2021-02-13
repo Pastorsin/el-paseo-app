@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
 import laboratorio.app.auth.Encryptor;
 import laboratorio.app.controllers.API;
-import laboratorio.app.fragments.forms.SignUpFragment;
+import laboratorio.app.fragments.forms.user.SignUpFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.LoginUser;
 import laboratorio.app.models.Token;

@@ -6,22 +6,22 @@
 
     <fragment
         android:id="@+id/signup_step_1"
-        android:name=".fragments.forms.AccountFormFragment"
+        android:name=".fragments.forms.user.items.AccountFormFragment"
         android:label="Información de la cuenta" />
 
     <fragment
         android:id="@+id/signup_step_2"
-        android:name=".fragments.forms.PersonalFormFragment"
+        android:name=".fragments.forms.user.items.PersonalFormFragment"
         android:label="Información personal" />
 
     <fragment
         android:id="@+id/signup_step_3"
-        android:name=".fragments.forms.ResidencyAddressFormFragment"
+        android:name=".fragments.forms.user.items.ResidencyAddressFormFragment"
         android:label="Información de residencia"/>
 
     <fragment
         android:id="@+id/signup_step_4"
-        android:name=".fragments.forms.DeliveryAddressFormFragment"
+        android:name=".fragments.forms.user.items.DeliveryAddressFormFragment"
         android:label="Información de pedido"/>
 
 </navigation>

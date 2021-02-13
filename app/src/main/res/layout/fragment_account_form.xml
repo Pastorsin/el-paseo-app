@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
-        tools:context=".fragments.forms.AccountFormFragment">
+        tools:context=".fragments.forms.user.items.AccountFormFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/signup_account_layout"

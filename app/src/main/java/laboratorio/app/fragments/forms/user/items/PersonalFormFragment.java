@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import android.util.Patterns;
 import android.view.View;
@@ -10,13 +10,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentPersonalFormBinding;
 import laboratorio.app.viewmodels.UserViewModel;
 
-public class PersonalFormFragment extends FormFragment {
+public class PersonalFormFragment extends ItemMultiSteperFormFragment {
 
     @Override
     protected int getLayoutId() {

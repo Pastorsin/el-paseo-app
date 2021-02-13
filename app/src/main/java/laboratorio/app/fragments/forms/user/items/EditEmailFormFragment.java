@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import androidx.databinding.ViewDataBinding;
 
@@ -6,7 +6,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentEditEmailFormBinding;
@@ -16,7 +15,7 @@ import laboratorio.app.viewmodels.EmailViewModel;
 import laboratorio.app.viewmodels.FormViewModel;
 import laboratorio.app.viewmodels.UserViewModel;
 
-public class EditEmailFormFragment extends FormFragment {
+public class EditEmailFormFragment extends ItemMultiSteperFormFragment {
 
     @Override
     protected int getLayoutId() {

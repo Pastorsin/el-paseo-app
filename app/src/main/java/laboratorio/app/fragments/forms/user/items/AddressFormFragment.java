@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -27,13 +27,12 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import laboratorio.app.R;
 import laboratorio.app.viewmodels.AddressViewModel;
 import laboratorio.app.viewmodels.Ubication;
 
 
-abstract public class AddressFormFragment extends FormFragment {
+abstract public class AddressFormFragment extends ItemMultiSteperFormFragment {
 
     private Executor executor = Executors.newSingleThreadExecutor();
     private static final GeoPoint DEFAULT_START_POINT = new GeoPoint(-34.9214, -57.9544);

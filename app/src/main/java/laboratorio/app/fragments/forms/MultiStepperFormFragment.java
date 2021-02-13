@@ -1,43 +1,33 @@
 package laboratorio.app.fragments.forms;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aceinteract.android.stepper.StepperNavListener;
 import com.aceinteract.android.stepper.StepperNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import laboratorio.app.R;
-import laboratorio.app.fragments.SignInFragment;
-import laboratorio.app.helpers.FragmentLoader;
-import laboratorio.app.models.User;
 import laboratorio.app.viewmodels.FormViewModel;
-import laboratorio.app.viewmodels.UserViewModel;
 
-public class SignUpFragment extends Fragment implements StepperNavListener {
-
-    private static final int TOTAL_STEPS = 4;
+public abstract class MultiStepperFormFragment extends Fragment implements StepperNavListener {
     private NavController navController;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sign_up_fragment, container, false);
+        View view = inflater.inflate(R.layout.multistep_form_fragment, container, false);
 
         StepperNavigationView stepper = view.findViewById(R.id.stepper);
+        getActivity().getMenuInflater().inflate(getMenuId(), stepper.getMenu());
 
         InitNavController(view, stepper);
         InitPreviousButton(view, stepper);
@@ -47,6 +37,8 @@ public class SignUpFragment extends Fragment implements StepperNavListener {
 
         return view;
     }
+
+    public abstract int getMenuId();
 
     private void InitNextButton(View view, StepperNavigationView stepper) {
         FloatingActionButton nextButton = view.findViewById(R.id.button_next);
@@ -68,29 +60,14 @@ public class SignUpFragment extends Fragment implements StepperNavListener {
     private void InitNavController(View view, StepperNavigationView stepper) {
         View frameView = view.findViewById(R.id.frame_stepper);
         navController = Navigation.findNavController(frameView);
+        navController.setGraph(getNavGraphId());
+
         stepper.setupWithNavController(navController);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+    public abstract int getNavGraphId();
 
-    @Override
-    public void onCompleted() {
-        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        MutableLiveData<User> signUpResponse = viewModel.signUp();
-
-        signUpResponse.observe(getViewLifecycleOwner(), user -> {
-            if (user == null)
-                Toast.makeText(getContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
-            else {
-                Toast.makeText(getContext(), R.string.signup_success, Toast.LENGTH_SHORT).show();
-                ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(new SignInFragment());
-            }
-        });
-
-    }
+    public abstract void onCompleted();
 
     @Override
     public void onStepChanged(int step) {
@@ -100,12 +77,14 @@ public class SignUpFragment extends Fragment implements StepperNavListener {
 
     private void setUpNextButtonVisibility(int step) {
         FloatingActionButton nextButton = getView().findViewById(R.id.button_next);
-        if (step == TOTAL_STEPS - 1) {
+        if (step == getTotalSteps() - 1) {
             nextButton.setImageResource(R.drawable.ic_baseline_check_24);
         } else {
             nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_right_24);
         }
     }
+
+    public abstract int getTotalSteps();
 
     private void setUpPreviousButtonVisibility(int step) {
         FloatingActionButton previousButton = getView().findViewById(R.id.button_previous);

@@ -1,17 +1,16 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentAccountFormBinding;
 import laboratorio.app.viewmodels.UserViewModel;
 
-public class AccountFormFragment extends FormFragment {
+public class AccountFormFragment extends ItemMultiSteperFormFragment {
 
     @Override
     protected int getLayoutId() {

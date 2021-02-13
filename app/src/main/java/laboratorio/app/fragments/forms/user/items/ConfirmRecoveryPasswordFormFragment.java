@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms;
+package laboratorio.app.fragments.forms.user.items;
 
 import android.util.Patterns;
 import android.view.View;
@@ -17,14 +17,12 @@ import laboratorio.app.auth.NoUserLoggedException;
 import laboratorio.app.databinding.FragmentConfirmRecoveryPasswordFormBinding;
 import laboratorio.app.fragments.ErrorFragment;
 import laboratorio.app.fragments.SignInFragment;
-import laboratorio.app.fragments.UserProfileFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.RecoveryPasswordResponse;
 import laboratorio.app.viewmodels.FormViewModel;
 import laboratorio.app.viewmodels.RecoveryPasswordViewModel;
-import laboratorio.app.viewmodels.UserViewModel;
 
-public class ConfirmRecoveryPasswordFormFragment extends FormFragment {
+public class ConfirmRecoveryPasswordFormFragment extends ItemMultiSteperFormFragment {
 
 
     @Override

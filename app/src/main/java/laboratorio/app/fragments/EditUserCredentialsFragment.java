@@ -18,8 +18,8 @@ import laboratorio.app.R;
 import laboratorio.app.auth.ApiSession;
 import laboratorio.app.auth.NoUserLoggedException;
 import laboratorio.app.databinding.FragmentEditUserCredentialsBinding;
-import laboratorio.app.fragments.forms.EditEmailFormFragment;
-import laboratorio.app.fragments.forms.RecoveryPasswordFormFragment;
+import laboratorio.app.fragments.forms.user.items.EditEmailFormFragment;
+import laboratorio.app.fragments.forms.user.items.RecoveryPasswordFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.viewmodels.UserViewModel;
 
