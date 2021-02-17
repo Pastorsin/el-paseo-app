@@ -36,9 +36,7 @@ public class StaticProducersFragment extends Fragment implements OnItemListener 
 
     private ProgressBar progressBar;
 
-    public StaticProducersFragment() {
-        // Required empty public constructor
-    }
+    public StaticProducersFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +85,7 @@ public class StaticProducersFragment extends Fragment implements OnItemListener 
     }
 
     private List<Producer> producersToShow(List<Producer> allProducers) {
-        return allProducers.stream()
-                .collect(Collectors.toList());
+        return allProducers.stream().collect(Collectors.toList());
     }
 
     @Override

@@ -3,9 +3,10 @@ package laboratorio.app.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+public class Address implements Serializable {
     private String apartament;
     private String between_streets;
     private String description;

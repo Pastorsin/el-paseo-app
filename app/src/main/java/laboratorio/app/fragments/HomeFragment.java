@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getTabViewNames(){
-        tabNames.add(StaticNewsFragment.ARG_OBJECT);
+        tabNames.add(StaticWelcomeFragment.ARG_OBJECT);
         tabNames.add(StaticProducersFragment.ARG_OBJECT);
         tabNames.add(StaticAboutFragment.ARG_OBJECT);
     }

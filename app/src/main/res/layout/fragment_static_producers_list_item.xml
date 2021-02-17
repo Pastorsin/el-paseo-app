@@ -9,21 +9,26 @@
         android:id="@+id/producer_image"
         android:layout_width="80dp"
         android:layout_height="85dp"
+        android:layout_marginStart="16dp"
         android:contentDescription="Imagen del productor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/producer_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_gallery"
-        app:tint="#e09f3e" />
+        tools:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <TextView
         android:id="@+id/producer_name"
-        android:layout_width="216dp"
-        android:layout_height="22dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Nombre del productor"
+        android:textColor="#9E2A2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/producer_image"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

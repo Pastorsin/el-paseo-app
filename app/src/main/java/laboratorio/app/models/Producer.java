@@ -62,10 +62,6 @@ public class Producer implements Serializable {
         this.phone = phone;
     }
 
-    public String getYoutubeVideoId() {
-        return youtubeVideoId;
-    }
-
     public void setYoutubeVideoId(String youtubeVideoId) {
         this.youtubeVideoId = youtubeVideoId;
     }
@@ -123,7 +119,32 @@ public class Producer implements Serializable {
         return description;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Address getAddress(){
         return address;
     }
+
+    public boolean hasVideo(){
+        return (youtubeVideoId != null);
+    }
+
+    public String getYouTubeVideoId(){
+        return this.youtubeVideoId;
+    }
+
+    public boolean hasEmail(){
+        return (email != null);
+    }
+
+    public boolean hasPhoneNumber(){
+        return (phone != null);
+    }
+
+    public boolean hasAddress(){
+        return (address != null);
+    }
+
 }

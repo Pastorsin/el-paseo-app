@@ -1,5 +1,10 @@
 package laboratorio.app.fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -25,9 +31,7 @@ public class StaticProducerDetailFragment extends Fragment {
     private Producer producer;
 
 
-    public StaticProducerDetailFragment() {
-        // Required empty public constructor
-    }
+    public StaticProducerDetailFragment() {}
 
     public static StaticProducerDetailFragment newInstance(Producer aProducer) {
         StaticProducerDetailFragment fragment = new StaticProducerDetailFragment();
@@ -56,6 +60,7 @@ public class StaticProducerDetailFragment extends Fragment {
         addEmail(view);
         addPhone(view);
         addAddress(view);
+        addVideo(getContext(),view);
 
         return view;
     }
@@ -72,18 +77,65 @@ public class StaticProducerDetailFragment extends Fragment {
 
     public void addEmail(View view){
         TextView emailView = view.findViewById(R.id.static_detail_producer_email);
-        emailView.setText(producer.getEmail());
+        if(producer.hasEmail()) {
+            emailView.setText(producer.getEmail());
+        }else{
+            emailView.setText(getEmptyFieldMessage());
+        }
     }
 
     public void addPhone(View view){
         TextView phoneView = view.findViewById(R.id.static_detail_producer_phone);
-        phoneView.setText(producer.getPhone());
+        if(producer.hasPhoneNumber()){
+            phoneView.setText(producer.getPhone());
+        }else{
+            phoneView.setText(getEmptyFieldMessage());
+        }
     }
 
     public void addAddress(View view){
         TextView addressView = view.findViewById(R.id.static_detail_producer_address);
-        Address address = producer.getAddress();
-        addressView.setText(address.getNumber() + address.getStreet());
+        if(producer.hasAddress()) {
+            Address address = producer.getAddress();
+            addressView.setText(address.getNumber() + address.getStreet());
+        }else{
+            addressView.setText(getEmptyFieldMessage());
+        }
     }
 
+    public void addVideo(Context context, View view){
+        TextView textView = view.findViewById(R.id.static_detail_producer_video);
+        String videoId = producer.getYouTubeVideoId();
+        if(producer.hasVideo()) {
+            textView.setText("Ver video");
+            textView.setOnClickListener(openVideo(context,videoId));
+
+        }else{
+            textView.setText(getEmptyFieldMessage());
+            int color_value = Color.parseColor("#FF757575");
+            textView.setTextColor(color_value);
+        }
+    }
+
+    public View.OnClickListener openVideo(Context context, String videoId){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.youtube.com/watch?v=" + videoId));
+                try {
+                    context.startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    context.startActivity(webIntent);
+                }
+                getParentFragmentManager().popBackStack();
+
+            }
+        };
+    }
+
+    public String getEmptyFieldMessage(){
+        return "No posee";
+    }
 }
