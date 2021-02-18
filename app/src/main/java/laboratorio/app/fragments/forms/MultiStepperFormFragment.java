@@ -1,6 +1,7 @@
 package laboratorio.app.fragments.forms;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,13 @@ public abstract class MultiStepperFormFragment extends Fragment implements Stepp
         FloatingActionButton nextButton = view.findViewById(R.id.button_next);
         FormViewModel viewmodel = new ViewModelProvider(requireActivity()).get(FormViewModel.class);
 
-        nextButton.setOnClickListener(buttonView -> viewmodel.submitButtonPressed.call());
+        nextButton.setOnClickListener(buttonView -> {
+            System.out.println("Next button pressed " + this);
+            viewmodel.submitButtonPressed.call();
+        });
 
         viewmodel.isValid.observe(getViewLifecycleOwner(), isFormValid -> {
+            Log.d("VALIDATE FORM", String.format("%s %s", isFormValid, this));
             if (isFormValid)
                 stepper.goToNextStep();
         });

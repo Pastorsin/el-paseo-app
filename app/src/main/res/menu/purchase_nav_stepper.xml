@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_stepper"
+    app:startDestination="@id/purchase_step_1">
+
+    <fragment
+        android:id="@+id/purchase_step_1"
+        android:name=".fragments.forms.purchase.items.PayMethodFormFragment"
+        android:label="Información de la cuenta" />
+
+    <fragment
+        android:id="@+id/purchase_step_2"
+        android:name=".fragments.forms.purchase.items.DeliveryMethodFormFragment"
+        android:label="Información personal" />
+
+    <fragment
+        android:id="@+id/purchase_step_3"
+        android:name=".fragments.forms.purchase.items.ProductExtraInfoFormFragment"
+        android:label="Información de residencia"/>
+
+    <fragment
+        android:id="@+id/purchase_step_4"
+        android:name=".fragments.forms.purchase.items.PurchaseDetailFormFragment"
+        android:label="Información de pedido"/>
+
+</navigation>

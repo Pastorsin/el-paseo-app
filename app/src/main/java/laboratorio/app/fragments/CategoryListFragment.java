@@ -1,5 +1,6 @@
 package laboratorio.app.fragments;
 
+import android.app.DownloadManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +23,6 @@ import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.helpers.ListCallback;
 import laboratorio.app.models.Category;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CategoryListFragment extends Fragment {

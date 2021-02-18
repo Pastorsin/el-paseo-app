@@ -24,6 +24,7 @@ import java.util.List;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.CartAdapter;
+import laboratorio.app.fragments.forms.purchase.PurchaseFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.Cart;
 import laboratorio.app.models.CartProduct;
@@ -56,10 +57,7 @@ public class CartFragment extends Fragment {
         } else {
             View view =  inflater.inflate(R.layout.fragment_cart, container, false);
 
-            Button buy_button = view.findViewById(R.id.cart_buy_button);
-
-            buy_button.setOnClickListener(v -> Snackbar.make(v, "Compra realizada!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show());
+            initBuyButton(view);
 
             ListView cartProductsView = view.findViewById(R.id.cart_products_list);
 
@@ -74,6 +72,15 @@ public class CartFragment extends Fragment {
 
             return view;
         }
+    }
+
+    private void initBuyButton(View view) {
+        Button buy_button = view.findViewById(R.id.cart_buy_button);
+        buy_button.setOnClickListener(buttonView -> loadFragment(new PurchaseFragment()));
+    }
+
+    private void loadFragment(Fragment fragment) {
+        ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
     }
 
     private void addTotalPrice(View view){

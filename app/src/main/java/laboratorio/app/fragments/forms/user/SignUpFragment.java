@@ -23,7 +23,7 @@ public class SignUpFragment extends MultiStepperFormFragment {
 
     @Override
     public int getNavGraphId() {
-        return R.menu.nav_stepper;
+        return R.menu.signup_nav_stepper;
     }
 
     @Override

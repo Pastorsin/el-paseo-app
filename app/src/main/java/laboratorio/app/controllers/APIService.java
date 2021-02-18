@@ -3,10 +3,13 @@ package laboratorio.app.controllers;
 import java.util.List;
 
 import laboratorio.app.models.Category;
+import laboratorio.app.models.General;
 import laboratorio.app.models.LoginUser;
 import laboratorio.app.models.NewsletterSubscription;
 import laboratorio.app.models.NewsletterSubscriptionResponse;
 import laboratorio.app.models.Producer;
+import laboratorio.app.models.Node;
+import laboratorio.app.models.Pagination;
 import laboratorio.app.models.Product;
 import laboratorio.app.models.RecoveryPassword;
 import laboratorio.app.models.RecoveryPasswordResponse;
@@ -50,4 +53,10 @@ public interface APIService {
 
     @POST("api/newsletter")
     Call<NewsletterSubscriptionResponse> subscribeNewsletter(@Body NewsletterSubscription email, @Header("Authorization") String token);
+
+    @GET("/api/node")
+    Call<List<Node>> getNodes();
+
+    @GET("/api/general")
+    Call<Pagination<General>> getGeneral();
 }

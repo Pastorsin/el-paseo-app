@@ -51,13 +51,14 @@ abstract public class ItemMultiSteperFormFragment extends Fragment {
         formViewModel.submitButtonPressed.observe(getViewLifecycleOwner(), buttonPressed -> {
             System.out.println("Listen: " + this + " | State: " + getViewLifecycleOwner().getLifecycle().getCurrentState());
             boolean isValid = validator.validate();
+            System.out.println(isValid);
             formViewModel.isValid.setValue(isValid);
         });
     }
 
     protected abstract int getLayoutId();
 
-    protected abstract void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider viewModel);
+    protected abstract void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider provider);
 
     protected abstract void initValidators(View view);
 }

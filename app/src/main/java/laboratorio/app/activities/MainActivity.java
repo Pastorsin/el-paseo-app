@@ -13,6 +13,7 @@ import laboratorio.app.databinding.ActivityMainBinding;
 import laboratorio.app.fragments.ErrorFragment;
 import laboratorio.app.fragments.SignInFragment;
 import laboratorio.app.fragments.UserProfileFragment;
+import laboratorio.app.fragments.forms.purchase.items.NodeFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.R;
 import laboratorio.app.fragments.CartFragment;
@@ -120,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
     }
 
     @Override
+    public void removeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.remove(fragment).commit();
+    }
+
+    @Override
     public void replaceFragment(Fragment fragment, int layout) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         loadFragment(fragment, layout, transaction);
@@ -129,6 +136,4 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
         transaction.replace(layout, fragment);
         transaction.commit();
     }
-
-
 }
