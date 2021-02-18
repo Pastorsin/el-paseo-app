@@ -2,6 +2,7 @@ package laboratorio.app.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Producer implements Serializable {
     private String name;
@@ -14,10 +15,12 @@ public class Producer implements Serializable {
 
     private boolean isCompany;
 
-    //private Address address;
+    private Address address;
     private List<Image> images;
     private List<Product> products;
     //private List<Tag> tags;
+
+    private String description;
 
     public String getName() {
         return name;
@@ -59,10 +62,6 @@ public class Producer implements Serializable {
         this.phone = phone;
     }
 
-    public String getYoutubeVideoId() {
-        return youtubeVideoId;
-    }
-
     public void setYoutubeVideoId(String youtubeVideoId) {
         this.youtubeVideoId = youtubeVideoId;
     }
@@ -90,4 +89,62 @@ public class Producer implements Serializable {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    public boolean hasMainImage() {
+        Image mainImage = getMainImage();
+        return mainImage != null && mainImage.getValue() != null;
+    }
+
+    public Image getMainImage() {
+        List<Image> mainImages = getMainImages();
+
+        if (!mainImages.isEmpty())
+            return mainImages.get(0);
+
+        if (!images.isEmpty())
+            return images.get(0);
+
+        return null;
+    }
+
+    public List<Image> getMainImages() {
+        return images.stream().filter(Image::isMain).collect(Collectors.toList());
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Address getAddress(){
+        return address;
+    }
+
+    public boolean hasVideo(){
+        return (youtubeVideoId != null);
+    }
+
+    public String getYouTubeVideoId(){
+        return this.youtubeVideoId;
+    }
+
+    public boolean hasEmail(){
+        return (email != null);
+    }
+
+    public boolean hasPhoneNumber(){
+        return (phone != null);
+    }
+
+    public boolean hasAddress(){
+        return (address != null);
+    }
+
 }

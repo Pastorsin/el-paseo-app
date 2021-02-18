@@ -189,4 +189,40 @@
     <string name="confirm_recovery_password_new_password">Nueva contraseña <font color='#9E2A2B'>*</font></string>
     <string name="confirm_recovery_password_confirm_new_password">Confirmar nueva contraseña <font color='#9E2A2B'>*</font></string>
     <string name="confirm_recovery_password_success_message">Contraseña modificada con éxito</string>
+
+    <string name="about_como_trabajamos_title">¿Cómo trabajamos?</string>
+    <string name="about_como_trabajamos_p1">
+        Construimos un espacio horizontal de diálogo e interacción entre los/las productores, emprendedores
+        y recicladores de la EPSS y sus organizaciones, las instituciones del sector, y las unidades académicas,
+        proyectos y programas de la UNLP.
+    </string>
+    <string name="about_como_trabajamos_p2">
+        Definimos la agenda de trabajo en forma consensuada, en relación a las problemáticas definidas colectivamente.
+    </string>
+    <string name="about_como_trabajamos_p3">
+        Ajustamos e implementamos las acciones en relación al diagnóstico participativo.
+    </string>
+    <string name="about_ess_title">¿Qué es la economía social y solidaria?</string>
+    <string name="about_ess_paragraph">
+        &#160;La economía social o economía social y solidaria refiere principalmente a las relaciones
+        de producción y distribución que están organizadas por el principio de solidaridad y no
+        persiguen el lucro.\n
+        Es un sector de la economía que estaría a medio camino entre el sector
+        privado y el sector público. -- Wikipedia
+    </string>
+
+    <string name="welcome_email">paseosocial@gmail.com</string>
+    <string name="welcome_instagram_account">paseo.unlp</string>
+    <string name="welcome_paragraph">
+        &#160;Hacé tu pedido y lo llevamos a tu casa!\n
+        Si pedís antes del Martes a las 14 hs te llega entre el Miércoles y el Jueves.\n
+        Si pedís antes del Jueves a las 14 hs te llega entre el Viernes y el Sábado.\n
+        También podés elegir retirarlo los Miércoles y Viernes de 14 a 17 hs en nuestro nodo (Av. 1 e/ 45 y 46 N° 690 - CC Macacha Güemes).
+        Y los sábados de 13 a 16 hs.
+    </string>
+    <string name="welcome_phone_number">11-7361-9930</string>
+    <string name="welcome_subtitle">¡BIENVENIDX!</string>
+    <string name="welcome_subtitle_contact">Contacto</string>
+    <string name="welcome_title">El Paseo te lo lleva!</string>
+
 </resources>

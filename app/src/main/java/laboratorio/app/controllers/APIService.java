@@ -4,6 +4,9 @@ import java.util.List;
 
 import laboratorio.app.models.Category;
 import laboratorio.app.models.LoginUser;
+import laboratorio.app.models.NewsletterSubscription;
+import laboratorio.app.models.NewsletterSubscriptionResponse;
+import laboratorio.app.models.Producer;
 import laboratorio.app.models.Product;
 import laboratorio.app.models.RecoveryPassword;
 import laboratorio.app.models.RecoveryPasswordResponse;
@@ -30,6 +33,9 @@ public interface APIService {
     @POST("api/user/signup")
     Call<User> signUp(@Body User user);
 
+    @GET("api/producer")
+    Call<List<Producer>> getProducers();
+
     @GET("api/user/{id}")
     Call<User> getUser(@Path("id") String id, @Header("Authorization") String token);
 
@@ -41,4 +47,7 @@ public interface APIService {
 
     @POST("/api/email/recovery/confirm")
     Call<RecoveryPasswordResponse> postConfirmRecoveryPassword(@Body RecoveryPassword recoveryPassword);
+
+    @POST("api/newsletter")
+    Call<NewsletterSubscriptionResponse> subscribeNewsletter(@Body NewsletterSubscription email, @Header("Authorization") String token);
 }
