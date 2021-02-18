@@ -5,6 +5,7 @@ import java.util.List;
 import laboratorio.app.models.Category;
 import laboratorio.app.models.General;
 import laboratorio.app.models.LoginUser;
+import laboratorio.app.models.News;
 import laboratorio.app.models.NewsletterSubscription;
 import laboratorio.app.models.NewsletterSubscriptionResponse;
 import laboratorio.app.models.Producer;
@@ -59,4 +60,8 @@ public interface APIService {
 
     @GET("/api/general")
     Call<Pagination<General>> getGeneral();
+
+    @GET("api/news")
+    Call<Pagination<News>> getNews();
+
 }

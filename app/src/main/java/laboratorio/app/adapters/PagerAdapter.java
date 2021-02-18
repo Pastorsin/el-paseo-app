@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import laboratorio.app.fragments.StaticAboutFragment;
+import laboratorio.app.fragments.StaticNewsFragment;
 import laboratorio.app.fragments.StaticWelcomeFragment;
 import laboratorio.app.fragments.StaticProducersFragment;
 
@@ -24,6 +25,8 @@ public class PagerAdapter extends FragmentStateAdapter {
                 return new StaticProducersFragment();
             case 2:
                 return new StaticAboutFragment();
+            case 3:
+                return new StaticNewsFragment();
             default:
                 return null;
         }
@@ -31,7 +34,7 @@ public class PagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }
 
