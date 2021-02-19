@@ -25,7 +25,7 @@ public class User implements Serializable {
     private Address address;
     private Address deliveryAddress;
 
-    private Cart cart;
+    private UserCart userCart;
 
     private Integer role;
 
@@ -60,7 +60,7 @@ public class User implements Serializable {
                 @JsonProperty("phone") String phone,
                 @JsonProperty("address") Address address,
                 @JsonProperty("deliveryAddress") Address deliveryAddress,
-                @JsonProperty("cart") Cart cart,
+                @JsonProperty("cart") UserCart userCart,
                 @JsonProperty("role") Integer role) {
         this.id = id;
         this.email = email;
@@ -72,7 +72,7 @@ public class User implements Serializable {
         this.phone = phone;
         this.address = address;
         this.deliveryAddress = deliveryAddress;
-        this.cart = cart;
+        this.userCart = userCart;
         this.role = role;
     }
 
@@ -156,12 +156,12 @@ public class User implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public Cart getCart() {
-        return cart;
+    public UserCart getUserCart() {
+        return userCart;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setUserCart(UserCart userCart) {
+        this.userCart = userCart;
     }
 
     public Integer getRole() {
@@ -189,6 +189,6 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, encryptedPassword, firstName, lastName, name, age, phone, address, deliveryAddress, cart, role);
+        return Objects.hash(id, email, encryptedPassword, firstName, lastName, name, age, phone, address, deliveryAddress, userCart, role);
     }
 }

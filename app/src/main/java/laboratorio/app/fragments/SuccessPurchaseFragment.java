@@ -1,4 +1,4 @@
-package laboratorio.app.fragments.forms.purchase.items;
+package laboratorio.app.fragments;
 
 import android.os.Bundle;
 
@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 
 import laboratorio.app.R;
 
-public class DeliveryFormFragment extends Fragment {
-
+public class SuccessPurchaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_delivery_form, container, false);
+        return inflater.inflate(R.layout.fragment_success_purchase, container, false);
     }
 }

@@ -1,6 +1,7 @@
 package laboratorio.app.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,18 +97,21 @@ public class Producer implements Serializable {
     }
 
     public Image getMainImage() {
+        if (images == null)
+            return null;
+
         List<Image> mainImages = getMainImages();
 
         if (!mainImages.isEmpty())
             return mainImages.get(0);
 
-        if (!images.isEmpty())
-            return images.get(0);
-
-        return null;
+        return images.get(0);
     }
 
     public List<Image> getMainImages() {
+        if (images == null)
+            return new ArrayList<>();
+
         return images.stream().filter(Image::isMain).collect(Collectors.toList());
     }
 

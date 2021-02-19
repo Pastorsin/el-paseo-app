@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
+import laboratorio.app.databinding.FragmentDeliveryMethodFormBinding;
+import laboratorio.app.databinding.FragmentProductExtraInfoFormBinding;
 import laboratorio.app.fragments.forms.user.items.ItemMultiSteperFormFragment;
+import laboratorio.app.viewmodels.PurchaseViewModel;
 
 
 public class ProductExtraInfoFormFragment extends ItemMultiSteperFormFragment {
@@ -22,8 +25,9 @@ public class ProductExtraInfoFormFragment extends ItemMultiSteperFormFragment {
     }
 
     @Override
-    protected void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider viewModel) {
-
+    protected void setViewmodelsToDataBinding(ViewDataBinding binding, ViewModelProvider provider) {
+        FragmentProductExtraInfoFormBinding deliveryBinding = (FragmentProductExtraInfoFormBinding) binding;
+        deliveryBinding.setViewmodel(provider.get(PurchaseViewModel.class));
     }
 
     @Override

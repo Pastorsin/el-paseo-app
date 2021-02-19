@@ -35,6 +35,14 @@ public class Address implements Serializable {
         this.street = street;
     }
 
+    public String fullAddress() {
+        return String.format("%s Nº %s %s",
+                street,
+                number,
+                floor == null ? "" : floor
+        );
+    }
+
     public String getApartament() {
         return apartament;
     }

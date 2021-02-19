@@ -3,6 +3,7 @@ package laboratorio.app.fragments.forms.user.items;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;

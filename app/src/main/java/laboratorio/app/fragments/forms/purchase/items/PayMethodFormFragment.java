@@ -20,9 +20,7 @@ import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.viewmodels.FormViewModel;
 import laboratorio.app.viewmodels.PurchaseViewModel;
 
-public class PayMethodFormFragment extends Fragment {
-
-    Fragment lastFragmentLoaded;
+public class PayMethodFormFragment extends OneOptionChooserFragment {
 
     @Nullable
     @Override
@@ -34,37 +32,30 @@ public class PayMethodFormFragment extends Fragment {
 
         View view = binding.getRoot();
 
-        initRadioGroup(view);
+        super.initRadioGroup(view);
 
         return view;
     }
 
-    private void initRadioGroup(View view) {
-        RadioGroup radioGroup = view.findViewById(R.id.pay_method_checkboxs_layout);
-
-        radioGroup.setOnCheckedChangeListener((group, checkedElement) -> {
-            Fragment checkedFragment = (checkedElement == R.id.cash_check) ?
-                    new CashFormFragment() :
-                    new CreditCardFormFragment();
-
-            loadFragment(checkedFragment);
-        });
-
-        loadFragment(new CashFormFragment());
+    @Override
+    protected int getLoadFragmentContainerId() {
+        return R.id.pay_method_container;
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentLoader loader = (FragmentLoader) getActivity();
-        loader.replaceFragment(fragment, R.id.pay_method_container);
-
-        removeLastFragmentLoaded();
-        lastFragmentLoaded = fragment;
+    @Override
+    protected int getRadioGroupId() {
+        return R.id.pay_method_checkboxs_layout;
     }
 
-    private void removeLastFragmentLoaded() {
-        if (lastFragmentLoaded != null) {
-            FragmentLoader loader = (FragmentLoader) getActivity();
-            loader.removeFragment(lastFragmentLoaded);
-        }
+    @Override
+    public Fragment getCheckedFragment(RadioGroup group, int checkedElement) {
+        return (checkedElement == R.id.cash_check) ?
+                new CashFormFragment() :
+                new CreditCardFormFragment();
+    }
+
+    @Override
+    protected Fragment getInitialFragment() {
+        return new CashFormFragment();
     }
 }

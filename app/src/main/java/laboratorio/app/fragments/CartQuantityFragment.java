@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 import laboratorio.app.R;
 import laboratorio.app.helpers.FragmentLoader;
-import laboratorio.app.models.Cart;
+import laboratorio.app.models.UserCart;
 import laboratorio.app.models.CartProduct;
 import laboratorio.app.models.Product;
 
@@ -26,7 +26,7 @@ public class CartQuantityFragment extends Fragment {
 
     private Product product;
     private CartProduct cartProduct;
-    private Cart cart = Cart.instance;
+    private UserCart userCart = UserCart.instance;
 
     public CartQuantityFragment() {
         // Required empty public constructor
@@ -46,7 +46,7 @@ public class CartQuantityFragment extends Fragment {
         if (getArguments() != null) {
             product_arg = getArguments().getSerializable(PRODUCT_ARG);
             product = (Product) product_arg;
-            cartProduct = cart.getCartProductOrCreate(product);
+            cartProduct = userCart.getCartProductOrCreate(product);
         }
     }
 
@@ -75,7 +75,7 @@ public class CartQuantityFragment extends Fragment {
 
     private View.OnClickListener addToCart(TextView quantityInput, Button addToCartButton) {
         return view -> {
-            cart.addProduct(cartProduct);
+            userCart.addProduct(cartProduct);
             loadCartFragment();
         };
     }
@@ -114,7 +114,7 @@ public class CartQuantityFragment extends Fragment {
     }
 
     private void renderCartButton(Button button) {
-        int formatForTextButton = cart.contains(cartProduct) ?
+        int formatForTextButton = userCart.contains(cartProduct) ?
                 R.string.modify_product_cart_button_format :
                 R.string.add_to_cart_button_format;
 

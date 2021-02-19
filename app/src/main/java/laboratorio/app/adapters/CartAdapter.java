@@ -22,7 +22,6 @@ import laboratorio.app.fragments.ProductDetailFragment;
 import laboratorio.app.helpers.FragmentLoader;
 
 import laboratorio.app.fragments.CartFragment;
-import laboratorio.app.models.Cart;
 
 import laboratorio.app.models.CartProduct;
 import laboratorio.app.models.Product;

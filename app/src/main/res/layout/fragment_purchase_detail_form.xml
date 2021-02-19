@@ -1,21 +1,387 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/product_detail_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/node_date_label">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/summary_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#F3EFDD"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Resumen"
+                android:textColor="#540B0E"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pay_method_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#F3EFDD"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Forma de pago"
+                android:textColor="#540B0E"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/product_total_price_label"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/delivery_method_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#F3EFDD"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Forma de entrega"
+                android:textColor="#540B0E"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/pay_method_label"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <View
+                android:id="@+id/summary_separator"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@drawable/separator_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/products_list" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/delivery_method_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/delivery_method_header"
+                tools:layout_editor_absoluteX="0dp">
+
+                <ImageButton
+                    android:id="@+id/delivery_method_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:padding="2dp"
+                    android:src="@{viewmodel.isDeliveryChecked ? @drawable/ic_baseline_pedal_bike_24 : @drawable/ic_baseline_apartment_24}"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023"
+                    tools:srcCompat="@drawable/ic_baseline_apartment_24" />
+
+                <TextView
+                    android:id="@+id/delivery_method_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isDeliveryChecked ? `Entrega a domicilio` : `Retiro en ` + viewmodel.chosenNodeSchedule.node.name}"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/delivery_method_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Retiro en el nodo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pay_method_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pay_method_header">
+
+                <ImageButton
+                    android:id="@+id/pay_method_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:padding="2dp"
+                    android:src="@{viewmodel.isCashChecked ? @drawable/ic_round_money_24 : @drawable/ic_baseline_credit_card_24}"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023"
+                    tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+                <TextView
+                    android:id="@+id/pay_method_description_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical|end"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isCashChecked ? `$` + viewmodel.cashValue : viewmodel.creditCard.number}"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/pay_method_input"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="$200.00" />
+
+                <TextView
+                    android:id="@+id/pay_method_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isCashChecked ? `Efectivo` : `Tarjeta de crédito`}"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pay_method_description_input"
+                    app:layout_constraintStart_toEndOf="@+id/pay_method_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Efectivo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/delivery_method_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/delivery_method_label">
+
+                <ImageButton
+                    android:id="@+id/delivery_method_address_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_place_24"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023" />
+
+                <TextView
+                    android:id="@+id/delivery_method_address_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isDeliveryChecked ? viewmodel.deliveryAddress.address.fullAddress() : viewmodel.chosenNodeSchedule.node.address.fullAddress() }"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/delivery_method_address_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Calle 64 311" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/product_total_price_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/summary_separator">
+
+                <ImageButton
+                    android:id="@+id/product_price_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:src="@drawable/ic_baseline_monetization_on_24"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023" />
+
+                <TextView
+                    android:id="@+id/purchase_product_total_price"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@{viewmodel.totalPrice}"
+                    android:textColor="#540B0E"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/product_price_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1200.00" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/node_time_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="@{viewmodel.isDeliveryChecked ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/delivery_method_address">
+
+                <ImageButton
+                    android:id="@+id/node_time_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:padding="2dp"
+                    android:src="@{viewmodel.isDeliveryChecked ? @drawable/ic_baseline_pedal_bike_24 : @drawable/ic_baseline_apartment_24}"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023"
+                    tools:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+                <TextView
+                    android:id="@+id/node_time_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isDeliveryChecked ? `` : viewmodel.nodeTime}"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/node_time_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Desde 10:00 a 12:00" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/node_date_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="@{viewmodel.isDeliveryChecked ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/node_time_label">
+
+                <ImageButton
+                    android:id="@+id/node_date_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_calendar_24"
+                    android:tint="#E09F3E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023" />
+
+                <TextView
+                    android:id="@+id/node_date_input"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.isDeliveryChecked ? `` : viewmodel.nodeDate}"
+                    android:textColor="#540B0E"
+                    android:textColorHint="#540B0E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/node_date_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="@tools:sample/date/ddmmyy" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/products_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/summary_header">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="laboratorio.app.viewmodels.PurchaseViewModel" />
     </data>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".fragments.forms.purchase.items.PurchaseDetailFormFragment">
-
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="purchase detail" />
-
-    </FrameLayout>
 </layout>

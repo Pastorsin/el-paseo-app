@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentCashFormBinding;
 import laboratorio.app.fragments.forms.user.items.ItemMultiSteperFormFragment;
-import laboratorio.app.models.Cart;
+import laboratorio.app.models.UserCart;
 import laboratorio.app.viewmodels.PurchaseViewModel;
 
 public class CashFormFragment extends ItemMultiSteperFormFragment {
 
-    private Cart cart = Cart.instance;
+    private UserCart userCart = UserCart.instance;
 
     private PurchaseViewModel purchaseViewModel;
 
@@ -42,7 +42,7 @@ public class CashFormFragment extends ItemMultiSteperFormFragment {
     }
 
     private String cashError() {
-        return String.format(getString(R.string.cash_error_format), cart.getTotal());
+        return String.format(getString(R.string.cash_error_format), userCart.getTotal());
     }
 
     @NotNull
@@ -52,7 +52,7 @@ public class CashFormFragment extends ItemMultiSteperFormFragment {
                 return false;
 
             Double cashValue = Double.valueOf(cashValueText);
-            return cashValue >= cart.getTotal();
+            return cashValue >= userCart.getTotal();
         };
     }
 }

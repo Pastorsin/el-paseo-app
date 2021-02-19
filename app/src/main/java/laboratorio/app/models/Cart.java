@@ -1,28 +1,19 @@
 package laboratorio.app.models;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
-public class Cart{
-    public static final Cart instance = new Cart();
-    //aprovedAt DateTime
-    private final Set<CartProduct> cartProducts= new LinkedHashSet<CartProduct>();
-    //deletedAt DateTime
-    //delivered DateTime
-    //general General
-    //public int id;
-    //nodeDate AvailableNode
-    //posibleDeliveryDate DateTime
+public class Cart {
+    private Integer id;
+    private Set<CartProduct> cartProducts = new LinkedHashSet<>();
+    private AvailableNode nodeDate;
+    private String observation;
+    private User user;
     private String saleDate;
-    private Double total;
-    //user User
-
-    private Cart(){}
+    // private ? posibleDeliveryDate
 
     public void addProduct(CartProduct cartProduct){
         cartProducts.add(cartProduct);
@@ -44,6 +35,10 @@ public class Cart{
 
     public List<CartProduct> getCartProducts(){
         return new ArrayList<>(cartProducts);
+    }
+
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = new HashSet<>(cartProducts);
     }
 
     public boolean contains(CartProduct cartProduct) {
@@ -68,8 +63,55 @@ public class Cart{
         return new CartProduct(this, product, 1);
     }
 
-
     public void remove(List<CartProduct> listOfCartProducts) {
         cartProducts.removeAll(listOfCartProducts);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public AvailableNode getNodeDate() {
+        return nodeDate;
+    }
+
+    public void setNodeDate(AvailableNode nodeDate) {
+        this.nodeDate = nodeDate;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public void reset() {
+        cartProducts.clear();
+        nodeDate = null;
+        observation = null;
+        user = null;
+        saleDate = null;
     }
 }

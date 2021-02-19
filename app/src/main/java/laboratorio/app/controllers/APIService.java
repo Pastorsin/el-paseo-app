@@ -2,6 +2,7 @@ package laboratorio.app.controllers;
 
 import java.util.List;
 
+import laboratorio.app.models.Cart;
 import laboratorio.app.models.Category;
 import laboratorio.app.models.General;
 import laboratorio.app.models.LoginUser;
@@ -59,4 +60,7 @@ public interface APIService {
 
     @GET("/api/general")
     Call<Pagination<General>> getGeneral();
+
+    @POST("/api/cart")
+    Call<Cart> postCart(@Body Cart cart, @Header("Authorization") String token);
 }

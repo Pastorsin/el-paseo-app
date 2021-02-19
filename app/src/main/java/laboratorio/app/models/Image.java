@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class Image implements Serializable {
@@ -11,6 +14,7 @@ public class Image implements Serializable {
     private boolean isMain;
     private String name;
     private String type;
+
     private String value;
 
     public int getId() {
@@ -45,10 +49,12 @@ public class Image implements Serializable {
         this.type = type;
     }
 
+    @JsonIgnore
     public String getValue() {
         return value;
     }
 
+    @JsonProperty
     public void setValue(String value) {
         this.value = value;
     }

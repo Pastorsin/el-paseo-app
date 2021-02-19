@@ -230,4 +230,7 @@
     <string name="purchase_form_step_4">Confirmar compra</string>
     <string name="cash_error_format">El valor debe ser mayor o igual a %.2f</string>
     <string name="road_error">Error al trazar la ruta</string>
+    <string name="schedule_node_error">Seleccione un horario porfavor</string>
+    <string name="tip_purchase_detail">Propina</string>
+    <string name="not_user_logged_error">Necesitas iniciar sesión para realizar esta acción</string>
 </resources>

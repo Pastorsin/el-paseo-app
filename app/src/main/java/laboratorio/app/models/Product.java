@@ -1,6 +1,13 @@
 package laboratorio.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -82,10 +89,12 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
+    @JsonIgnore
     public Producer getProducer() {
         return producer;
     }
 
+    @JsonProperty
     public void setProducer(Producer producer) {
         this.producer = producer;
     }
@@ -122,10 +131,12 @@ public class Product implements Serializable {
         this.images = images;
     }
 
+    @JsonIgnore
     public Unit getUnit() {
         return unit;
     }
 
+    @JsonProperty
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
@@ -140,18 +151,21 @@ public class Product implements Serializable {
     }
 
     public Image getMainImage() {
+        if (images == null)
+            return null;
+
         List<Image> mainImages = getMainImages();
 
         if (!mainImages.isEmpty())
             return mainImages.get(0);
 
-        if (!images.isEmpty())
-            return images.get(0);
-
-        return null;
+        return images.get(0);
     }
 
     public List<Image> getMainImages() {
+        if (images == null)
+            return new ArrayList<>();
+
         return images.stream().filter(Image::isMain).collect(Collectors.toList());
     }
 

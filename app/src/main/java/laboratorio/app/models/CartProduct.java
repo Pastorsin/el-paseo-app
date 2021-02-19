@@ -9,6 +9,8 @@ public class CartProduct {
     private Product product;
     private Integer quantity;
 
+    public CartProduct(){}
+
     public CartProduct(Cart cart, Product product, int quantity){
         this.cart = cart;
         this.isCanceled = false;

@@ -17,8 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,15 +24,15 @@ import laboratorio.app.R;
 import laboratorio.app.adapters.CartAdapter;
 import laboratorio.app.fragments.forms.purchase.PurchaseFragment;
 import laboratorio.app.helpers.FragmentLoader;
-import laboratorio.app.models.Cart;
+import laboratorio.app.models.UserCart;
 import laboratorio.app.models.CartProduct;
 
 public class CartFragment extends Fragment {
     private ArrayAdapter adapter;
     private TextView totalPriceView;
 
-    private Cart cart = Cart.instance;
-    private List<CartProduct> cartProducts = cart.getCartProducts();
+    private UserCart userCart = UserCart.instance;
+    private List<CartProduct> cartProducts = userCart.getCartProducts();
 
     private static boolean isActionMode = false;
     private static List<CartProduct> cartProductsSelected = new ArrayList<>();
@@ -52,7 +50,7 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (cart.isEmpty()) {
+        if (userCart.isEmpty()) {
             return inflater.inflate(R.layout.fragment_cart_empty_cart, container, false);
         } else {
             View view =  inflater.inflate(R.layout.fragment_cart, container, false);
@@ -86,7 +84,7 @@ public class CartFragment extends Fragment {
     private void addTotalPrice(View view){
         totalPriceView = (TextView) view.findViewById(R.id.cart_total_price_text);
         String priceFormat = getContext().getString(R.string.product_price_format);
-        Double totalPrice = cart.getTotal();
+        Double totalPrice = userCart.getTotal();
 
         totalPriceView.setText(String.format(priceFormat, totalPrice));
     }
@@ -128,7 +126,7 @@ public class CartFragment extends Fragment {
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.cart_remove:
-                    cart.remove(cartProductsSelected);
+                    userCart.remove(cartProductsSelected);
                     actionMode.finish();
                     loadCartFragment();
             }
