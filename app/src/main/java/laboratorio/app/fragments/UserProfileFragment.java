@@ -1,19 +1,29 @@
 package laboratorio.app.fragments;
 
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -64,7 +74,10 @@ public class UserProfileFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
 
         appViewmodel = provider.get(ApplicationViewModel.class);
+
         userViewModel = provider.get(UserViewModel.class);
+        userViewModel.reset();
+
         formViewModel = provider.get(FormViewModel.class);
     }
 
@@ -153,13 +166,36 @@ public class UserProfileFragment extends Fragment {
         formViewModel.isValid.observe(getViewLifecycleOwner(), isValid -> {
                     if (isValid) {
                         appViewmodel.isLoading.setValue(true);
-                        // TODO: Put user request
-                        appViewmodel.errorEvent.call();
-                        appViewmodel.isLoading.setValue(false);
+
+                        ApiSession.instance.getToken(getContext(), accountManagerFuture -> {
+                            try {
+                                String token = accountManagerFuture.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+                                putUser(token);
+                            } catch (AuthenticatorException | IOException | OperationCanceledException e) {
+                                appViewmodel.errorEvent.call();
+                                Log.e("PUT USER", "Authentication error", e);
+                            } finally {
+                                appViewmodel.isLoading.setValue(false);
+                            }
+                        });
+
                     }
                 }
         );
 
+    }
+
+    private void putUser(String token) {
+        userViewModel.putNonCredentialInformation(token).observe(getViewLifecycleOwner(), user -> {
+            if (user == null)
+                appViewmodel.errorEvent.call();
+            else
+                onSuccessPutUser();
+        });
+    }
+
+    private void onSuccessPutUser() {
+        Toast.makeText(getContext(), R.string.put_user_success_message, Toast.LENGTH_SHORT).show();
     }
 
     private void loadFragmentOnTabContainer(Fragment fragment) {

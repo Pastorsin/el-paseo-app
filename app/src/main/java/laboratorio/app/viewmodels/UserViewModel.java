@@ -131,15 +131,23 @@ public class UserViewModel extends ViewModel {
     }
 
     private void initAddresses(User user) {
-        residencyAddress.init(user.getAddress());
+        initResidencyAddress(user);
+        initDeliveryAddress(user);
+    }
+
+    private void initDeliveryAddress(User user) {
         deliveryAddress.init(user.getDeliveryAddress());
+    }
+
+    private void initResidencyAddress(User user) {
+        residencyAddress.init(user.getAddress());
     }
 
     public User getUser() {
         return user;
     }
 
-    public MutableLiveData<User> putUser(String token) {
+    private MutableLiveData<User> putUser(String token) {
         MutableLiveData<User> userResponse = new MutableLiveData<>();
 
         API.instance.getService().putUser(user, token).enqueue(new Callback<User>() {
@@ -166,8 +174,22 @@ public class UserViewModel extends ViewModel {
         return userResponse;
     }
 
-    public MutableLiveData<User> putEmail(String email, String token) {
-        user.setEmail(email);
+    public MutableLiveData<User> putEmail(String newEmail, String token) {
+        user.setEmail(newEmail);
+
+        return putUser(token);
+    }
+
+    public MutableLiveData<User> putNonCredentialInformation(String token) {
+        user.setNonCredentialInformation(
+                firstName.getValue(),
+                lastName.getValue(),
+                getAgeNumber(),
+                phone.getValue(),
+                residencyAddress.getAddress(),
+                deliveryAddress.getAddress()
+        );
+
         return putUser(token);
     }
 }
