@@ -1,12 +1,16 @@
 package laboratorio.app.fragments.forms.purchase;
 
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +76,7 @@ public class PurchaseFragment extends MultiStepperFormFragment {
 
                 viewmodel.postCart(token).observe(getViewLifecycleOwner(), cart -> {
                     if (cart == null) {
+                        onPurchaseError();
                         Log.e("CART", "Request failed for complete the buy");
                     } else {
                         onSuccessPurchase();
@@ -79,17 +84,21 @@ public class PurchaseFragment extends MultiStepperFormFragment {
                     }
                 });
 
-            } catch (Exception e) {
-                onUserLoggedError();
-                Log.e("CART", "No user logged for complete the buy");
+            } catch (AuthenticatorException | OperationCanceledException | IOException e) {
+                onPurchaseError();
+                Log.e("CART", "No user logged for complete the buy", e);
             }
         });
     }
 
+    private void onPurchaseError() {
+        Toast.makeText(getContext(), "Ha ocurrido un error, intente de nuevo porfavor", Toast.LENGTH_SHORT).show();
+    }
+
     private void onSuccessPurchase() {
-        viewmodel.resetAll();
         FragmentLoader loader = (FragmentLoader) getActivity();
         loader.replaceFragmentOnMainContainer(new SuccessPurchaseFragment());
+        viewmodel.resetAll();
     }
 
     @Override

@@ -39,7 +39,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         String priceText = String.format(
                 getContext().getString(R.string.product_price_format),
-                product.getBuyPrice()
+                product.getPrice()
         );
 
         priceView.setText(priceText);

@@ -6,6 +6,7 @@ public class CartProduct {
     private Cart cart;
     private boolean isCanceled;
     private Double price;
+
     private Product product;
     private Integer quantity;
 
@@ -15,7 +16,7 @@ public class CartProduct {
         this.cart = cart;
         this.isCanceled = false;
         this.product = product;
-        this.price = product.getBuyPrice();
+        this.price = product.getPrice();
         this.quantity = quantity;
     }
 

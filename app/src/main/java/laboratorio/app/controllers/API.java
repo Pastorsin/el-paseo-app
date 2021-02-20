@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import laboratorio.app.models.Product;
 import retrofit2.Call;
@@ -34,7 +35,7 @@ public class API {
     private ObjectMapper buildObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.000'Z'"));
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"));
 
         return objectMapper;
     }
