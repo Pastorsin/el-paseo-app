@@ -4,6 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class EmailViewModel extends ViewModel {
-    public final MutableLiveData<String> email = new MutableLiveData<>();
+    public final MutableLiveData<String> email = new MutableLiveData<>("");
 
+    public void reset() {
+        email.setValue("");
+    }
 }

@@ -11,8 +11,10 @@ import java.util.Objects;
 
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
+import laboratorio.app.controllers.APIService;
 import laboratorio.app.models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,5 +133,41 @@ public class UserViewModel extends ViewModel {
     private void initAddresses(User user) {
         residencyAddress.init(user.getAddress());
         deliveryAddress.init(user.getDeliveryAddress());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public MutableLiveData<User> putUser(String token) {
+        MutableLiveData<User> userResponse = new MutableLiveData<>();
+
+        API.instance.getService().putUser(user, token).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    user = response.body();
+                    reset();
+
+                    userResponse.setValue(user);
+                } else {
+                    userResponse.setValue(null);
+                    Log.e("PUT USER", String.format("Request error %s", response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                userResponse.setValue(null);
+                Log.e("PUT USER", "Network error", t);
+            }
+        });
+
+        return userResponse;
+    }
+
+    public MutableLiveData<User> putEmail(String email, String token) {
+        user.setEmail(email);
+        return putUser(token);
     }
 }

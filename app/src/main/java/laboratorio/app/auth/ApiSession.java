@@ -77,6 +77,32 @@ public class ApiSession {
         return am.getUserData(getAccount(context), USER_ID_KEY);
     }
 
+    public MutableLiveData<Boolean> editUsername(Context context, String newUsername) {
+        MutableLiveData<Boolean> response = new MutableLiveData<>();
+        AccountManager am = AccountManager.get(context);
+
+        am.renameAccount(getAccount(context), newUsername, accountManagerFuture -> {
+            try {
+                Account account = accountManagerFuture.getResult();
+
+                if (account == null) {
+                    response.setValue(false);
+                    Log.e("EDIT ACCOUNT USERNAME", "Error renaming account");
+                }
+
+                response.setValue(true);
+                Log.d("EDIT ACCOUNT USERNAME", "Account rename succesfully");
+
+            } catch (AuthenticatorException | IOException | OperationCanceledException e) {
+                response.setValue(false);
+                Log.e("EDIT ACCOUNT USERNAME", "Authentication error", e);
+            }
+
+        }, null);
+
+        return response;
+    }
+
     public MutableLiveData<User> getUserLogged(Context context) {
         MutableLiveData<User> userResponse = new MutableLiveData<>();
 

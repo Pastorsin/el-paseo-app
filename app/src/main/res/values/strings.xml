@@ -235,4 +235,6 @@
     <string name="schedule_node_error">Seleccione un horario porfavor</string>
     <string name="tip_purchase_detail">Propina</string>
     <string name="not_user_logged_error">Necesitas iniciar sesión para realizar esta acción</string>
+    <string name="try_again_error">Ha ocurrido un error, intente de nuevo porfavor</string>
+    <string name="put_user_success_message">Usuario modificado correctamente</string>
 </resources>
