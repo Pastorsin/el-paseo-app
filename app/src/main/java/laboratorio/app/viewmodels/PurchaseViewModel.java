@@ -33,7 +33,7 @@ import retrofit2.Response;
 import static java.util.stream.Collectors.groupingBy;
 
 public class PurchaseViewModel extends ViewModel {
-    public final MutableLiveData<UserCart> cart = new MutableLiveData<>();
+    public final MutableLiveData<Cart> cart = new MutableLiveData<>();
 
     public final MutableLiveData<Boolean> isCashChecked = new MutableLiveData<>();
     public final MutableLiveData<String> cashValue = new MutableLiveData<>();
@@ -50,12 +50,22 @@ public class PurchaseViewModel extends ViewModel {
     public final MutableLiveData<User> user = new MutableLiveData<>();
     public final AddressViewModel deliveryAddress = new AddressViewModel();
 
-    public void reset() {
+    public void resetAll() {
+        resetCart();
+        resetFields();
+        resetUser();
+    }
+
+    private void resetCart() {
         cart.getValue().reset();
     }
 
-    public void init(@NotNull User userLogged) {
-        cart.setValue(UserCart.instance);
+    private void resetUser() {
+        this.user.setValue(null);
+        this.deliveryAddress.reset();
+    }
+
+    private void resetFields() {
         isCashChecked.setValue(true);
         cashValue.setValue("");
         creditCard.setValue(null);
@@ -63,7 +73,28 @@ public class PurchaseViewModel extends ViewModel {
         chosenNodeSchedule.setValue(null);
         tipValue.setValue("");
         observation.setValue("");
-        user.setValue(userLogged);
+    }
+
+    public void initDetail(@NotNull Cart cart, @NotNull User userLogged) {
+        init(cart, userLogged);
+        isCashChecked.setValue(true);
+        cashValue.setValue(String.format("%.2f",cart.getTotal()));
+        creditCard.setValue(null);
+        isDeliveryChecked.setValue(cart.isDeliverable());
+        chosenNodeSchedule.setValue(cart.getNodeDate());
+        tipValue.setValue("");
+        observation.setValue(cart.getObservation());
+    }
+
+    public void initCreate(@NotNull Cart cart, @NotNull User userLogged) {
+        init(cart, userLogged);
+        resetFields();
+    }
+
+    private void init(@NotNull Cart cart, @NotNull User userLogged) {
+        this.cart.setValue(cart);
+
+        this.user.setValue(userLogged);
 
         if (userLogged.getDeliveryAddress() != null)
             deliveryAddress.init(userLogged.getDeliveryAddress());
@@ -73,9 +104,9 @@ public class PurchaseViewModel extends ViewModel {
 
     public MutableLiveData<Cart> postCart(String token) {
         MutableLiveData<Cart> cartResponse = new MutableLiveData<>();
-        UserCart userCart = getCartWithCurrentFields();
+        Cart cart = getCartWithCurrentFields();
 
-        API.instance.getService().postCart(userCart, token).enqueue(new Callback<Cart>() {
+        API.instance.getService().postCart(cart, token).enqueue(new Callback<Cart>() {
             @Override
             public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful()) {
@@ -97,21 +128,21 @@ public class PurchaseViewModel extends ViewModel {
         return cartResponse;
     }
 
-    public UserCart getCartWithCurrentFields() {
-        UserCart userCart = this.cart.getValue();
+    public Cart getCartWithCurrentFields() {
+        Cart cart = this.cart.getValue();
         User user = this.user.getValue();
 
-        userCart.setUser(user);
+        cart.setUser(user);
 
         if (isDeliveryChecked.getValue()) {
             user.setDeliveryAddress(deliveryAddress.getAddress());
         } else {
-            userCart.setNodeDate(chosenNodeSchedule.getValue());
+            cart.setNodeDate(chosenNodeSchedule.getValue());
         }
 
-        userCart.setObservation(observation.getValue());
+        cart.setObservation(observation.getValue());
 
-        return userCart;
+        return cart;
     }
 
     public MutableLiveData<Map<Node, List<AvailableNode>>> fetchNodes() {

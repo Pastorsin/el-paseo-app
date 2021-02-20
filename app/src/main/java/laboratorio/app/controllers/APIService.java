@@ -63,4 +63,7 @@ public interface APIService {
 
     @POST("/api/cart")
     Call<Cart> postCart(@Body Cart cart, @Header("Authorization") String token);
+
+    @GET("/api/cart")
+    Call<Pagination<Cart>> getCart(@Header("Authorization") String token);
 }

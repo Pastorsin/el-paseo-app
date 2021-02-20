@@ -17,6 +17,7 @@ import laboratorio.app.fragments.ErrorFragment;
 import laboratorio.app.fragments.SuccessPurchaseFragment;
 import laboratorio.app.fragments.forms.MultiStepperFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
+import laboratorio.app.models.UserCart;
 import laboratorio.app.viewmodels.PurchaseViewModel;
 
 public class PurchaseFragment extends MultiStepperFormFragment {
@@ -39,7 +40,7 @@ public class PurchaseFragment extends MultiStepperFormFragment {
                     if (user == null)
                         onUserLoggedError();
                     else
-                        viewmodel.init(user);
+                        viewmodel.initCreate(UserCart.instance, user);
                 });
     }
 
@@ -86,7 +87,7 @@ public class PurchaseFragment extends MultiStepperFormFragment {
     }
 
     private void onSuccessPurchase() {
-        viewmodel.reset();
+        viewmodel.resetAll();
         FragmentLoader loader = (FragmentLoader) getActivity();
         loader.replaceFragmentOnMainContainer(new SuccessPurchaseFragment());
     }

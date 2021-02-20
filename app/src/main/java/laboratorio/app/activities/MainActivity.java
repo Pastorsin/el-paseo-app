@@ -11,6 +11,7 @@ import laboratorio.app.fragments.HomeFragment;
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.databinding.ActivityMainBinding;
 import laboratorio.app.fragments.ErrorFragment;
+import laboratorio.app.fragments.PurchaseListFragment;
 import laboratorio.app.fragments.SignInFragment;
 import laboratorio.app.fragments.UserProfileFragment;
 import laboratorio.app.fragments.forms.purchase.items.NodeFormFragment;
@@ -100,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                 case R.id.home_nav:
                     toolbar.setTitle("Home");
                     fragment = new HomeFragment();
+                    replaceFragmentOnMainContainer(fragment);
+                    return true;
+                case R.id.purchase_nav:
+                    toolbar.setTitle("Mis compras");
+                    fragment = new PurchaseListFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
             }

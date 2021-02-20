@@ -12,6 +12,10 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Carrito" />
     <item
+        android:id="@+id/purchase_nav"
+        android:icon="@drawable/ic_baseline_description_24"
+        android:title="Mis compras" />
+    <item
         android:id="@+id/store_nav"
         android:icon="@drawable/ic_baseline_storefront_24"
         android:title="Productos" />

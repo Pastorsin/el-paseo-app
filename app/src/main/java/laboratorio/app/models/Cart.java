@@ -1,19 +1,25 @@
 package laboratorio.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Cart {
+public class Cart implements Serializable {
     private Integer id;
     private Set<CartProduct> cartProducts = new LinkedHashSet<>();
     private AvailableNode nodeDate;
     private String observation;
     private User user;
-    private String saleDate;
-    // private ? posibleDeliveryDate
+    private Date saleDate;
+    private Date posibleDeliveryDate;
 
     public void addProduct(CartProduct cartProduct){
         cartProducts.add(cartProduct);
@@ -99,11 +105,11 @@ public class Cart {
         this.user = user;
     }
 
-    public String getSaleDate() {
+    public Date getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(String saleDate) {
+    public void setSaleDate(Date saleDate) {
         this.saleDate = saleDate;
     }
 
@@ -113,5 +119,23 @@ public class Cart {
         observation = null;
         user = null;
         saleDate = null;
+    }
+
+    public Date getPosibleDeliveryDate() {
+        return posibleDeliveryDate;
+    }
+
+    public void setPosibleDeliveryDate(Date posibleDeliveryDate) {
+        this.posibleDeliveryDate = posibleDeliveryDate;
+    }
+
+    @JsonIgnore
+    public boolean isDeliverable() {
+        return getNodeDate().getId() == null;
+    }
+
+    @JsonIgnore
+    public boolean hasPosibleDeliveryDate() {
+        return getPosibleDeliveryDate() != null;
     }
 }
