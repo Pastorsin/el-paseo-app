@@ -6,6 +6,7 @@ import laboratorio.app.models.Cart;
 import laboratorio.app.models.Category;
 import laboratorio.app.models.General;
 import laboratorio.app.models.LoginUser;
+import laboratorio.app.models.News;
 import laboratorio.app.models.NewsletterSubscription;
 import laboratorio.app.models.NewsletterSubscriptionResponse;
 import laboratorio.app.models.Producer;
@@ -66,4 +67,8 @@ public interface APIService {
 
     @GET("/api/cart")
     Call<Pagination<Cart>> getCart(@Header("Authorization") String token);
+
+    @GET("api/news")
+    Call<Pagination<News>> getNews();
+
 }

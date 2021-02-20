@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.PagerAdapter;
+import laboratorio.app.adapters.StaticNewsAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -60,5 +61,6 @@ public class HomeFragment extends Fragment {
         tabNames.add(StaticWelcomeFragment.ARG_OBJECT);
         tabNames.add(StaticProducersFragment.ARG_OBJECT);
         tabNames.add(StaticAboutFragment.ARG_OBJECT);
+        tabNames.add(StaticNewsFragment.ARG_OBJECT);
     }
 }
