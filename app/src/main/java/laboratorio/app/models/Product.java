@@ -148,13 +148,16 @@ public class Product implements Serializable {
     }
 
     public Image getMainImage() {
-        if (images == null)
-            return null;
-
         List<Image> mainImages = getMainImages();
 
         if (!mainImages.isEmpty())
             return mainImages.get(0);
+
+        if (images == null)
+            return null;
+
+        if (images.isEmpty())
+            return null;
 
         return images.get(0);
     }
