@@ -236,4 +236,10 @@
     <string name="schedule_node_error">Seleccione un horario porfavor</string>
     <string name="tip_purchase_detail">Propina</string>
     <string name="not_user_logged_error">Necesitas iniciar sesión para realizar esta acción</string>
+    <string name="try_again_error">Ha ocurrido un error, intente de nuevo porfavor</string>
+    <string name="put_user_success_message">Usuario modificado correctamente</string>
+    <string name="CREATE_ACCOUNT_ERROR">Ha ocurrido al crear su cuenta localmente, porfavor verifique las cuentas en su dispositivo</string>
+    <string name="account_nav_title">Mi cuenta</string>
+    <string name="home_nav_title">Inicio</string>
+    <string name="purchases_list_title">Mis compras</string>
 </resources>

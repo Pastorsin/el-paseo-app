@@ -2,6 +2,7 @@ package laboratorio.app.viewmodels;
 
 import android.util.Log;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,31 +23,31 @@ public class PurchaseListViewModel extends ViewModel {
     private final MutableLiveData<List<Cart>> userPurchases = new MutableLiveData<>();
     public final SingleLiveEvent<Cart> targetPurchase = new SingleLiveEvent<>();
 
+
     public MutableLiveData<List<Cart>> getPurchases(User userLogged, String token) {
-        if (userPurchases.getValue() == null) {
+        API.instance.getService().getCart(token).enqueue(new Callback<Pagination<Cart>>() {
+            @Override
+            public void onResponse(Call<Pagination<Cart>> call, Response<Pagination<Cart>> response) {
+                if (response.isSuccessful()) {
+                    List<Cart> allPurchases = response.body().getPage();
+                    List<Cart> purchases = getFilterUserPurchases(userLogged, allPurchases);
+                    purchases.sort((p1, p2) -> p2.getSaleDate().compareTo(p1.getSaleDate()));
 
-            API.instance.getService().getCart(token).enqueue(new Callback<Pagination<Cart>>() {
-                @Override
-                public void onResponse(Call<Pagination<Cart>> call, Response<Pagination<Cart>> response) {
-                    if (response.isSuccessful()) {
-                        List<Cart> allPurchases = response.body().getPage();
-                        List<Cart> purchases = getFilterUserPurchases(userLogged, allPurchases);
-                        userPurchases.setValue(purchases);
-
-                        Log.d("GET CART", "Success get cart");
-                    } else {
-                        userPurchases.setValue(null);
-                        Log.e("GET CART", String.format("Get failed %s", response.code()));
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Pagination<Cart>> call, Throwable t) {
+                    userPurchases.setValue(purchases);
+                    Log.d("GET CART", "Success get cart");
+                } else {
                     userPurchases.setValue(null);
-                    Log.e("GET CART", "Network error", t);
+                    Log.e("GET CART", String.format("Get failed %s", response.code()));
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<Pagination<Cart>> call, Throwable t) {
+                userPurchases.setValue(null);
+                Log.e("GET CART", "Network error", t);
+            }
+        });
+
         return userPurchases;
     }
 

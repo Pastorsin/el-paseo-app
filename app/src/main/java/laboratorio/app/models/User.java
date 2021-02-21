@@ -1,6 +1,7 @@
 package laboratorio.app.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -190,5 +191,15 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, email, encryptedPassword, firstName, lastName, name, age, phone, address, deliveryAddress, userCart, role);
+    }
+
+    @JsonIgnore
+    public void setNonCredentialInformation(String firstName, String lastName, Integer age, String phone, Address residencyaddress, Address deliveryAddress) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setAge(age);
+        setPhone(phone);
+        setAddress(residencyaddress);
+        setDeliveryAddress(deliveryAddress);
     }
 }

@@ -139,7 +139,7 @@ public class ProductDetailFragment extends Fragment {
     private void addPrice(View view) {
         TextView priceView = view.findViewById(R.id.product_price);
         String priceToShow = String.format(getString(R.string.product_price_format),
-                product.getBuyPrice());
+                product.getPrice());
         priceView.setText(priceToShow);
     }
 

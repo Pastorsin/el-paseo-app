@@ -1,10 +1,7 @@
 package laboratorio.app.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ public class Product implements Serializable {
     private String brand;
     private String deletedAt;
 
-    private Double buyPrice;
+    private Double price;
 
     private Integer unitQuantity;
     private Integer stock;
@@ -65,12 +62,12 @@ public class Product implements Serializable {
         this.brand = brand;
     }
 
-    public Double getBuyPrice() {
-        return buyPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setBuyPrice(Double buyPrice) {
-        this.buyPrice = buyPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Integer getUnitQuantity() {
@@ -151,13 +148,16 @@ public class Product implements Serializable {
     }
 
     public Image getMainImage() {
-        if (images == null)
-            return null;
-
         List<Image> mainImages = getMainImages();
 
         if (!mainImages.isEmpty())
             return mainImages.get(0);
+
+        if (images == null)
+            return null;
+
+        if (images.isEmpty())
+            return null;
 
         return images.get(0);
     }

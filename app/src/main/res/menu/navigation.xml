@@ -3,18 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home_nav"
-        android:icon="@drawable/ic_baseline_home"
-        android:title="Home"
-        tools:icon="@drawable/ic_baseline_home" />
-    <item
         android:id="@+id/cart_nav"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Carrito" />
     <item
         android:id="@+id/purchase_nav"
         android:icon="@drawable/ic_baseline_description_24"
-        android:title="Mis compras" />
+        android:title="Compras" />
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/ic_baseline_home"
+        android:title="Inicio"
+        tools:icon="@drawable/ic_baseline_home" />
     <item
         android:id="@+id/store_nav"
         android:icon="@drawable/ic_baseline_storefront_24"
@@ -22,5 +22,5 @@
     <item
         android:id="@+id/account_nav"
         android:icon="@drawable/ic_baseline_account_circle_24"
-        android:title="Mi cuenta" />
+        android:title="Cuenta" />
 </menu>

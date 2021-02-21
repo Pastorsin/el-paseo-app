@@ -36,9 +36,9 @@ public class Address implements Serializable {
     }
 
     public String fullAddress() {
-        return String.format("%s Nº %s %s",
+        return String.format("%s %s %s",
                 street,
-                number,
+                number == null ? "" : String.format("Nº %s", number),
                 floor == null ? "" : floor
         );
     }

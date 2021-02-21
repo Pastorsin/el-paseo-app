@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
 import laboratorio.app.models.AvailableNode;
 import laboratorio.app.models.Cart;
-import laboratorio.app.models.UserCart;
 import laboratorio.app.models.CartProduct;
 import laboratorio.app.models.General;
 import laboratorio.app.models.Node;
@@ -35,17 +34,17 @@ import static java.util.stream.Collectors.groupingBy;
 public class PurchaseViewModel extends ViewModel {
     public final MutableLiveData<Cart> cart = new MutableLiveData<>();
 
-    public final MutableLiveData<Boolean> isCashChecked = new MutableLiveData<>();
-    public final MutableLiveData<String> cashValue = new MutableLiveData<>();
+    public final MutableLiveData<Boolean> isCashChecked = new MutableLiveData<>(true);
+    public final MutableLiveData<String> cashValue = new MutableLiveData<>("");
     public final MutableLiveData<CreditCard> creditCard = new MutableLiveData<>();
 
-    public final MutableLiveData<Boolean> isDeliveryChecked = new MutableLiveData<>();
+    public final MutableLiveData<Boolean> isDeliveryChecked = new MutableLiveData<>(false);
     public final MutableLiveData<AvailableNode> chosenNodeSchedule = new MutableLiveData<>();
 
     private final MutableLiveData<Map<Node, List<AvailableNode>>> nodes = new MutableLiveData<>();
 
-    public final MutableLiveData<String> tipValue = new MutableLiveData<>();
-    public final MutableLiveData<String> observation = new MutableLiveData<>();
+    public final MutableLiveData<String> tipValue = new MutableLiveData<>("");
+    public final MutableLiveData<String> observation = new MutableLiveData<>("");
 
     public final MutableLiveData<User> user = new MutableLiveData<>();
     public final AddressViewModel deliveryAddress = new AddressViewModel();
@@ -88,7 +87,6 @@ public class PurchaseViewModel extends ViewModel {
 
     public void initCreate(@NotNull Cart cart, @NotNull User userLogged) {
         init(cart, userLogged);
-        resetFields();
     }
 
     private void init(@NotNull Cart cart, @NotNull User userLogged) {
@@ -197,7 +195,7 @@ public class PurchaseViewModel extends ViewModel {
 
         detail.addAll(cart.getValue().getCartProducts());
 
-        detail.add(new CartProduct(cart.getValue(), getTipProduct(), 1));
+        detail.add(new CartProduct(null, getTipProduct(), 1));
         
         return detail;
     }
@@ -206,7 +204,7 @@ public class PurchaseViewModel extends ViewModel {
     private Product getTipProduct() {
         Product tip = new Product();
         tip.setTitle("Propina");
-        tip.setBuyPrice(getTipPrice());
+        tip.setPrice(getTipPrice());
         return tip;
     }
 

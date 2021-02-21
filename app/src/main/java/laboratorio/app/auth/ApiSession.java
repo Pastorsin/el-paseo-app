@@ -47,7 +47,7 @@ public class ApiSession {
         return accounts[0];
     }
 
-    public void login(Context context, LoginUser loginUser, Token token) throws UserAlreadyLoggedException {
+    public void login(Context context, LoginUser loginUser, Token token) throws UserAlreadyLoggedException, CreateAccountException {
         if (isUserLoggedIn(context))
             throw new UserAlreadyLoggedException();
 
@@ -58,7 +58,9 @@ public class ApiSession {
 
         Account account = new Account(loginUser.getUserName(), ACCOUNT_TYPE);
 
-        am.addAccountExplicitly(account, loginUser.getUserPassword(), userData);
+        if (!am.addAccountExplicitly(account, loginUser.getUserPassword(), userData))
+            throw new CreateAccountException();
+
         am.setAuthToken(account, TOKEN_TYPE, token.getValue());
     }
 
@@ -75,6 +77,32 @@ public class ApiSession {
     public String getUserIdLogged(Context context) {
         AccountManager am = AccountManager.get(context);
         return am.getUserData(getAccount(context), USER_ID_KEY);
+    }
+
+    public MutableLiveData<Boolean> editUsername(Context context, String newUsername) {
+        MutableLiveData<Boolean> response = new MutableLiveData<>();
+        AccountManager am = AccountManager.get(context);
+
+        am.renameAccount(getAccount(context), newUsername, accountManagerFuture -> {
+            try {
+                Account account = accountManagerFuture.getResult();
+
+                if (account == null) {
+                    response.setValue(false);
+                    Log.e("EDIT ACCOUNT USERNAME", "Error renaming account");
+                }
+
+                response.setValue(true);
+                Log.d("EDIT ACCOUNT USERNAME", "Account rename succesfully");
+
+            } catch (AuthenticatorException | IOException | OperationCanceledException e) {
+                response.setValue(false);
+                Log.e("EDIT ACCOUNT USERNAME", "Authentication error", e);
+            }
+
+        }, null);
+
+        return response;
     }
 
     public MutableLiveData<User> getUserLogged(Context context) {

@@ -29,6 +29,7 @@ public class Cart implements Serializable {
         cartProducts.remove(product);
     }
 
+    @JsonIgnore
     public Double getTotal(){
         return cartProducts.stream()
                 .mapToDouble(CartProduct::getTotalCartProductPrice)
