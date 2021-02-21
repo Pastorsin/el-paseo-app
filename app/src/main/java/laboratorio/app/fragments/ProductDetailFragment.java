@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 
 import laboratorio.app.R;
@@ -60,6 +62,7 @@ public class ProductDetailFragment extends Fragment {
         addUnitDescription(view);
         addDescription(view);
         addTabs(view);
+        setRecipeButtonListener(view);
 
         Fragment cartQuantityFragment = CartQuantityFragment.newInstance(product);
         FragmentLoader loader = (FragmentLoader) getContext();
@@ -144,4 +147,15 @@ public class ProductDetailFragment extends Fragment {
         TextView titleView = view.findViewById(R.id.product_title);
         titleView.setText(product.getTitle());
     }
+
+    private void setRecipeButtonListener(View view){
+        TextView search_recipes_textView = view.findViewById(R.id.product_search_recipes_textView);
+        search_recipes_textView.setOnClickListener(view1 -> {
+            FragmentLoader loader = (FragmentLoader) getContext();
+            Fragment fragment = ProductRecipeListFragment.newInstance(product.getTitle());
+
+            loader.replaceFragmentOnMainContainer(fragment);
+        });
+    }
+
 }

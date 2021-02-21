@@ -118,20 +118,17 @@ public class StaticProducerDetailFragment extends Fragment {
     }
 
     public View.OnClickListener openVideo(Context context, String videoId){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.youtube.com/watch?v=" + videoId));
-                try {
-                    context.startActivity(appIntent);
-                } catch (ActivityNotFoundException ex) {
-                    context.startActivity(webIntent);
-                }
-                getParentFragmentManager().popBackStack();
-
+        return view -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=" + videoId));
+            try {
+                context.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                context.startActivity(webIntent);
             }
+            getParentFragmentManager().popBackStack();
+
         };
     }
 

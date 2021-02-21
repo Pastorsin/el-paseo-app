@@ -224,6 +224,20 @@
                     android:text="@string/product_tab_additional" />
             </com.google.android.material.tabs.TabLayout>
 
+            <TextView
+                android:id="@+id/product_search_recipes_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#711E1E"
+                android:text="@string/product_search_recipe"
+                android:textAlignment="center"
+                android:textColor="#FFB900"
+                android:textSize="20sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_tab_content" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

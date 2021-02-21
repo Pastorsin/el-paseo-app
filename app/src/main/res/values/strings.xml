@@ -28,6 +28,7 @@
     <string name="product_tab_additional">Adicional</string>
     <string name="product_price_format">$%.2f</string>
     <string name="product_price_per_unit_format">$%.2f por %d unidades</string>
+    <string name="product_search_recipe">¿Qué puedo preparar con este producto? Presione aquí para conocer recetas!</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
