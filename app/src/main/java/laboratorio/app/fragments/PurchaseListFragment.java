@@ -145,7 +145,7 @@ public class PurchaseListFragment extends Fragment {
 
     private void onUserNotLogged() {
         onError();
-        Toast.makeText(getContext(), R.string.not_user_logged_error, Toast.LENGTH_SHORT);
+        Toast.makeText(getContext(), R.string.not_user_logged_error, Toast.LENGTH_SHORT).show();
     }
 
     private void onError() {
