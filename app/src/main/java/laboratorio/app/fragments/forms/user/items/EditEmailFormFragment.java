@@ -14,7 +14,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
@@ -117,6 +123,14 @@ public class EditEmailFormFragment extends ItemMultiSteperFormFragment {
         validator.addValidation(oldEmailInput, Patterns.EMAIL_ADDRESS, getString(R.string.error_email));
 
         EditText newEmailinput = view.findViewById(R.id.new_update_email_input);
-        validator.addValidation(newEmailinput, Patterns.EMAIL_ADDRESS, getString(R.string.error_email));
+        validator.addValidation(newEmailinput, getNewEmailValidator(), getString(R.string.error_email));
+    }
+
+    @NotNull
+    private SimpleCustomValidation getNewEmailValidator() {
+        return newEmail -> {
+            String oldEmail = userViewModel.email.getValue();
+            return Patterns.EMAIL_ADDRESS.matcher(newEmail).matches() && !Objects.equals(newEmail, oldEmail);
+        };
     }
 }
