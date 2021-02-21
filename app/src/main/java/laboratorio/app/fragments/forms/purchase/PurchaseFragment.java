@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import laboratorio.app.fragments.SuccessPurchaseFragment;
 import laboratorio.app.fragments.forms.MultiStepperFormFragment;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.models.UserCart;
+import laboratorio.app.viewmodels.ApplicationViewModel;
 import laboratorio.app.viewmodels.PurchaseViewModel;
 
 public class PurchaseFragment extends MultiStepperFormFragment {
@@ -30,27 +33,40 @@ public class PurchaseFragment extends MultiStepperFormFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        initViewModels();
+        if (ApiSession.instance.isUserLoggedIn(getContext())) {
+            initViewModels();
+            return super.onCreateView(inflater, container, savedInstanceState);
+        } else {
+            showUserLoggedError();
+            return inflater.inflate(R.layout.fragment_error, container, false);
+        }
 
-        return view;
     }
 
     private void initViewModels() {
-        viewmodel = new ViewModelProvider(requireActivity()).get(PurchaseViewModel.class);
+        viewmodel = getViewModelProvider().get(PurchaseViewModel.class);
+
         ApiSession.instance.getUserLogged(getContext()).observe(
                 getViewLifecycleOwner(), user -> {
                     if (user == null)
-                        onUserLoggedError();
+                        loadErrorFragment();
                     else
                         viewmodel.initCreate(UserCart.instance, user);
                 });
     }
 
-    private void onUserLoggedError() {
+    private void loadErrorFragment() {
         FragmentLoader loader = (FragmentLoader) getActivity();
         loader.replaceFragmentOnMainContainer(new ErrorFragment());
+    }
+
+    @NotNull
+    private ViewModelProvider getViewModelProvider() {
+        return new ViewModelProvider(requireActivity());
+    }
+
+    private void showUserLoggedError() {
         Toast.makeText(getContext(), R.string.not_user_logged_error, Toast.LENGTH_SHORT).show();
     }
 
