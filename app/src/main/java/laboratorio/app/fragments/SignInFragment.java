@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
+import laboratorio.app.auth.CreateAccountException;
 import laboratorio.app.auth.Encryptor;
 import laboratorio.app.controllers.API;
 import laboratorio.app.fragments.forms.user.SignUpFragment;
@@ -35,6 +36,7 @@ public class SignInFragment extends Fragment {
 
     private AwesomeValidation validator = new AwesomeValidation(ValidationStyle.BASIC);
 
+    private static final int ACCOUNT_CREATE_ERROR_ID = R.string.CREATE_ACCOUNT_ERROR;
     private static final int LOGIN_INVALID_FIELDS_MESSAGE_ID = R.string.error_login_invalid_fields;
     private static final int LOGIN_DEFAULT_ERROR_MESSAGE_ID = R.string.error_login;
 
@@ -111,8 +113,10 @@ public class SignInFragment extends Fragment {
 
                     } catch (UserAlreadyLoggedException e) {
                         showError(LOGIN_DEFAULT_ERROR_MESSAGE_ID);
-                        e.printStackTrace();
-                        System.out.println("Error - User already logged");
+                        Log.e("LOGIN", "Error - User already logged", e);
+                    } catch (CreateAccountException e) {
+                        showError(ACCOUNT_CREATE_ERROR_ID);
+                        Log.e("LOGIN", "Error creating the account");
                     }
                 } else {
                     int errorMsgId = (response.code() == 401) ?
