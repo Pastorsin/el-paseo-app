@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
 
                     return true;
                 case R.id.account_nav:
-                    toolbar.setTitle("Mi cuenta");
+                    toolbar.setTitle(R.string.account_nav_title);
 
                     boolean isUserLoggedIn = ApiSession.instance.isUserLoggedIn(getApplicationContext());
                     fragment = isUserLoggedIn ? new UserProfileFragment() : new SignInFragment();
@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements FragmentLoader {
                     replaceFragmentOnMainContainer(fragment);
                     return true;
                 case R.id.home_nav:
-                    toolbar.setTitle("Home");
+                    toolbar.setTitle(R.string.home_nav_title);
                     fragment = new HomeFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
                 case R.id.purchase_nav:
-                    toolbar.setTitle("Mis compras");
+                    toolbar.setTitle(R.string.purchases_list_title);
                     fragment = new PurchaseListFragment();
                     replaceFragmentOnMainContainer(fragment);
                     return true;
