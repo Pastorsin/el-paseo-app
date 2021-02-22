@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:isScrollContainer="false"
     android:nestedScrollingEnabled="false"
     tools:context=".fragments.ProductDetailFragment">
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        tools:layout_editor_absoluteX="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,22 +24,14 @@
             android:nestedScrollingEnabled="false"
             tools:context=".fragments.ProductDetailFragment">
 
-            <FrameLayout
-                android:id="@+id/product_cart_quantity_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_tab_content" />
-
             <ImageView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="275dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
@@ -191,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintGuide_percent="0.5"
+                    app:layout_constraintGuide_percent="0.50121653"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -229,6 +223,7 @@
                 android:id="@+id/product_search_recipes_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="#711E1E"
                 android:text="@string/product_search_recipe"
                 android:textAlignment="center"
@@ -238,6 +233,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_tab_content" />
+
+            <FrameLayout
+                android:id="@+id/product_cart_quantity_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_search_recipes_textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
