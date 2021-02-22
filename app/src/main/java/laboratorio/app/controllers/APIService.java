@@ -71,4 +71,7 @@ public interface APIService {
     @GET("api/news")
     Call<Pagination<News>> getNews();
 
+    @GET("api/general/active")
+    Call<General> getActiveNodes();
+
 }
