@@ -1,18 +1,21 @@
 package laboratorio.app.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 
@@ -47,6 +50,29 @@ public class ProductDetailFragment extends Fragment {
             productArg = getArguments().getSerializable(PRODUCT_ARG);
             product = (Product) productArg;
         }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.product_detail_share_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.product_detail_share:
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Te comparto este producto de El Paseo. No te lo pierdas! \n" +
+                        "Producto: " + product.getTitle() + "\n" +
+                        "Marca: " + product.getBrand() + "\n" +
+                        "Precio: " + product.getPrice() + "\n");
+                startActivity(Intent.createChooser(shareIntent, "Seleccionar una app para compartir:"));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
