@@ -145,15 +145,13 @@ public class PurchaseViewModel extends ViewModel {
 
     public MutableLiveData<Map<Node, List<AvailableNode>>> fetchNodes() {
         if (!isNodesLoaded()) {
-            API.instance.getService().getGeneral().enqueue(new Callback<Pagination<General>>() {
+            API.instance.getService().getActiveNodes().enqueue(new Callback<General>() {
                 @Override
-                public void onResponse(Call<Pagination<General>> call, Response<Pagination<General>> response) {
+                public void onResponse(Call<General> call, Response<General> response) {
                     if (response.isSuccessful()) {
-                        List<General> general = response.body().getPage();
+                        General general = response.body();
 
-                        Set<AvailableNode> allAvailableNodes = general.stream()
-                                .flatMap(g -> g.getActiveNodes().stream())
-                                .collect(Collectors.toSet());
+                        List<AvailableNode> allAvailableNodes = general.getActiveNodes();
 
                         Map<Node, List<AvailableNode>> nodeSchedules = allAvailableNodes.stream().collect(
                                 groupingBy(AvailableNode::getNode)
@@ -168,7 +166,7 @@ public class PurchaseViewModel extends ViewModel {
                 }
 
                 @Override
-                public void onFailure(Call<Pagination<General>> call, Throwable t) {
+                public void onFailure(Call<General> call, Throwable t) {
                     Log.e("GET NODES", "Network error", t);
                     nodes.setValue(null);
                 }
