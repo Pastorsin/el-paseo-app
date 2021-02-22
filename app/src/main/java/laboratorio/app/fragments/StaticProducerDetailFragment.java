@@ -71,7 +71,6 @@ public class StaticProducerDetailFragment extends Fragment {
     }
 
 
-
     public void addName(View view) {
         TextView nameView = view.findViewById(R.id.static_detail_producer_name);
         nameView.setText(producer.getName());
@@ -84,6 +83,7 @@ public class StaticProducerDetailFragment extends Fragment {
 
     public void addEmail(View view) {
         TextView emailView = view.findViewById(R.id.static_detail_producer_email);
+
         if (producer.hasEmail() && !producer.getEmail().isEmpty()) {
             emailView.setText(producer.getEmail());
             intentManager.setEmailIntent(emailView);
