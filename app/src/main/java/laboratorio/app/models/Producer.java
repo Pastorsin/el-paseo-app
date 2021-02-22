@@ -3,6 +3,7 @@ package laboratorio.app.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Producer implements Serializable {
@@ -118,11 +119,11 @@ public class Producer implements Serializable {
         return images.stream().filter(Image::isMain).collect(Collectors.toList());
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -130,28 +131,28 @@ public class Producer implements Serializable {
         this.address = address;
     }
 
-    public Address getAddress(){
+    public Address getAddress() {
         return address;
     }
 
-    public boolean hasVideo(){
+    public boolean hasVideo() {
         return (youtubeVideoId != null);
     }
 
-    public String getYouTubeVideoId(){
+    public String getYouTubeVideoId() {
         return this.youtubeVideoId;
     }
 
-    public boolean hasEmail(){
+    public boolean hasEmail() {
         return (email != null);
     }
 
-    public boolean hasPhoneNumber(){
+    public boolean hasPhoneNumber() {
         return (phone != null);
     }
 
-    public boolean hasAddress(){
-        return (address != null);
+    public boolean hasAddress() {
+        return (address != null && address.getStreet() != null);
     }
 
 }
