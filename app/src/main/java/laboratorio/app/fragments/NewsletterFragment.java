@@ -9,12 +9,16 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewsletterFragment extends Fragment {
+
+    private AwesomeValidation validator = new AwesomeValidation(ValidationStyle.BASIC);
 
     public NewsletterFragment() {
         // Required empty public constructor
@@ -55,11 +61,14 @@ public class NewsletterFragment extends Fragment {
         boolean isUserLoggedIn = ApiSession.instance.isUserLoggedIn(getContext());
 
         if(isUserLoggedIn){
+
+            initValidators(view);
+
             Button suscribeButton = view.findViewById(R.id.newsletter_suscribe_button);
 
             suscribeButton.setOnClickListener(button -> {
                 String email = ((EditText) view.findViewById(R.id.newsletter_emailAddress)).getText().toString();
-                if(email != null){
+                if(validator.validate()){
                     ApiSession.instance.getToken(getContext(), sendSubscription(email));
                 }
             });
@@ -68,6 +77,11 @@ public class NewsletterFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void initValidators(View view) {
+        EditText emailInput = view.findViewById(R.id.newsletter_emailAddress);
+        validator.addValidation(emailInput, Patterns.EMAIL_ADDRESS, getString(R.string.error_email));
     }
 
     private AccountManagerCallback<Bundle> sendSubscription(String email){
