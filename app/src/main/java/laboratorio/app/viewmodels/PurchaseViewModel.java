@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
+import laboratorio.app.models.Address;
 import laboratorio.app.models.AvailableNode;
 import laboratorio.app.models.Cart;
 import laboratorio.app.models.CartProduct;
@@ -77,7 +78,7 @@ public class PurchaseViewModel extends ViewModel {
     public void initDetail(@NotNull Cart cart, @NotNull User userLogged) {
         init(cart, userLogged);
         isCashChecked.setValue(true);
-        cashValue.setValue(String.format("%.2f",cart.getTotal()));
+        cashValue.setValue(String.format("%.2f", cart.getTotal()));
         creditCard.setValue(null);
         isDeliveryChecked.setValue(cart.isDeliverable());
         chosenNodeSchedule.setValue(cart.getNodeDate());
@@ -87,6 +88,7 @@ public class PurchaseViewModel extends ViewModel {
 
     public void initCreate(@NotNull Cart cart, @NotNull User userLogged) {
         init(cart, userLogged);
+        resetFields();
     }
 
     private void init(@NotNull Cart cart, @NotNull User userLogged) {
@@ -208,7 +210,7 @@ public class PurchaseViewModel extends ViewModel {
 
     private Double getTipPrice() {
         String tip = tipValue.getValue();
-        return tip == "" ? 0 : Double.valueOf(tip);
+        return tip == "" ? 0 : Double.parseDouble(tip);
     }
 
     public String getTotalPrice() {
@@ -229,5 +231,11 @@ public class PurchaseViewModel extends ViewModel {
     public String getNodeDate() {
         Date date = chosenNodeSchedule.getValue().getDay();
         return String.format(DateFormat.getDateInstance().format(date));
+    }
+
+    public Address getAddress() {
+        return isDeliveryChecked.getValue() ?
+                deliveryAddress.getAddress() :
+                chosenNodeSchedule.getValue().getNode().getAddress();
     }
 }

@@ -9,6 +9,10 @@ import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import androidx.lifecycle.ViewModelProvider;
 import laboratorio.app.R;
 import laboratorio.app.databinding.FragmentCashFormBinding;
@@ -51,8 +55,14 @@ public class CashFormFragment extends ItemMultiSteperFormFragment {
             if (cashValueText.isEmpty())
                 return false;
 
-            Double cashValue = Double.valueOf(cashValueText);
-            return cashValue >= userCart.getTotal();
+            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+
+            try {
+                double cashValue = format.parse(cashValueText).doubleValue();
+                return cashValue >= userCart.getTotal();
+            } catch (ParseException e) {
+                return false;
+            }
         };
     }
 }

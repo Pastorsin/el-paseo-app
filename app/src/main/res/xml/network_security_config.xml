@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">ec2-3-235-40-183.compute-1.amazonaws.com</domain>
+        <domain includeSubdomains="true">ec2-3-227-239-131.compute-1.amazonaws.com</domain>
         <domain includeSubdomains="true">nominatim.openstreetmap.org</domain>
         <domain includeSubdomains="true">router.project-osrm.org</domain>
     </domain-config>
