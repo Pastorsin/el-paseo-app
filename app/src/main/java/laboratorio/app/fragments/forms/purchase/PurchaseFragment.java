@@ -51,8 +51,9 @@ public class PurchaseFragment extends MultiStepperFormFragment {
                 getViewLifecycleOwner(), user -> {
                     if (user == null)
                         loadErrorFragment();
-                    else
+                    else {
                         viewmodel.initCreate(UserCart.instance, user);
+                    }
                 });
     }
 

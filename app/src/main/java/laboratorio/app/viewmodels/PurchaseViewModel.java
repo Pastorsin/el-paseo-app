@@ -88,6 +88,7 @@ public class PurchaseViewModel extends ViewModel {
 
     public void initCreate(@NotNull Cart cart, @NotNull User userLogged) {
         init(cart, userLogged);
+        resetFields();
     }
 
     private void init(@NotNull Cart cart, @NotNull User userLogged) {
