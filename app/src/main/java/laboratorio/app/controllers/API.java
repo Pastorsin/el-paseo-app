@@ -16,7 +16,7 @@ import retrofit2.http.GET;
 
 public class API {
     public static final API instance = new API();
-    private static final String API_URL = "http://ec2-3-233-234-13.compute-1.amazonaws.com/";
+    private static final String API_URL = "http://ec2-3-227-239-131.compute-1.amazonaws.com/";
     private APIService service;
 
     private API() {
