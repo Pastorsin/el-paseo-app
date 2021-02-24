@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import laboratorio.app.controllers.API;
+import laboratorio.app.models.Address;
 import laboratorio.app.models.AvailableNode;
 import laboratorio.app.models.Cart;
 import laboratorio.app.models.CartProduct;
@@ -229,5 +230,11 @@ public class PurchaseViewModel extends ViewModel {
     public String getNodeDate() {
         Date date = chosenNodeSchedule.getValue().getDay();
         return String.format(DateFormat.getDateInstance().format(date));
+    }
+
+    public Address getAddress() {
+        return isDeliveryChecked.getValue() ?
+                deliveryAddress.getAddress() :
+                chosenNodeSchedule.getValue().getNode().getAddress();
     }
 }

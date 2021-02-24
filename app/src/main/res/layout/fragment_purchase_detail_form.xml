@@ -16,11 +16,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/footer"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/node_date_label">
 
+                <org.osmdroid.views.MapView
+                    android:id="@+id/tracker_map"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
