@@ -55,11 +55,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:tint="#9E2A2B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_email_24" />
+                app:srcCompat="@drawable/ic_baseline_email_24"
+                app:tint="#9E2A2B" />
 
             <TextView
                 android:id="@+id/static_detail_producer_email"
@@ -87,11 +87,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:tint="#9E2A2B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_local_phone_24" />
+                app:srcCompat="@drawable/ic_baseline_local_phone_24"
+                app:tint="#9E2A2B" />
 
             <TextView
                 android:id="@+id/static_detail_producer_phone"
@@ -106,7 +106,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/video-layout"
+            android:id="@+id/video_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -118,11 +118,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:tint="#9E2A2B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_play_circle_24" />
+                app:srcCompat="@drawable/ic_baseline_play_circle_24"
+                app:tint="#9E2A2B" />
 
             <TextView
                 android:id="@+id/static_detail_producer_video"
@@ -149,11 +149,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:tint="#9E2A2B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_location_on_24" />
+                app:srcCompat="@drawable/ic_baseline_location_on_24"
+                app:tint="#9E2A2B" />
 
             <TextView
                 android:id="@+id/static_detail_producer_address"

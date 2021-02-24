@@ -88,7 +88,7 @@
             android:src="@drawable/ic_baseline_access_time_24"
             android:tint="#E09F3E"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/purchase_sale_date"
+            app:layout_constraintEnd_toStartOf="@+id/purchase_sale_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

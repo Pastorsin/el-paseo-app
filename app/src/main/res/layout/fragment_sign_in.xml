@@ -30,12 +30,12 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:tint="@color/design_default_color_error"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/signin_error_message"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24" />
+                app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
+                app:tint="@color/design_default_color_error" />
 
             <TextView
                 android:id="@+id/signin_error_message"

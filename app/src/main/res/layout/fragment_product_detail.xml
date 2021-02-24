@@ -14,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,6 +26,15 @@
             android:isScrollContainer="false"
             android:nestedScrollingEnabled="false"
             tools:context=".fragments.ProductDetailFragment">
+
+            <FrameLayout
+                android:id="@+id/product_cart_quantity_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_search_recipes_textView" />
 
             <ImageView
                 android:id="@+id/product_image"
@@ -35,6 +47,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/product_search_recipes_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#711E1E"
+                android:text="@string/product_search_recipe"
+                android:textAlignment="center"
+                android:textColor="#FFB900"
+                android:textSize="20sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_tab_content" />
 
             <TextView
                 android:id="@+id/product_tab_content"
@@ -218,30 +245,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/product_tab_additional" />
             </com.google.android.material.tabs.TabLayout>
-
-            <TextView
-                android:id="@+id/product_search_recipes_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#711E1E"
-                android:text="@string/product_search_recipe"
-                android:textAlignment="center"
-                android:textColor="#FFB900"
-                android:textSize="20sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_tab_content" />
-
-            <FrameLayout
-                android:id="@+id/product_cart_quantity_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/product_search_recipes_textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

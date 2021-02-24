@@ -13,12 +13,12 @@
         android:layout_height="70dp"
         android:background="#FFFFFF"
         android:foregroundGravity="center"
-        android:tint="#e09f3e"
         app:layout_constraintBottom_toTopOf="@+id/category_list_item_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        app:tint="#e09f3e" />
 
     <TextView
         android:id="@+id/category_list_item_name"
