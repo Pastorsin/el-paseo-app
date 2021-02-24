@@ -1,10 +1,12 @@
 package laboratorio.app.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import laboratorio.app.R;
+import laboratorio.app.activities.DeliveryActivity;
 import laboratorio.app.auth.CreateAccountException;
 import laboratorio.app.auth.Encryptor;
 import laboratorio.app.controllers.API;
@@ -91,8 +93,8 @@ public class SignInFragment extends Fragment {
 
                 String encryptedPassword = Encryptor.encrypt(password);
                 LoginUser body = new LoginUser(email, encryptedPassword);
-
                 API.instance.getService().signIn(body).enqueue(getSignInCallback(body));
+
             };
         };
     }
@@ -108,8 +110,13 @@ public class SignInFragment extends Fragment {
                         ApiSession.instance.login(getContext(), body, token);
                         System.out.println("User logged in successfully");
 
-                        Fragment fragment = new UserProfileFragment();
-                        ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
+                        if(body.getUserName().equals("repartidor@gmail.com")){ //mock del repartidor
+                            Intent deliveryActivity = new Intent(getContext(),DeliveryActivity.class);
+                            startActivity(deliveryActivity);
+                        }else {
+                            Fragment fragment = new UserProfileFragment();
+                            ((FragmentLoader) getActivity()).replaceFragmentOnMainContainer(fragment);
+                        }
 
                     } catch (UserAlreadyLoggedException e) {
                         showError(LOGIN_DEFAULT_ERROR_MESSAGE_ID);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/purchase_nav"
+        android:icon="@drawable/ic_baseline_description_24"
+        android:title="Compras" />
+
+    <item
+        android:id="@+id/account_nav"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="Cuenta" />
+
+</menu>

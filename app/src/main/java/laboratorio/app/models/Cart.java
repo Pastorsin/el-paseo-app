@@ -139,4 +139,7 @@ public class Cart implements Serializable {
     public boolean hasPosibleDeliveryDate() {
         return getPosibleDeliveryDate() != null;
     }
+
+    @JsonIgnore
+    public boolean hasSaleDate(){return getSaleDate() != null;}
 }
