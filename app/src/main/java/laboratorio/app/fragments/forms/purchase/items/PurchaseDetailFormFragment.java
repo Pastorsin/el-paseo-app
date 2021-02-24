@@ -61,7 +61,6 @@ public class PurchaseDetailFormFragment extends ItemMultiSteperFormFragment {
         return new GeoPoint(address.getLatitude(), address.getLongitude());
     }
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_purchase_detail_form;

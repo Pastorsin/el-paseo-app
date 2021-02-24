@@ -78,7 +78,7 @@ public class PurchaseViewModel extends ViewModel {
     public void initDetail(@NotNull Cart cart, @NotNull User userLogged) {
         init(cart, userLogged);
         isCashChecked.setValue(true);
-        cashValue.setValue(String.format("%.2f",cart.getTotal()));
+        cashValue.setValue(String.format("%.2f", cart.getTotal()));
         creditCard.setValue(null);
         isDeliveryChecked.setValue(cart.isDeliverable());
         chosenNodeSchedule.setValue(cart.getNodeDate());
@@ -209,7 +209,7 @@ public class PurchaseViewModel extends ViewModel {
 
     private Double getTipPrice() {
         String tip = tipValue.getValue();
-        return tip == "" ? 0 : Double.valueOf(tip);
+        return tip == "" ? 0 : Double.parseDouble(tip);
     }
 
     public String getTotalPrice() {
