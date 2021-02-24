@@ -22,11 +22,6 @@ public class AddressViewModel extends ViewModel {
     public final MutableLiveData[] fields = {street, number, apartament, betweenStreets,
             description, floor, ubication};
 
-    public AddressViewModel() {
-        super();
-        reset();
-    }
-
     public Address getAddress() {
         return new Address(apartament.getValue(),
                 number.getValue(),
