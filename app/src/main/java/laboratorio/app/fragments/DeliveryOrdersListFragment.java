@@ -28,6 +28,7 @@ import laboratorio.app.controllers.API;
 import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.helpers.OnItemListener;
+import laboratorio.app.helpers.PageCallback;
 import laboratorio.app.models.Cart;
 
 import laboratorio.app.models.Pagination;
@@ -69,8 +70,6 @@ public class DeliveryOrdersListFragment extends Fragment implements OnItemListen
 
         progressBar = view.findViewById(R.id.progress_bar);
 
-        showProgressBar();
-
         boolean isUserLoggedIn = ApiSession.instance.isUserLoggedIn(getContext());
 
         adapter = new OrdersAdapter(ordersList, this::onItemClick);
@@ -103,17 +102,12 @@ public class DeliveryOrdersListFragment extends Fragment implements OnItemListen
     }
 
     private Callback<Pagination<Cart>> getResponseCallback(View view) {
-        return new Callback<Pagination<Cart>>() {
+        return new PageCallback<Pagination<Cart>>(progressBar, view, (FragmentLoader) getContext()) {
             @Override
             public void onResponse(Call<Pagination<Cart>> call, Response<Pagination<Cart>> response) {
                 hideProgressBar();
                 addOrders(response.body().getPage());
                 adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<Pagination<Cart>> call, Throwable t) {
-                ((FragmentLoader) getContext()).replaceFragmentOnMainContainer(new ErrorFragment());
             }
         };
     }
@@ -136,16 +130,6 @@ public class DeliveryOrdersListFragment extends Fragment implements OnItemListen
 
         loader.replaceFragmentOnMainContainer(fragment);
 
-    }
-
-    private void showProgressBar() {
-        if (ordersList.isEmpty())
-            progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        if (progressBar.isShown())
-            progressBar.setVisibility(View.GONE);
     }
 
 }

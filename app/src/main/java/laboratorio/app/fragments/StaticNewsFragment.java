@@ -26,6 +26,7 @@ import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.helpers.ListCallback;
 import laboratorio.app.helpers.OnItemListener;
+import laboratorio.app.helpers.PageCallback;
 import laboratorio.app.models.News;
 import laboratorio.app.models.Pagination;
 import retrofit2.Call;
@@ -70,8 +71,6 @@ public class StaticNewsFragment extends Fragment implements OnItemListener {
         newsView.setAdapter(adapter);
         newsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        showProgressBar();
-
         fetchNews(view);
 
         return view;
@@ -79,29 +78,19 @@ public class StaticNewsFragment extends Fragment implements OnItemListener {
 
     private void fetchNews(View view) {
 
-        service.getNews().enqueue(new Callback<Pagination<News>>() {
+        service.getNews().enqueue(new PageCallback<Pagination<News>>(progressBar, view, (FragmentLoader) getContext()) {
             @Override
             public void onResponse(Call<Pagination<News>> call, Response<Pagination<News>> response) {
-                hideProgressBar();
+                super.onResponse(call,response);
                 addNews(response.body().getPage());
                 adapter.notifyDataSetChanged();
             }
-
-            @Override
-            public void onFailure(Call<Pagination<News>> call, Throwable t) {
-                ((FragmentLoader) getContext()).replaceFragmentOnMainContainer(new ErrorFragment());
-            }
-
         });
     }
 
     private void addNews(List<News> allNews) {
         newsList.clear();
-        newsList.addAll(newsToShow(allNews));
-    }
-
-    private List<News> newsToShow(List<News> allNews) {
-        return allNews.stream().collect(Collectors.toList());
+        newsList.addAll(allNews);
     }
 
     @Override
@@ -118,15 +107,5 @@ public class StaticNewsFragment extends Fragment implements OnItemListener {
         }
 
         getParentFragmentManager().popBackStack();
-    }
-
-    private void showProgressBar() {
-        if (newsList.isEmpty())
-            progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        if (progressBar.isShown())
-            progressBar.setVisibility(View.GONE);
     }
 }

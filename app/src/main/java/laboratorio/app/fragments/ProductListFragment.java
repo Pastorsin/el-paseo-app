@@ -1,28 +1,30 @@
 package laboratorio.app.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.ProductAdapter;
 import laboratorio.app.controllers.API;
 import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
-import laboratorio.app.helpers.ListCallback;
+import laboratorio.app.helpers.PageCallback;
 import laboratorio.app.models.Category;
+import laboratorio.app.models.Pagination;
 import laboratorio.app.models.Product;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,33 +85,23 @@ public class ProductListFragment extends Fragment {
 
     private void fetchProducts(View view) {
 
-        service.getProducts().enqueue(new ListCallback<List<Product>>(
-                progressBar, products, view, (FragmentLoader) getContext()) {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                super.onResponse(call, response);
-                addProducts(response.body());
-                adapter.notifyDataSetChanged();
-            }
+        String properties = "[{\"key\":\"categories.id\",\"value\":"+ category.getId()+"}]";
 
+        service.getProducts(ImmutableMap.of("properties", properties,
+                "range","0,10","sort","id,asc")).enqueue(new PageCallback<Pagination<Product>>(
+                progressBar, view, (FragmentLoader) getContext()){
             @Override
-            public boolean isEmptyList(List<Product> productsResponse) {
-                return productsToShow(productsResponse).isEmpty();
+            public void onResponse(Call<Pagination<Product>> call, Response<Pagination<Product>> response) {
+                super.onResponse(call,response);
+                addProducts(response.body().getPage());
+                adapter.notifyDataSetChanged();
             }
         });
     }
 
     private void addProducts(List<Product> allProducts) {
         products.clear();
-        products.addAll(productsToShow(allProducts));
+        products.addAll(allProducts);
     }
 
-    private List<Product> productsToShow(List<Product> allProducts) {
-        return allProducts.stream()
-                .filter(product ->
-                        product.hasCategory(category) &&
-                                product.hasStock() &&
-                                !product.isDeleted())
-                .collect(Collectors.toList());
-    }
 }

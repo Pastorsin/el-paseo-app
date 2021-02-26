@@ -1,6 +1,7 @@
 package laboratorio.app.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import laboratorio.app.models.Cart;
 import laboratorio.app.models.Category;
@@ -24,13 +25,15 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface APIService {
     @GET("api/category")
     Call<List<Category>> getCategories();
 
     @GET("api/product")
-    Call<List<Product>> getProducts();
+    Call<List<Product>> getAllProducts();
 
     @POST("api/token/generate-token")
     Call<Token> signIn(@Body LoginUser loginUser);
@@ -74,4 +77,6 @@ public interface APIService {
     @GET("api/general/active")
     Call<General> getActiveNodes();
 
+    @GET("api/product")
+    Call<Pagination<Product>> getProducts(@QueryMap Map<String,String> filters);
 }
