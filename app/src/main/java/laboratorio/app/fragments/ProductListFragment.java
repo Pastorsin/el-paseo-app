@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.google.common.collect.ImmutableMap;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import laboratorio.app.R;
@@ -22,7 +21,7 @@ import laboratorio.app.controllers.API;
 import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.helpers.PageCallback;
-import laboratorio.app.controllers.ApiParameters;
+import laboratorio.app.controllers.ApiParametersBuilder;
 import laboratorio.app.models.Category;
 import laboratorio.app.models.Pagination;
 import laboratorio.app.models.Product;
@@ -84,19 +83,21 @@ public class ProductListFragment extends Fragment {
 
     private void fetchProducts(View view) {
 
-        ApiParameters parameters = new ApiParameters();
-        parameters.addProperty("categories.id",String.valueOf(category.getId()));
+        ApiParametersBuilder parameters = new ApiParametersBuilder();
+        parameters.addProperty("categories.id", "" + category.getId());
+        parameters.addSort(Arrays.asList("id", "asc"));
+        parameters.addRange(0, 10);
 
-        service.getProducts(ImmutableMap.of("properties", parameters.toJsonProperties(),
-                "range","0,10","sort","id,asc")).enqueue(new PageCallback<Pagination<Product>>(
-                progressBar, view, (FragmentLoader) getContext()){
-            @Override
-            public void onResponse(Call<Pagination<Product>> call, Response<Pagination<Product>> response) {
-                super.onResponse(call,response);
-                addProducts(response.body().getPage());
-                adapter.notifyDataSetChanged();
-            }
-        });
+        service.getProducts(parameters.getRange(), parameters.getFieldsToSort(), parameters.getProperties())
+                .enqueue(new PageCallback<Pagination<Product>>(
+                        progressBar, view, (FragmentLoader) getContext()) {
+                    @Override
+                    public void onResponse(Call<Pagination<Product>> call, Response<Pagination<Product>> response) {
+                        super.onResponse(call, response);
+                        addProducts(response.body().getPage());
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void addProducts(List<Product> allProducts) {

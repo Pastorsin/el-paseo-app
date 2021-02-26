@@ -78,5 +78,9 @@ public interface APIService {
     Call<General> getActiveNodes();
 
     @GET("api/product")
-    Call<Pagination<Product>> getProducts(@QueryMap Map<String,String> filters);
+    Call<Pagination<Product>> getProducts(
+            @Query("range") String range,
+            @Query("sort") String fieldsToSort,
+            @Query("properties") String properties
+    );
 }
