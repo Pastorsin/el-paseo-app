@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +22,11 @@ import laboratorio.app.controllers.API;
 import laboratorio.app.controllers.APIService;
 import laboratorio.app.helpers.FragmentLoader;
 import laboratorio.app.helpers.PageCallback;
+import laboratorio.app.controllers.ApiParameters;
 import laboratorio.app.models.Category;
 import laboratorio.app.models.Pagination;
 import laboratorio.app.models.Product;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductListFragment extends Fragment {
@@ -85,9 +84,10 @@ public class ProductListFragment extends Fragment {
 
     private void fetchProducts(View view) {
 
-        String properties = "[{\"key\":\"categories.id\",\"value\":"+ category.getId()+"}]";
+        ApiParameters parameters = new ApiParameters();
+        parameters.addProperty("categories.id",String.valueOf(category.getId()));
 
-        service.getProducts(ImmutableMap.of("properties", properties,
+        service.getProducts(ImmutableMap.of("properties", parameters.toJsonProperties(),
                 "range","0,10","sort","id,asc")).enqueue(new PageCallback<Pagination<Product>>(
                 progressBar, view, (FragmentLoader) getContext()){
             @Override
