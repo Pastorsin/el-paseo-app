@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import laboratorio.app.models.Product;
 import retrofit2.Call;
@@ -36,6 +39,7 @@ public class API {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"));
+        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT-12"));
 
         return objectMapper;
     }
