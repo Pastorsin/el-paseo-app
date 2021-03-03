@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import laboratorio.app.R;
 import laboratorio.app.adapters.ProductAdapter;
@@ -94,10 +95,17 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Pagination<Product>> call, Response<Pagination<Product>> response) {
                         super.onResponse(call, response);
-                        addProducts(response.body().getPage());
+                        addProducts(getProducts(response.body()));
                         adapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    private List<Product> getProducts(Pagination<Product> pagination) {
+        List<Product> products = pagination.getPage();
+        return products.stream()
+                .filter(product -> !product.isDeleted() && product.hasStock())
+                .collect(Collectors.toList());
     }
 
     private void addProducts(List<Product> allProducts) {
