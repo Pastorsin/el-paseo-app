@@ -102,7 +102,7 @@ public class DeliveryOrdersListFragment extends Fragment implements OnItemListen
     }
 
     private Callback<Pagination<Cart>> getResponseCallback(View view) {
-        return new PageCallback<Pagination<Cart>>(progressBar, view, (FragmentLoader) getContext()) {
+        return new PageCallback<Pagination<Cart>>(progressBar, ordersList, view, (FragmentLoader) getContext()) {
             @Override
             public void onResponse(Call<Pagination<Cart>> call, Response<Pagination<Cart>> response) {
                 hideProgressBar();

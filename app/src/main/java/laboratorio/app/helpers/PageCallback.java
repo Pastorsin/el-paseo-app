@@ -5,49 +5,42 @@ import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 import laboratorio.app.fragments.ErrorFragment;
 import laboratorio.app.models.Pagination;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PageCallback<T extends Pagination<?>> implements Callback<T> {
+public class PageCallback<T extends Pagination<?>> extends BaseCallback<T> {
 
-    private ProgressBar progressBar;
-    private View view;
-    private FragmentLoader fragmentLoader;
+    private List list;
 
-    private final Fragment errorFragment = new ErrorFragment();
-
-    public PageCallback(ProgressBar progressBar, View view, FragmentLoader fragmentLoader){
-        this.progressBar = progressBar;
-        this.view = view;
-        this.fragmentLoader = fragmentLoader;
-
+    public PageCallback(ProgressBar progressBar, List list, View view, FragmentLoader fragmentLoader) {
+        super(progressBar, view, fragmentLoader);
+        this.list = list;
         showProgressBar();
     }
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        hideProgressBar();
+        super.onResponse(call,response);
+
+        if(isEmptyPage(response.body())){
+            this.onEmptyResponse();
+            return;
+        }
     }
 
     @Override
-    public void onFailure(Call<T> call, Throwable t) {
-        hideProgressBar();
-        showFragment(errorFragment);
+    protected void showProgressBar() {
+        if (list.isEmpty())
+            super.showProgressBar();
     }
 
-    private void showFragment(Fragment fragment) {
-        fragmentLoader.replaceFragmentOnMainContainer(fragment);
+    public boolean isEmptyPage(T pagination){
+        return pagination.getPage().isEmpty();
     }
 
-    protected void hideProgressBar() {
-        if (progressBar.isShown())
-            progressBar.setVisibility(View.GONE);
-    }
-
-    private void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
 }

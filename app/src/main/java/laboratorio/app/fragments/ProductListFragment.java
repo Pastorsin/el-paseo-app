@@ -91,7 +91,7 @@ public class ProductListFragment extends Fragment {
 
         service.getProducts(parameters.getRange(), parameters.getFieldsToSort(), parameters.getProperties())
                 .enqueue(new PageCallback<Pagination<Product>>(
-                        progressBar, view, (FragmentLoader) getContext()) {
+                        progressBar, products, view, (FragmentLoader) getContext()) {
                     @Override
                     public void onResponse(Call<Pagination<Product>> call, Response<Pagination<Product>> response) {
                         super.onResponse(call, response);

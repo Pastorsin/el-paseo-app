@@ -78,7 +78,7 @@ public class StaticNewsFragment extends Fragment implements OnItemListener {
 
     private void fetchNews(View view) {
 
-        service.getNews().enqueue(new PageCallback<Pagination<News>>(progressBar, view, (FragmentLoader) getContext()) {
+        service.getNews().enqueue(new PageCallback<Pagination<News>>(progressBar, newsList, view, (FragmentLoader) getContext()) {
             @Override
             public void onResponse(Call<Pagination<News>> call, Response<Pagination<News>> response) {
                 super.onResponse(call,response);
