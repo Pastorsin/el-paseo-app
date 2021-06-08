@@ -13,8 +13,8 @@ Las compras pueden ser retiradas en la sede o atendidas por repartidores, los cu
 
 Por lo tanto, la aplicación tendrá 2 tipos de usuarios:
 
-- ***Usuario consumidor***: Comprarán los productos ofrecidos por la organización mediante el catálogo de productos.
-- ***Usuario repartidor***: Repartirán los productos que fueron comprados por el usuario consumidor, los pedidos serán tomados a través de una lista global en dónde figurarán las compras pendientes que se deben entregar a los clientes.
+- **Usuario consumidor**: Comprarán los productos ofrecidos por la organización mediante el catálogo de productos.
+- **Usuario repartidor**: Repartirán los productos que fueron comprados por el usuario consumidor, los pedidos serán tomados a través de una lista global en dónde figurarán las compras pendientes que se deben entregar a los clientes.
 
 La **app** facilitará:
 
@@ -24,41 +24,4 @@ La **app** facilitará:
 
 ## Funcionalidades
 
-### 1. Registración del usuario
-
-La aplicación le permite al usuario registrarse
-
-### 2. Elección del producto
-
-La aplicación permite navegar entre productos a través de un listado organizado por categorías:
-
-![Listado de productos](docs/product-list.png)
-
-
-
-### 3. Compra del producto
-
-Una vez seleccionados los productos, el usuario puede seleccionar la opción para añadir al carrito los que desee:
-
-
-
-Luego, al presionar el botón "comprar" se le abrirá un formulario en dónde deberá rellenar los siguientes campos:
-
-#### 3.1 Método de pago
-
-Le permite al usuario seleccionar un pago con efectivo o con tarjeta de crédito:
-
-#### 3.2 Método de entrega
-
-Luego, el usuario deberá elegir si retirar su pedido en un local u optar por un delivery:
-
-#### 3.3 Información extra
-
-Se le da al usuario la posibilidad de indicar una propina o alguna observación sobre el pedido realizado:
-
-#### 3.4 Confirmación de compra
-
-Se le muestra el resumen de compra al usuario, para que luego pueda confirmar el pedido:
-
-
-
+El siguiente [informe](https://drive.google.com/file/d/1eOr-0cyhGWbIARWFoluHlO38QdewGshZ/view?usp=sharing) detalla las funcionalidades, la arquitectura y la metodología de desarrollo empleada.
